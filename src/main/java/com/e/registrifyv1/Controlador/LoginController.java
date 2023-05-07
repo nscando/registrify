@@ -1,5 +1,6 @@
 package com.e.registrifyv1.Controlador;
 
+import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class LoginController {
@@ -27,10 +33,11 @@ public class LoginController {
 
    public void loginBtnAction(ActionEvent e) {
 
-      if(!usuarioTxtField.getText().isBlank() && !passwordTxtField.getText().isBlank()){
-         loginMensajeLabel.setText("Bievenido a Registrify!");
+      if (!usuarioTxtField.getText().isBlank() && !passwordTxtField.getText().isBlank()) {
+         //loginMensajeLabel.setText("Bievenido a Registrify!");
+         validarLogin();
 
-      }else {
+      } else {
          loginMensajeLabel.setText("Error en Usuario y/o Contraseña vuelva a intentar.");
 
 
@@ -43,4 +50,30 @@ public class LoginController {
       Stage stage = (Stage) salirBtn.getScene().getWindow();
       stage.close();
    }
+
+   public void validarLogin() {
+      DBConnection connectNow = new DBConnection();
+      Connection connectDB = connectNow.getConexion();
+
+      String verificarLogin = "SELECT count(1) FROM USUARIO WHERE username = ? AND password = ?";
+
+      try {
+         PreparedStatement preparedStatement = connectDB.prepareStatement(verificarLogin);
+         preparedStatement.setString(1, usuarioTxtField.getText());
+         preparedStatement.setString(2, passwordTxtField.getText());
+         ResultSet queryResult = preparedStatement.executeQuery();
+
+         while (queryResult.next()) {
+            if (queryResult.getInt(1) == 1) {
+               loginMensajeLabel.setText("Bienvenido a Registrify");
+            } else {
+               loginMensajeLabel.setText("Usuario y/o Contraseña incorrecto!.");
+            }
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
 }
