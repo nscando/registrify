@@ -91,9 +91,6 @@ public class LoginController {
       }
    }
 
-   public void pruebaGit(){
-      //TODO
-   }
 
 
 }
