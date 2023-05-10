@@ -3,6 +3,8 @@ module com.e.registrifyv1 {
    requires javafx.fxml;
    requires javafx.web;
    requires java.sql;
+   requires io.github.cdimascio.dotenv.java;
+
 
    requires org.controlsfx.controls;
    requires com.dlsc.formsfx;
