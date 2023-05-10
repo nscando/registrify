@@ -3,6 +3,9 @@ package com.e.registrifyv1.Controlador;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -66,6 +69,19 @@ public class LoginController {
          while (queryResult.next()) {
             if (queryResult.getInt(1) == 1) {
                loginMensajeLabel.setText("Bienvenido a Registrify");
+               loginMensajeLabel.setText("Bienvenido a Registrify");
+
+               // Cerrar la ventana actual
+               Stage stageActual = (Stage) ingresarBtn.getScene().getWindow();
+               stageActual.close();
+
+               // Abrir la ventana del menú principal
+               FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vista/MenuPrincipal.fxml"));
+               Parent root = loader.load();
+               Stage stage = new Stage();
+               stage.setScene(new Scene(root));
+               stage.setTitle("Menú Principal");
+               stage.show();
             } else {
                loginMensajeLabel.setText("Usuario y/o Contraseña incorrecto!.");
             }
@@ -73,6 +89,10 @@ public class LoginController {
       } catch (Exception e) {
          e.printStackTrace();
       }
+   }
+
+   public void pruebaGit(){
+      //TODO
    }
 
 
