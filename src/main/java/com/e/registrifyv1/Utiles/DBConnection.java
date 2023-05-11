@@ -11,7 +11,7 @@ public class DBConnection {
       String dbNombre = Configuracion.get("DB_NAME");
       String dbUser = Configuracion.get("DB_USERNAME");
       String dbPassword = Configuracion.get("DB_PASSWORD");
-      String dbUrl = Configuracion.get("DB_URL");;
+      String dbUrl = Configuracion.get("DB_URL");
 
       try {
          Class.forName("com.mysql.cj.jdbc.Driver");
