@@ -41,7 +41,7 @@ public class LoginController {
          validarLogin();
 
       } else {
-         loginMensajeLabel.setText("Error en Usuario y/o Contraseña vuelva a intentar.");
+         loginMensajeLabel.setText("Error en el Usuario y/o Contraseña vuelva a intentar.");
 
 
       }
