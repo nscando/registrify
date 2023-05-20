@@ -41,7 +41,7 @@
          <items>
             <ImageView fitHeight="30.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Assets/person-icon.png" />
+                  <Image url="@../../../../../resources/com/e/registrifyv1/Assets/person-icon.png" />
                </image>
             </ImageView>
             <Label text="Username" textAlignment="CENTER" textFill="WHITE">

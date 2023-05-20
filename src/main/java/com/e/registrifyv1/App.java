@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 
 import java.io.IOException;
@@ -12,9 +13,11 @@ public class App extends Application {
 
    @Override
    public void start(Stage stage) throws IOException {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vista/Login.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vistas/Login.fxml"));
       Scene scene = new Scene(fxmlLoader.load());
+      scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
       stage.setScene(scene);
+
       stage.show();
    }
 

@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controlador;
+package com.e.registrifyv1.Controladores;
 
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.event.ActionEvent;
@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 
 public class LoginController {
@@ -41,7 +40,7 @@ public class LoginController {
          validarLogin();
 
       } else {
-         loginMensajeLabel.setText("Error en Usuario y/o Contraseña vuelva a intentar.");
+         loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
 
 
       }
@@ -69,21 +68,20 @@ public class LoginController {
          while (queryResult.next()) {
             if (queryResult.getInt(1) == 1) {
                loginMensajeLabel.setText("Bienvenido a Registrify");
-               loginMensajeLabel.setText("Bienvenido a Registrify");
 
                // Cerrar la ventana actual
                Stage stageActual = (Stage) ingresarBtn.getScene().getWindow();
                stageActual.close();
 
                // Abrir la ventana del menú principal
-               FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vista/MenuPrincipal.fxml"));
+               FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vistas/MenuPrincipal.fxml"));
                Parent root = loader.load();
                Stage stage = new Stage();
                stage.setScene(new Scene(root));
                stage.setTitle("Menú Principal");
                stage.show();
             } else {
-               loginMensajeLabel.setText("Usuario y/o Contraseña incorrecto!.");
+               loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
             }
          }
       } catch (Exception e) {
