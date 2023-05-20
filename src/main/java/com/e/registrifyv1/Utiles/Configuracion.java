@@ -9,7 +9,7 @@ public class Configuracion {
 
 
    static {
-      dotenv =  Dotenv.configure().ignoreIfMissing().load();
+      dotenv =  Dotenv.configure().ignoreIfMissing().load(); //modulo de variables de entorno//
       };
 
 
