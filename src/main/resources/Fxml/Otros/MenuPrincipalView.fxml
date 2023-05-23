@@ -5,8 +5,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -39,11 +37,6 @@
       </MenuBar>
       <ToolBar layoutX="667.0" layoutY="-1.0" prefHeight="50.0" prefWidth="134.0" style="-fx-background-color: #062343;">
          <items>
-            <ImageView fitHeight="30.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../resources/com/e/registrifyv1/Assets/person-icon.png" />
-               </image>
-            </ImageView>
             <Label text="Username" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />

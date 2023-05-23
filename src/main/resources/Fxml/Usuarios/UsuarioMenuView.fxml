@@ -35,7 +35,7 @@
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="USER" />
                </graphic>
             </Label>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../Css/fullpackstyling.css" text="BUSCAR" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="BUSCAR" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="SEARCH" size="18.0" />
                </graphic>
@@ -46,7 +46,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../Css/fullpackstyling.css" text="NUEVO" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="NUEVO" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="PLUS" size="18.0" />
                </graphic>
@@ -57,7 +57,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../Css/fullpackstyling.css" text="MODIFICAR" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="MODIFICAR" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="EDIT" size="18.0" />
                </graphic>
@@ -68,7 +68,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../Css/fullpackstyling.css" text="BAJA" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="BAJA" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="CLOSE" size="18.0" />
                </graphic>
@@ -79,7 +79,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../Css/fullpackstyling.css" text="CONFIGURACION" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="GEAR" size="18.0" />
                </graphic>
@@ -90,7 +90,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #d9376e;" stylesheets="@../Css/fullpackstyling.css" text="SALIR" textFill="#d9d9d9">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #d9376e;" stylesheets="@../../../java/com/e/registrifyv1/Css/UsuarioMenu.css" text="SALIR" textFill="#d9d9d9">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
                </graphic>

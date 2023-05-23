@@ -74,7 +74,7 @@ public class LoginController {
                stageActual.close();
 
                // Abrir la ventana del menú principal
-               FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/e/registrifyv1/Vistas/MenuPrincipalView.fxml"));
+               FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Otros/MenuPrincipalView.fxml"));
                Parent root = loader.load();
                Stage stage = new Stage();
                stage.setScene(new Scene(root));
