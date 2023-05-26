@@ -1,5 +1,7 @@
 package com.e.registrifyv1.Controladores;
 
+import com.e.registrifyv1.Dao.UsuarioDAO;
+import com.e.registrifyv1.Modelos.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,10 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
+import java.util.List;
 
 public class LoginController {
    @FXML
@@ -32,20 +31,18 @@ public class LoginController {
    @FXML
    private Button ingresarBtn;
 
+   private UsuarioDAO usuarioDAO;
+
+   public LoginController() {
+      usuarioDAO = new UsuarioDAO();
+   }
 
    public void loginBtnAction(ActionEvent e) {
-
       if (!usuarioTxtField.getText().isBlank() && !passwordTxtField.getText().isBlank()) {
-         //loginMensajeLabel.setText("Bievenido a Registrify!");
          validarLogin();
-
       } else {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
-
-
       }
-
-
    }
 
    public void salirBtnAction(ActionEvent e) {
@@ -54,41 +51,30 @@ public class LoginController {
    }
 
    public void validarLogin() {
-      DBConnection connectNow = new DBConnection();
-      Connection connectDB = connectNow.getConexion();
+      String username = usuarioTxtField.getText();
+      String password = passwordTxtField.getText();
+      UsuarioModel usuario = usuarioDAO.getUsuarioByUsernameAndPassword(username, password);
 
-      String verificarLogin = "SELECT count(1) FROM USUARIO WHERE username = ? AND password = ?";
+      if (usuario != null) {
+         loginMensajeLabel.setText("Bienvenido a Registrify");
 
-      try {
-         PreparedStatement preparedStatement = connectDB.prepareStatement(verificarLogin);
-         preparedStatement.setString(1, usuarioTxtField.getText());
-         preparedStatement.setString(2, passwordTxtField.getText());
-         ResultSet queryResult = preparedStatement.executeQuery();
+         // Cerrar la ventana actual
+         Stage stageActual = (Stage) ingresarBtn.getScene().getWindow();
+         stageActual.close();
 
-         while (queryResult.next()) {
-            if (queryResult.getInt(1) == 1) {
-               loginMensajeLabel.setText("Bienvenido a Registrify");
-
-               // Cerrar la ventana actual
-               Stage stageActual = (Stage) ingresarBtn.getScene().getWindow();
-               stageActual.close();
-
-               // Abrir la ventana del menú principal
-               FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Otros/MenuPrincipalView.fxml"));
-               Parent root = loader.load();
-               Stage stage = new Stage();
-               stage.setScene(new Scene(root));
-               stage.setTitle("Menú Principal");
-               stage.show();
-            } else {
-               loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
-            }
+         // Abrir la ventana del menú principal
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Otros/MenuPrincipalView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menú Principal");
+            stage.show();
+         } catch (Exception e) {
+            e.printStackTrace();
          }
-      } catch (Exception e) {
-         e.printStackTrace();
+      } else {
+         loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
       }
    }
-
-
-
 }

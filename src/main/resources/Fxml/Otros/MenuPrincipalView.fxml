@@ -11,10 +11,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" stylesheets="@../../../java/com/e/registrifyv1/Css/MenuPrincipal.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1080.0" stylesheets="" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.MenuPrincipalController">
    <children>
-      <Pane layoutX="-2.0" prefHeight="180.0" prefWidth="1080.0" style="-fx-background-color: #023535;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Pane layoutX="-2.0" prefHeight="180.0" prefWidth="1080.0" style="-fx-background-color: #023535;" stylesheets="@../../Styles/MenuPrincipal.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label layoutX="98.0" layoutY="52.0" prefHeight="76.0" prefWidth="295.0" text="REGISTRIFY" textFill="WHITE">
                <font>
@@ -42,7 +41,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="UNIDAD" textFill="#023535">
+            <Button fx:id="btnUnidad"  stylesheets="@../../Styles/MenuPrincipal.css" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="UNIDAD" textFill="#023535">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="HOME" size="70" />
                </graphic>
@@ -50,7 +49,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="USUARIOS" textFill="#023535" GridPane.columnIndex="1">
+            <Button fx:id="btnUsuarios" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" stylesheets="@../../Styles/MenuPrincipal.css" text="USUARIOS" textFill="#023535" GridPane.columnIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="USERS" size="70" />
                </graphic>
@@ -58,7 +57,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="EVENTOS DIARIOS" textFill="#023535" GridPane.rowIndex="1">
+            <Button fx:id="btnEventosDiarios" stylesheets="@../../Styles/MenuPrincipal.css" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="EVENTOS DIARIOS" textFill="#023535" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="BOOK" size="70" />
                </graphic>
@@ -66,7 +65,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="ARMAS" textFill="#023535" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btnArmas" stylesheets="@../../Styles/MenuPrincipal.css" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="ARMAS" textFill="#023535" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="SHIELD" size="70" />
                </graphic>
@@ -74,7 +73,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="VEHICULOS" textFill="#023535" GridPane.columnIndex="2">
+            <Button fx:id="btnVehiculos" stylesheets="@../../Styles/MenuPrincipal.css" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="VEHICULOS" textFill="#023535" GridPane.columnIndex="2">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="CAR" size="70" />
                </graphic>
@@ -82,7 +81,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Button>
-            <Button contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="INVENTARIO" textFill="#023535" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btnInventario" stylesheets="@../../Styles/MenuPrincipal.css" contentDisplay="TOP" graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="274.0" prefWidth="304.0" style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="INVENTARIO" textFill="#023535" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <graphic>
                   <FontAwesomeIconView fill="#008f8c" glyphName="SIGNAL" size="70" />
                </graphic>
