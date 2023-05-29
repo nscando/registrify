@@ -1,8 +1,7 @@
 package com.e.registrifyv1.Controladores;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
-import com.e.registrifyv1.Modelos.UsuarioModel;
-import com.e.registrifyv1.Utiles.DBConnection;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class LoginController {
    @FXML
@@ -64,7 +61,7 @@ public class LoginController {
 
          // Abrir la ventana del menú principal
          try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Fxml/Otros/MenuPrincipalView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Otros/MenuPrincipalView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

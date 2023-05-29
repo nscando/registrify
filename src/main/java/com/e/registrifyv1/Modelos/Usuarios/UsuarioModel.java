@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Modelos;
+package com.e.registrifyv1.Modelos.Usuarios;
 
 public class UsuarioModel {
    private int idGendarme;

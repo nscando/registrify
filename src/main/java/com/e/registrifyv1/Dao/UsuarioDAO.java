@@ -1,6 +1,6 @@
 package com.e.registrifyv1.Dao;
 
-import com.e.registrifyv1.Modelos.UsuarioModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -95,8 +95,6 @@ public class UsuarioDAO {
    }
 
 
-
-
    public ObservableList<UsuarioModel> buscarUsuarios(String valor) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
@@ -133,8 +131,6 @@ public class UsuarioDAO {
 
       return usuarios;
    }
-
-
 
 
    public void insertarUsuario(UsuarioModel usuario) {
@@ -215,6 +211,32 @@ public class UsuarioDAO {
          // Cerrar la conexión
          closeResources(connection, statement, null);
       }
+   }
+
+   public List<String> obtenerOpcionesUnidad() throws SQLException {
+      List<String> opcionesUnidad = new ArrayList<>();
+
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT NOMBRE_UNIDAD FROM UNIDAD";
+         statement = connection.prepareStatement(query);
+         resultSet = statement.executeQuery();
+
+         while (resultSet.next()) {
+            String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
+            opcionesUnidad.add(nombreUnidad);
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return opcionesUnidad;
    }
 
 

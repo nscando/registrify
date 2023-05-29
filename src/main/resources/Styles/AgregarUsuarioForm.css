@@ -1,0 +1,91 @@
+.button-cancelar {
+    -fx-cursor: hand;
+    -fx-pref-height: 42.0;
+    -fx-pref-width: 112.0;
+    -fx-background-color: #c82333; /* Color rojo */
+    -fx-text-fill: white; /* Color del texto en blanco */
+    -fx-border-radius: 15px; /* Borde redondeado */
+}
+
+.button-confirmar {
+    -fx-cursor: hand;
+    -fx-pref-height: 42.0;
+    -fx-pref-width: 112.0;
+    -fx-background-color: #218838; /* Color verde */
+    -fx-text-fill: white; /* Color del texto en blanco */
+    -fx-border-radius: 15px; /* Borde redondeado */
+}
+
+
+.button-confirmar:hover {
+    -fx-background-color: #218838; /* Color verde oscuro cuando el cursor está sobre el botón de confirmar */
+}
+
+.button-cancelar:hover {
+    -fx-background-color: #c82333; /* Color rojo oscuro cuando el cursor está sobre el botón de cancelar */
+}
+
+
+.combo-box {
+    -fx-background-color: #b6dbff; /* Color de fondo celeste */
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #b6dbff; /* Color de fondo celeste */
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-padding: 0.25em;
+}
+
+.combo-box .arrow {
+    -fx-shape: "M 0 0 L 6 6 L 12 0 Z"; /* Forma personalizada de la flecha */
+    -fx-fill: #336699; /* Color azul oscuro para la flecha */
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #336699; /* Color de texto azul oscuro */
+}
+
+
+/* Estilos para los TextLabel */
+.text-label {
+    -fx-text-fill: #336699; /* Color de texto azul oscuro */
+}
+
+
+
+/* Estilos para el fondo */
+.background {
+    -fx-background-color: #EAF5FF; /* Color de fondo celeste */
+}
+/* Estilos para los RadioButton */
+.radio-button {
+    -fx-text-fill: #000000; /* Color de texto */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+.radio-button:selected {
+    -fx-background-color: #336699; /* Color de fondo seleccionado */
+    -fx-text-fill: #ffffff; /* Color de texto cuando seleccionado */
+}
+
+/* Estilos para el VBox */
+.vbox {
+    -fx-spacing: 10px; /* Espaciado entre los RadioButton */
+}
+
+/* Estilos para el TextArea */
+.text-area {
+    -fx-text-fill: #336699; /* Color de texto */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-background-color: #ffffff; /* Color de fondo */
+    -fx-border-color: #cccccc; /* Color del borde */
+    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-radius: 5px; /* Radio del borde */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+.text-area:focused {
+    -fx-border-color: #336699; /* Color del borde cuando enfocado */
+    -fx-border-width: 2px; /* Ancho del borde cuando enfocado */
+}
