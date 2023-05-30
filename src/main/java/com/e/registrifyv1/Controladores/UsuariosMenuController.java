@@ -24,7 +24,17 @@ public class UsuariosMenuController {
    private TableColumn<UsuarioModel, Integer> idCol;
 
    @FXML
-   private TableColumn<UsuarioModel, String> nombreGendarmeCol;
+   private TableColumn<UsuarioModel, String> nombreCol;
+
+   @FXML
+   private TableColumn<UsuarioModel, String> apellidoCol;
+   @FXML
+   private TableColumn<UsuarioModel, String> rangoCol;
+   @FXML
+   private TableColumn<UsuarioModel, String> observacionesCol;
+
+   @FXML
+   private TableColumn<UsuarioModel, Integer> dniCol;
 
    @FXML
    private TableColumn<UsuarioModel, String> usernameCol;
@@ -54,13 +64,20 @@ public class UsuariosMenuController {
    }
 
    private void cargarUsuariosEnTableView(ObservableList<UsuarioModel> usuarios) {
-      tablaMenuUsuario.setItems(usuarios);
-
-      idCol.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
-      nombreGendarmeCol.setCellValueFactory(new PropertyValueFactory<>("nombreGendarme"));
-      usernameCol.setCellValueFactory(new PropertyValueFactory<>("nombreUsuario"));
-      rolCol.setCellValueFactory(new PropertyValueFactory<>("idRol"));
-      estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
+      if (usuarios != null && !usuarios.isEmpty()) {
+         tablaMenuUsuario.setItems(usuarios);
+         idCol.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
+         nombreCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+         apellidoCol.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+         dniCol.setCellValueFactory(new PropertyValueFactory<>("dni"));
+         observacionesCol.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+         rangoCol.setCellValueFactory(new PropertyValueFactory<>("rango"));
+         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+         rolCol.setCellValueFactory(new PropertyValueFactory<>("idRol"));
+         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
+      } else {
+         tablaMenuUsuario.getItems().clear();
+      }
    }
 
    @FXML

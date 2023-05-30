@@ -141,11 +141,15 @@
                            style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/UsuarioMenu.css"
                            GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="id" prefWidth="75.0" text="ID"/>
-                        <TableColumn fx:id="nombreGendarme" prefWidth="75.0" text="Nombre"/>
-                        <TableColumn fx:id="username" prefWidth="75.0" text="Username"/>
-                        <TableColumn fx:id="rol" prefWidth="75.0" text="Rol"/>
-                        <TableColumn fx:id="estado" prefWidth="75.0" text="Estado"/>
+                        <TableColumn fx:id="idCol" prefWidth="75.0" text="ID"/>
+                        <TableColumn fx:id="nombreCol" prefWidth="75.0" text="Nombre"/>
+                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" text="Apellido"/>
+                        <TableColumn fx:id="dniCol" prefWidth="75.0" text="DNI"/>
+                        <TableColumn fx:id="rangoCol" prefWidth="75.0" text="Rango"/>
+                        <TableColumn fx:id="usernameCol" prefWidth="75.0" text="Username"/>
+                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" text="Observaciones"/>
+                        <TableColumn fx:id="rolCol" prefWidth="75.0" text="Rol"/>
+                        <TableColumn fx:id="estadoCol" prefWidth="75.0" text="Estado"/>
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -163,7 +167,8 @@
                         <Button fx:id="btnBuscarUsuarioMenu" mnemonicParsing="false"
                                 prefHeight="31.0" prefWidth="138.0"
                                 style="-fx-background-color: #176ba9; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;"
-                                text="Buscar" textFill="#d9d9d9">
+                                text="Buscar" textFill="#d9d9d9"
+                        onAction="#btBuscarAction">
                             <font>
                                 <Font name="System Bold" size="14.0"/>
                             </font>

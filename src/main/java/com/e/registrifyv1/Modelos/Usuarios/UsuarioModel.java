@@ -4,30 +4,32 @@ public class UsuarioModel {
    private int idGendarme;
    private int idUnidad;
    private int idRol;
-   private String nombreGendarme;
+   private String nombre;
    private String rango;
    private String area;
    private String password;
    private int estado;
-   private String nombreUsuario;
+   private String username;
+   private String apellido;
+   private int dni;
+   private String observaciones;
 
-   public UsuarioModel(int idGendarme, int idUnidad, int idRol, String nombreGendarme, String nombreUsuario, String rango, String area, byte[] password, int estado) {
-      // Convertir el byte[] a String
-      this.password = new String(password);
-
-      // Asignar los valores a los campos de la clase
+   public UsuarioModel(int idGendarme, int idUnidad, int idRol, String nombre, String username, String rango, String area, byte[] password, int estado, String apellido, int dni, String observaciones) {
       this.idGendarme = idGendarme;
       this.idUnidad = idUnidad;
       this.idRol = idRol;
-      this.nombreGendarme = nombreGendarme;
+      this.nombre = nombre;
+      this.username = username;
       this.rango = rango;
       this.area = area;
+      this.password = new String(password);
       this.estado = estado;
-      this.nombreUsuario = nombreUsuario;
+      this.apellido = apellido;
+      this.dni = dni;
+      this.observaciones = observaciones;
    }
 
-   public UsuarioModel(int idGendarme, int idUnidad, int idRol, String nombreGendarme, String nombreUsuario, String rango, String area, byte[] passwordBytes) {
-   }
+
 
    // Métodos getter y setter para los campos de la clase
 
@@ -55,12 +57,12 @@ public class UsuarioModel {
       this.idRol = idRol;
    }
 
-   public String getNombreGendarme() {
-      return nombreGendarme;
+   public String getNombre() {
+      return nombre;
    }
 
-   public void setNombreGendarme(String nombreGendarme) {
-      this.nombreGendarme = nombreGendarme;
+   public void setNombre(String nombre) {
+      this.nombre = nombre;
    }
 
    public String getRango() {
@@ -95,11 +97,39 @@ public class UsuarioModel {
       this.estado = estado;
    }
 
-   public String getNombreUsuario() {
-      return nombreUsuario;
+   public String getUsername() {
+      return username;
    }
 
-   public void setNombreUsuario(String nombreUsuario) {
-      this.nombreUsuario = nombreUsuario;
+   public void setUsername(String username) {
+      this.username = username;
+   }
+
+   public String getApellido() {
+      return apellido;
+   }
+
+   public void setApellido(String apellido) {
+      this.apellido = apellido;
+   }
+
+   //public int getDni() {
+   //   return dni;
+   //}
+
+   public int getDni(){
+      return dni;
+   }
+
+   public void setDni(int dni) {
+      this.dni = dni;
+   }
+
+   public String getObservaciones() {
+      return observaciones;
+   }
+
+   public void setObservaciones(String observaciones) {
+      this.observaciones = observaciones;
    }
 }

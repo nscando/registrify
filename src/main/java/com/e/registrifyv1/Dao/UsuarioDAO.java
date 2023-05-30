@@ -38,14 +38,14 @@ public class UsuarioDAO {
             int idGendarme = resultSet.getInt("ID_GENDARME");
             int idUnidad = resultSet.getInt("ID_UNIDAD");
             int idRol = resultSet.getInt("ID_ROL");
-            String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
+            String nombre = resultSet.getString("NOMBRE");
             String nombreUsuario = resultSet.getString("USERNAME");
             String rango = resultSet.getString("RANGO");
             String area = resultSet.getString("AREA");
             byte[] passwordBytes = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
 
-            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombreGendarme, nombreUsuario, rango, area, passwordBytes);
+            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, nombreUsuario, rango, area, passwordBytes, estado, null, 0, null);
          }
 
       } catch (SQLException e) {
@@ -58,41 +58,6 @@ public class UsuarioDAO {
    }
 
 
-   public List<UsuarioModel> obtenerTodosUsuarios() {
-      List<UsuarioModel> usuarios = new ArrayList<>();
-      Connection connection = null;
-      PreparedStatement statement = null;
-      ResultSet resultSet = null;
-
-      try {
-         connection = dbConnection.getConexion();
-         String query = "SELECT * FROM USUARIO";
-         statement = connection.prepareStatement(query);
-         resultSet = statement.executeQuery();
-
-         while (resultSet.next()) {
-            int idGendarme = resultSet.getInt("ID_GENDARME");
-            int idUnidad = resultSet.getInt("ID_UNIDAD");
-            int idRol = resultSet.getInt("ID_ROL");
-            String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
-            String nombreUsuario = resultSet.getString("USERNAME");
-            String rango = resultSet.getString("RANGO");
-            String area = resultSet.getString("AREA");
-            byte[] password = resultSet.getBytes("PASSWORD");
-            int estado = resultSet.getInt("ESTADO");
-
-            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombreGendarme, nombreUsuario, rango, area, password);
-            usuarios.add(usuario);
-         }
-
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         closeResources(connection, statement, resultSet);
-      }
-
-      return usuarios;
-   }
 
 
    public ObservableList<UsuarioModel> buscarUsuarios(String valor) {
@@ -103,26 +68,32 @@ public class UsuarioDAO {
 
       try {
          connection = dbConnection.getConexion();
-         String query = "SELECT * FROM USUARIO WHERE ID_GENDARME = ? OR NOMBRE_GENDARME LIKE ?";
+         String query = "SELECT * FROM USUARIO WHERE LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?)";
          statement = connection.prepareStatement(query);
          statement.setString(1, valor);
          statement.setString(2, "%" + valor + "%");
+         statement.setString(3, "%" + valor + "%");
+         statement.setString(4, valor);
          resultSet = statement.executeQuery();
 
          while (resultSet.next()) {
             int idGendarme = resultSet.getInt("ID_GENDARME");
             int idUnidad = resultSet.getInt("ID_UNIDAD");
             int idRol = resultSet.getInt("ID_ROL");
-            String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
-            String nombreUsuario = resultSet.getString("USERNAME");
+            String nombre = resultSet.getString("NOMBRE");
+            String apellido = resultSet.getString("APELLIDO");
+            int dni = resultSet.getInt("DNI");
+            String username = resultSet.getString("USERNAME");
             String rango = resultSet.getString("RANGO");
             String area = resultSet.getString("AREA");
             byte[] password = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
+            String observaciones = resultSet.getString("OBSERVACIONES");
 
-            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombreUsuario,nombreGendarme, rango, area, password, estado);
+            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, username, rango, area, password, estado, apellido, dni, observaciones);
             usuarios.add(usuario);
          }
+
       } catch (SQLException e) {
          e.printStackTrace();
       } finally {
@@ -145,8 +116,8 @@ public class UsuarioDAO {
          statement.setInt(1, usuario.getIdGendarme());
          statement.setInt(2, usuario.getIdUnidad());
          statement.setInt(3, usuario.getIdRol());
-         statement.setString(4, usuario.getNombreGendarme());
-         statement.setString(4, usuario.getNombreUsuario());
+         statement.setString(4, usuario.getNombre());
+         statement.setString(4, usuario.getUsername());
          statement.setString(5, usuario.getRango());
          statement.setString(6, usuario.getArea());
          statement.setBytes(7, usuario.getPassword().getBytes());
@@ -170,8 +141,8 @@ public class UsuarioDAO {
          statement = connection.prepareStatement(query);
          statement.setInt(1, usuario.getIdUnidad());
          statement.setInt(2, usuario.getIdRol());
-         statement.setString(3, usuario.getNombreGendarme());
-         statement.setString(3, usuario.getNombreUsuario());
+         statement.setString(3, usuario.getNombre());
+         statement.setString(3, usuario.getUsername());
          statement.setString(4, usuario.getRango());
          statement.setString(5, usuario.getArea());
          statement.setBytes(6, usuario.getPassword().getBytes());
