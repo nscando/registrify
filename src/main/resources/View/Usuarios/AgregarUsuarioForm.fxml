@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="580.0" prefWidth="550.0" style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane" stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.AgregarUsuarioFormController">
+<AnchorPane prefHeight="580.0" prefWidth="550.0" style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane" stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.AgregarUsuarioFormController">
     <children>
         <Pane layoutY="-3.0" prefHeight="75.0" prefWidth="550.0" style="-fx-background-color: #176ba9;">
             <children>

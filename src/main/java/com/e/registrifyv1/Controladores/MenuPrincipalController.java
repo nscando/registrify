@@ -39,9 +39,17 @@ public class MenuPrincipalController implements Initializable {
       if (actionEvent.getSource() == btnUsuarios) {
          loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
 
+      }
+   }
+   @FXML
+   private void accederMenuUnidad(ActionEvent actionEvent) {
+      if (actionEvent.getSource() == btnUnidad) {
+         loadStage("/View/Unidad/UnidadMenuView.fxml", "Menu Unidad");
 
       }
    }
+
+
 
    @Override
    public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,6 +67,7 @@ public class MenuPrincipalController implements Initializable {
          e.printStackTrace();
       }
    }
+
 }
 
 
