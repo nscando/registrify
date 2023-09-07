@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="538.0" prefWidth="605.0" style="-fx-background-color: #cec8e9;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.UnidadViewController">
+   <children>
+      <Pane prefHeight="67.0" prefWidth="605.0" style="-fx-background-color: #6b3fa0;">
+         <children>
+            <Label accessibleRole="PARENT" layoutX="181.0" layoutY="2.0" prefHeight="69.0" prefWidth="274.0" text="AGREGAR UNIDAD" textAlignment="CENTER" textFill="LAVENDER">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <VBox layoutX="9.0" layoutY="80.0" prefHeight="220.0" prefWidth="354.0" style="-fx-background-color: #cec8e9;">
+         <children>
+            <Label text="Tipo de Unidad" textFill="#4b006e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <ComboBox prefHeight="26.0" prefWidth="246.0" />
+            <Label text="Nombre de Unidad:" textFill="#4b006e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <TextField prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+            <Label text="Fecha de Creacion de Unidad:" textFill="#4b006e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <DatePicker prefHeight="26.0" prefWidth="243.0" style="-fx-background-radius: 20;" />
+            <Label text="Fuerza Efectiva de la Unidad:" textFill="#4b006e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <TextField prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+         </children>
+      </VBox>
+      <VBox layoutX="8.0" layoutY="297.0" prefHeight="149.0" prefWidth="586.0">
+         <children>
+            <Label prefHeight="31.0" prefWidth="107.0" text="Observaciones:" textFill="#4b006e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <TextArea prefHeight="150.0" prefWidth="400.0" style="-fx-background-radius: 20;" />
+         </children>
+      </VBox>
+      <Button layoutX="328.0" layoutY="474.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 0 20 0 20;" stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button alignment="CENTER" layoutX="189.0" layoutY="475.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20 0 20 0;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="LAVENDER">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
