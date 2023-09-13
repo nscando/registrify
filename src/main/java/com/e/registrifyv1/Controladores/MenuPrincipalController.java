@@ -38,8 +38,6 @@ public class MenuPrincipalController implements Initializable {
    private void handleButtonClick(ActionEvent actionEvent) {
       if (actionEvent.getSource() == btnUsuarios) {
          loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
-
-
       }
    }
 

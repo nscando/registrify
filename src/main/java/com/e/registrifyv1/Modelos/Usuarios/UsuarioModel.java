@@ -1,45 +1,37 @@
 package com.e.registrifyv1.Modelos.Usuarios;
 
 public class UsuarioModel {
-   private int idGendarme;
+
    private int idUnidad;
    private int idRol;
    private String nombre;
-   private String rango;
-   private String area;
-   private String password;
-   private int estado;
-   private String username;
    private String apellido;
    private int dni;
+   private String username;
+   private String rango;
+   private String area;
+   private byte[] password;
+   private int estado;
    private String observaciones;
 
-   public UsuarioModel(int idGendarme, int idUnidad, int idRol, String nombre, String username, String rango, String area, byte[] password, int estado, String apellido, int dni, String observaciones) {
-      this.idGendarme = idGendarme;
+   public UsuarioModel( int idUnidad, int idRol, String nombre,  String apellido, int dni, String username,   String rango, String area, byte[] password, int estado, String observaciones) {
+
       this.idUnidad = idUnidad;
       this.idRol = idRol;
       this.nombre = nombre;
+      this.apellido = apellido;
+      this.dni = dni;
       this.username = username;
       this.rango = rango;
       this.area = area;
-      this.password = new String(password);
+      this.password = password;
       this.estado = estado;
-      this.apellido = apellido;
-      this.dni = dni;
       this.observaciones = observaciones;
    }
 
+   // Getters y setters
 
 
-   // Métodos getter y setter para los campos de la clase
-
-   public int getIdGendarme() {
-      return idGendarme;
-   }
-
-   public void setIdGendarme(int idGendarme) {
-      this.idGendarme = idGendarme;
-   }
 
    public int getIdUnidad() {
       return idUnidad;
@@ -65,6 +57,30 @@ public class UsuarioModel {
       this.nombre = nombre;
    }
 
+   public String getApellido() {
+      return apellido;
+   }
+
+   public void setApellido(String apellido) {
+      this.apellido = apellido;
+   }
+
+   public int getDni() {
+      return dni;
+   }
+
+   public void setDni(int dni) {
+      this.dni = dni;
+   }
+
+   public String getUsername() {
+      return username;
+   }
+
+   public void setUsername(String username) {
+      this.username = username;
+   }
+
    public String getRango() {
       return rango;
    }
@@ -81,11 +97,11 @@ public class UsuarioModel {
       this.area = area;
    }
 
-   public String getPassword() {
+   public byte[] getPassword() {
       return password;
    }
 
-   public void setPassword(String password) {
+   public void setPassword(byte[] password) {
       this.password = password;
    }
 
@@ -95,34 +111,6 @@ public class UsuarioModel {
 
    public void setEstado(int estado) {
       this.estado = estado;
-   }
-
-   public String getUsername() {
-      return username;
-   }
-
-   public void setUsername(String username) {
-      this.username = username;
-   }
-
-   public String getApellido() {
-      return apellido;
-   }
-
-   public void setApellido(String apellido) {
-      this.apellido = apellido;
-   }
-
-   //public int getDni() {
-   //   return dni;
-   //}
-
-   public int getDni(){
-      return dni;
-   }
-
-   public void setDni(int dni) {
-      this.dni = dni;
    }
 
    public String getObservaciones() {

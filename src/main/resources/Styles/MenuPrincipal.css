@@ -8,6 +8,5 @@
 }
 .button:pressed
 {
-    -fx-background-color : #0caba8
-;
+    -fx-background-color : #0caba8;
 }

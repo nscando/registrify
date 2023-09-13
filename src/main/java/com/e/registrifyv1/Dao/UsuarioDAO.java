@@ -1,5 +1,6 @@
 package com.e.registrifyv1.Dao;
 
+import com.e.registrifyv1.Modelos.Unidad.UnidadModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
@@ -39,13 +40,16 @@ public class UsuarioDAO {
             int idUnidad = resultSet.getInt("ID_UNIDAD");
             int idRol = resultSet.getInt("ID_ROL");
             String nombre = resultSet.getString("NOMBRE");
-            String nombreUsuario = resultSet.getString("USERNAME");
+            String apellido = resultSet.getString("APELLIDO");
+            String username1 = resultSet.getString("USERNAME");
             String rango = resultSet.getString("RANGO");
             String area = resultSet.getString("AREA");
+            String observaciones = resultSet.getString("OBSERVACIONES");
             byte[] passwordBytes = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
+            int dni = resultSet.getInt("DNI");
 
-            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, nombreUsuario, rango, area, passwordBytes, estado, null, 0, null);
+            usuario = new UsuarioModel( idUnidad, idRol, nombre, apellido, dni, username1, rango, area, passwordBytes, estado, observaciones);
          }
 
       } catch (SQLException e) {
@@ -56,9 +60,6 @@ public class UsuarioDAO {
 
       return usuario;
    }
-
-
-
 
    public ObservableList<UsuarioModel> buscarUsuarios(String valor) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
@@ -90,7 +91,7 @@ public class UsuarioDAO {
             int estado = resultSet.getInt("ESTADO");
             String observaciones = resultSet.getString("OBSERVACIONES");
 
-            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, username, rango, area, password, estado, apellido, dni, observaciones);
+            UsuarioModel usuario = new UsuarioModel( idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
             usuarios.add(usuario);
          }
 
@@ -103,89 +104,8 @@ public class UsuarioDAO {
       return usuarios;
    }
 
-
-   public void insertarUsuario(UsuarioModel usuario) {
-      Connection connection = null;
-      PreparedStatement statement = null;
-
-      try {
-         connection = dbConnection.getConexion();
-         String query = "INSERT INTO USUARIO (ID_GENDARME, ID_UNIDAD, ID_ROL, NOMBRE_GENDARME, RANGO, AREA, PASSWORD) " +
-                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-         statement = connection.prepareStatement(query);
-         statement.setInt(1, usuario.getIdGendarme());
-         statement.setInt(2, usuario.getIdUnidad());
-         statement.setInt(3, usuario.getIdRol());
-         statement.setString(4, usuario.getNombre());
-         statement.setString(4, usuario.getUsername());
-         statement.setString(5, usuario.getRango());
-         statement.setString(6, usuario.getArea());
-         statement.setBytes(7, usuario.getPassword().getBytes());
-
-         statement.executeUpdate();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         closeResources(connection, statement, null);
-      }
-   }
-
-   public void actualizarUsuario(UsuarioModel usuario) {
-      Connection connection = null;
-      PreparedStatement statement = null;
-
-      try {
-         connection = dbConnection.getConexion();
-         String query = "UPDATE USUARIO SET ID_UNIDAD = ?, ID_ROL = ?, NOMBRE_GENDARME = ?, RANGO = ?, AREA = ?, " +
-                 "PASSWORD = ? WHERE ID_GENDARME = ?";
-         statement = connection.prepareStatement(query);
-         statement.setInt(1, usuario.getIdUnidad());
-         statement.setInt(2, usuario.getIdRol());
-         statement.setString(3, usuario.getNombre());
-         statement.setString(3, usuario.getUsername());
-         statement.setString(4, usuario.getRango());
-         statement.setString(5, usuario.getArea());
-         statement.setBytes(6, usuario.getPassword().getBytes());
-         statement.setInt(7, usuario.getIdGendarme());
-
-         statement.executeUpdate();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         closeResources(connection, statement, null);
-      }
-   }
-
-   public void bajaUsuario(int idGendarme) {
-      Connection connection = null;
-      PreparedStatement statement = null;
-      try {
-         // Obtener la conexión a la base de datos
-         connection = dbConnection.getConexion();
-
-         // Preparar la consulta SQL
-         String query = "UPDATE USUARIO SET ESTADO = ? WHERE ID_GENDARME = ?";
-         statement = connection.prepareStatement(query);
-
-         // Establecer los parámetros de la consulta
-         statement.setInt(1, 0); // Estado 0 para dado de baja
-         statement.setInt(2, idGendarme);
-
-         // Ejecutar la consulta
-         statement.executeUpdate();
-
-         // Cerrar el statement
-         statement.close();
-      } catch (SQLException e) {
-         e.printStackTrace();
-      } finally {
-         // Cerrar la conexión
-         closeResources(connection, statement, null);
-      }
-   }
-
-   public List<String> obtenerOpcionesUnidad() throws SQLException {
-      List<String> opcionesUnidad = new ArrayList<>();
+   public List<UnidadModel> obtenerOpcionesUnidad() throws SQLException {
+      List<UnidadModel> opcionesUnidad = new ArrayList<>();
 
       Connection connection = null;
       PreparedStatement statement = null;
@@ -193,13 +113,17 @@ public class UsuarioDAO {
 
       try {
          connection = dbConnection.getConexion();
-         String query = "SELECT NOMBRE_UNIDAD FROM UNIDAD";
+         String query = "SELECT ID_UNIDAD, NOMBRE_UNIDAD, UBICACION FROM UNIDAD";
          statement = connection.prepareStatement(query);
          resultSet = statement.executeQuery();
 
          while (resultSet.next()) {
+            int idUnidad = resultSet.getInt("ID_UNIDAD");
             String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
-            opcionesUnidad.add(nombreUnidad);
+            String ubicacion = resultSet.getString("UBICACION");
+
+            UnidadModel unidad = new UnidadModel(idUnidad, nombreUnidad, ubicacion);
+            opcionesUnidad.add(unidad);
          }
       } catch (SQLException e) {
          e.printStackTrace();
@@ -212,14 +136,51 @@ public class UsuarioDAO {
 
 
 
+
+
+
+
+   public boolean insertarUsuario(UsuarioModel usuario) {
+      Connection connection = null;
+      PreparedStatement statement = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "INSERT INTO USUARIO ( ID_UNIDAD, ID_ROL, NOMBRE, APELLIDO, DNI, USERNAME, RANGO, AREA, PASSWORD, ESTADO, OBSERVACIONES) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+         statement = connection.prepareStatement(query);
+         statement.setInt(1, usuario.getIdUnidad());
+         statement.setInt(2, usuario.getIdRol());
+         statement.setString(3, usuario.getNombre());
+         statement.setString(4, usuario.getApellido());
+         statement.setInt(5, usuario.getDni());
+         statement.setString(6, usuario.getUsername());
+         statement.setString(7, usuario.getRango());
+         statement.setString(8, usuario.getArea());
+         statement.setBytes(9, usuario.getPassword());
+         statement.setInt(10, usuario.getEstado());
+         statement.setString(11, usuario.getObservaciones());
+
+         int rowsAffected = statement.executeUpdate();
+         return rowsAffected > 0;
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return false;
+      } finally {
+         closeResources(connection, statement, null);
+      }
+   }
+
+
    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
       try {
          if (resultSet != null) {
             resultSet.close();
          }
+
          if (statement != null) {
             statement.close();
          }
+
          if (connection != null) {
             connection.close();
          }
