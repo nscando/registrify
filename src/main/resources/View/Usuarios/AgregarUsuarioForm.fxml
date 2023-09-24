@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="580.0" prefWidth="550.0"
-            style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane"
-            stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.e.registrifyv1.Controladores.AgregarUsuarioFormController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="580.0" prefWidth="550.0" style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane" stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.AgregarUsuarioFormController">
     <children>
         <Pane layoutY="-3.0" prefHeight="75.0" prefWidth="550.0" style="-fx-background-color: #176ba9;">
             <children>
-                <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" prefWidth="320.0" styleClass="h2"
-                       text="AGREGAR  USUARIO" textFill="#dddada">
+                <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" prefWidth="320.0" styleClass="h2" text="AGREGAR  USUARIO" textFill="#dddada">
                     <font>
-                        <Font name="System Bold" size="28.0"/>
+                        <Font name="System Bold" size="28.0" />
                     </font>
                 </Label>
             </children>
@@ -25,96 +30,90 @@
             <children>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Nombre:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <VBox.margin>
-                        <Insets top="8.0"/>
+                        <Insets top="8.0" />
                     </VBox.margin>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un nombre..."
-                           style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
+                <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un nombre..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
                     <VBox.margin>
-                        <Insets left="8.0" top="2.0"/>
+                        <Insets left="8.0" top="2.0" />
                     </VBox.margin>
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <cursor>
-                        <Cursor fx:constant="TEXT"/>
+                        <Cursor fx:constant="TEXT" />
                     </cursor>
                 </TextField>
                 <Label prefHeight="25.0" prefWidth="100.0" text="DNI:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="txtDni" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un DNI..."
-                           style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
+                <TextField fx:id="txtDni" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un DNI..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <cursor>
-                        <Cursor fx:constant="TEXT"/>
+                        <Cursor fx:constant="TEXT" />
                     </cursor>
                     <VBox.margin>
-                        <Insets left="8.0"/>
+                        <Insets left="8.0" />
                     </VBox.margin>
                 </TextField>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Unidad:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
-                <ComboBox fx:id="comboUnidad" opacity="0.9" prefHeight="30.0" prefWidth="235.0"
-                          promptText="---Seleccionar Unidad ---" style="-fx-background-radius: 10 10 10 10;"
-                          stylesheets="@../../Styles/AgregarUsuarioForm.css">
+                <ComboBox fx:id="comboUnidad" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Unidad ---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/AgregarUsuarioForm.css">
                     <VBox.margin>
-                        <Insets left="8.0"/>
+                        <Insets left="8.0" />
                     </VBox.margin>
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </ComboBox>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Area:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
-                <ComboBox fx:id="comboArea" opacity="0.9" prefHeight="30.0" prefWidth="235.0"
-                          promptText="---Seleccionar Area---" style="-fx-background-radius: 10 10 10 10;"
-                          stylesheets="@../../Styles/AgregarUsuarioForm.css">
+                <ComboBox fx:id="comboArea" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Area---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/AgregarUsuarioForm.css">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                     <VBox.margin>
-                        <Insets left="8.0"/>
+                        <Insets left="8.0" />
                     </VBox.margin>
                 </ComboBox>
             </children>
@@ -123,90 +122,86 @@
             <children>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Apellido:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="8.0"/>
+                        <Insets top="8.0" />
                     </VBox.margin>
                 </Label>
-                <TextField fx:id="txtApellido" prefHeight="30.0" prefWidth="236.0" promptText="Ingrese un apellido.."
-                           style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
+                <TextField fx:id="txtApellido" prefHeight="30.0" prefWidth="236.0" promptText="Ingrese un apellido.." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <VBox.margin>
-                        <Insets left="8.0" top="2.0"/>
+                        <Insets left="8.0" top="2.0" />
                     </VBox.margin>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <cursor>
-                        <Cursor fx:constant="TEXT"/>
+                        <Cursor fx:constant="TEXT" />
                     </cursor>
                 </TextField>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Rango:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
-                <ComboBox fx:id="comboRango" opacity="0.9" prefHeight="30.0" prefWidth="235.0"
-                          promptText="---Seleccionar Rango ---" style="-fx-background-radius: 10 10 10 10;"
-                          stylesheets="@../../Styles/AgregarUsuarioForm.css">
+                <ComboBox fx:id="comboRango" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Rango ---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/AgregarUsuarioForm.css">
                     <cursor>
-                        <Cursor fx:constant="HAND"/>
+                        <Cursor fx:constant="HAND" />
                     </cursor>
                 </ComboBox>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Rol:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
                 <HBox prefHeight="49.0" prefWidth="250.0">
                     <children>
-                        <RadioButton fx:id="rbAdmin" mnemonicParsing="false" text="Admin">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="rol"/>
-                            </toggleGroup>
+                        <RadioButton fx:id="radioRolAdmin" mnemonicParsing="false" text="Admin">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="rol" />
+                        </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="rbSupervisor" mnemonicParsing="false" text="Supervisor"
-                                     toggleGroup="$rol"/>
-                        <RadioButton fx:id="rbUser" mnemonicParsing="false" text="Usuario" toggleGroup="$rol"/>
+                        <RadioButton fx:id="radioRolSupervisor" mnemonicParsing="false" text="Supervisor" toggleGroup="$rol" />
+                        <RadioButton fx:id="radioRolUsuario" mnemonicParsing="false" text="Usuario" toggleGroup="$rol" />
                     </children>
                 </HBox>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Estado:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <VBox.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </VBox.margin>
                 </Label>
                 <HBox prefHeight="42.0" prefWidth="250.0">
                     <children>
-                        <RadioButton fx:id="rbEstado" mnemonicParsing="false" text="Activo">
+                        <RadioButton mnemonicParsing="false" text="Activo">
                             <HBox.margin>
-                                <Insets left="10.0"/>
+                                <Insets left="10.0" />
                             </HBox.margin>
                             <toggleGroup>
-                                <ToggleGroup fx:id="estado"/>
+                                <ToggleGroup fx:id="estado" />
                             </toggleGroup>
                         </RadioButton>
                     </children>
@@ -217,22 +212,19 @@
             <children>
                 <Label prefHeight="25.0" prefWidth="118.0" text="Observaciones:" textFill="#514f4f">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                 </Label>
-                <TextArea fx:id="txtAreaObservaciones" prefHeight="108.0" prefWidth="518.0"
-                          promptText="Ingrese las observaciones corresppndientes"/>
+                <TextArea prefHeight="108.0" prefWidth="518.0" promptText="Ingrese las observaciones corresppndientes" />
             </children>
         </VBox>
         <Pane layoutX="-1.0" layoutY="505.0" prefHeight="75.0" prefWidth="550.0">
             <children>
-                <Button fx:id="btnCancelar" layoutX="297.0" layoutY="17.0" mnemonicParsing="false"
-                        styleClass="button-cancelar" text="Cancelar"/>
-                <Button onAction="#handleConfirmarButton" fx:id="btnConfirmar" layoutX="424.0" layoutY="17.0"
-                        mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar"/>
+                <Button fx:id="btnCancelar" layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
+                <Button fx:id="btnConfirmar" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
 
             </children>
         </Pane>

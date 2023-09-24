@@ -40,6 +40,12 @@ public class MenuPrincipalController implements Initializable {
          loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
       }
    }
+   @FXML
+   private void handleButtonClickVehiculos (ActionEvent actionEvent) {
+      if (actionEvent.getSource() == btnVehiculos) {
+         loadStage("/View/Vehiculos/VehiculosMenuView.fxml", "Menu Vehiculos");
+      }
+   }
 
    @Override
    public void initialize(URL url, ResourceBundle resourceBundle) {
