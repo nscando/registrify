@@ -98,7 +98,7 @@
                 </Button>
                 <Button style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" GridPane.columnIndex="2"
                         contentDisplay="TOP" graphicTextGap="15.0"
-                        mnemonicParsing="false" onAction="#handleButtonClickVehiculos" prefHeight="274.0"
+                        mnemonicParsing="false" onAction="#handleButtonClick" prefHeight="274.0"
                         prefWidth="304.0" text="VEHICULOS"
                         textFill="#023535" fx:id="btnVehiculos"
                         stylesheets="@../../Styles/MenuPrincipal.css">
