@@ -20,4 +20,7 @@ public class VehiculosMenuController {
     private void btBuscarAction(ActionEvent event) {
        // por hacer funcion ??
     }
+    private void btModificar(ActionEvent event) {
+        // por hacer funcion ??
+    }
 }
