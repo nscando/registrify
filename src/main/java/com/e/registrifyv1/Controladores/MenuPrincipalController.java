@@ -42,6 +42,10 @@ public class MenuPrincipalController implements Initializable {
       if (actionEvent.getSource() == btnVehiculos) {
          loadStage("/View/Vehiculos/VehiculosMenuView.fxml", "Menu Vehiculos");
       }
+
+      if (actionEvent.getSource() == btnUnidad) {
+         loadStage("/View/Unidad/UnidadMenuView.fxml", "Menu Unidad");
+      }
    }
   // @FXML
    //private void handleButtonClickVehiculos (ActionEvent actionEvent) {

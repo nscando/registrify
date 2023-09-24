@@ -1,7 +1,7 @@
 package com.e.registrifyv1.Modelos.Unidad;
 
 public class UnidadModel {
-<<<<<<< HEAD
+
 
    private int idUnidad;
    private String nombreUnidad;
@@ -36,6 +36,5 @@ public class UnidadModel {
    public void setUbicacion(String ubicacion) {
       this.ubicacion = ubicacion;
    }
-=======
->>>>>>> e48eb2b (Commit de prueba)
+
 }

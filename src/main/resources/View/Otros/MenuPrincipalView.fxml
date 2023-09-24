@@ -46,7 +46,7 @@
             </rowConstraints>
             <children>
                 <Button style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" contentDisplay="TOP"
-                        graphicTextGap="15.0" mnemonicParsing="false"
+                        graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick"
                         prefHeight="274.0" prefWidth="304.0"
                         text="UNIDAD" textFill="#023535" fx:id="btnUnidad"
                         stylesheets="@../../Styles/MenuPrincipal.css">
