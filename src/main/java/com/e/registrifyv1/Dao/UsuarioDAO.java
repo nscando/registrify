@@ -49,7 +49,7 @@ public class UsuarioDAO {
             int estado = resultSet.getInt("ESTADO");
             int dni = resultSet.getInt("DNI");
 
-            usuario = new UsuarioModel( idUnidad, idRol, nombre, apellido, dni, username1, rango, area, passwordBytes, estado, observaciones);
+            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username1, rango, area, passwordBytes, estado, observaciones);
          }
 
       } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class UsuarioDAO {
             int estado = resultSet.getInt("ESTADO");
             String observaciones = resultSet.getString("OBSERVACIONES");
 
-            UsuarioModel usuario = new UsuarioModel( idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
+            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
             usuarios.add(usuario);
          }
 

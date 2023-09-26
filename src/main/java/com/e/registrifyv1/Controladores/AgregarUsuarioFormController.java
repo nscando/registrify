@@ -57,7 +57,7 @@ public class AgregarUsuarioFormController implements Initializable {
    @FXML
    private void handleConfirmarButton(ActionEvent event) {
       // Obtener los datos del formulario
-
+   int idGendarme =0;
       String nombre = txtNombre.getText();
       String apellido = txtApellido.getText();
       String username = nombre + apellido ;
@@ -93,8 +93,9 @@ public class AgregarUsuarioFormController implements Initializable {
 
       // Crear un nuevo objeto UsuarioModel con los datos del formulario
       UsuarioModel nuevoUsuario = new UsuarioModel(
-               unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones
+               idGendarme, unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones
       );
+      nuevoUsuario.setIdGendarme(idGendarme);
       nuevoUsuario.setNombre(nombre);
       nuevoUsuario.setApellido(apellido);
       nuevoUsuario.setDni(dni);

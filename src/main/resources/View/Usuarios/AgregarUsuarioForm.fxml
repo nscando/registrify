@@ -165,13 +165,13 @@
                 </Label>
                 <HBox prefHeight="49.0" prefWidth="250.0">
                     <children>
-                        <RadioButton fx:id="radioRolAdmin" mnemonicParsing="false" text="Admin">
+                        <RadioButton fx:id="rbAdmin" mnemonicParsing="false" text="Admin">
                         <toggleGroup>
                             <ToggleGroup fx:id="rol" />
                         </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="radioRolSupervisor" mnemonicParsing="false" text="Supervisor" toggleGroup="$rol" />
-                        <RadioButton fx:id="radioRolUsuario" mnemonicParsing="false" text="Usuario" toggleGroup="$rol" />
+                        <RadioButton fx:id="rbSupervisor" mnemonicParsing="false" text="Supervisor" toggleGroup="$rol" />
+                        <RadioButton fx:id="rbUser" mnemonicParsing="false" text="Usuario" toggleGroup="$rol" />
                     </children>
                 </HBox>
                 <Label prefHeight="25.0" prefWidth="100.0" text="Estado:" textFill="#514f4f">
@@ -187,7 +187,7 @@
                 </Label>
                 <HBox prefHeight="42.0" prefWidth="250.0">
                     <children>
-                        <RadioButton mnemonicParsing="false" text="Activo">
+                        <RadioButton fx:id="rbEstado" mnemonicParsing="false" text="Activo">
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
@@ -209,13 +209,13 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <TextArea prefHeight="108.0" prefWidth="518.0" promptText="Ingrese las observaciones corresppndientes" />
+                <TextArea fx:id="txtAreaObservaciones" prefHeight="108.0" prefWidth="518.0" promptText="Ingrese las observaciones corresppndientes" />
             </children>
         </VBox>
         <Pane layoutX="-1.0" layoutY="505.0" prefHeight="75.0" prefWidth="550.0">
             <children>
                 <Button fx:id="btnCancelar" layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
-                <Button fx:id="btnConfirmar" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
+                <Button fx:id="btnConfirmar" onAction="#handleConfirmarButton" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
 
             </children>
         </Pane>

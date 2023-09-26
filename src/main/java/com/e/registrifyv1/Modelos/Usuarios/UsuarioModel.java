@@ -2,6 +2,7 @@ package com.e.registrifyv1.Modelos.Usuarios;
 
 public class UsuarioModel {
 
+   private int idGendarme;
    private int idUnidad;
    private int idRol;
    private String nombre;
@@ -14,8 +15,9 @@ public class UsuarioModel {
    private int estado;
    private String observaciones;
 
-   public UsuarioModel( int idUnidad, int idRol, String nombre,  String apellido, int dni, String username,   String rango, String area, byte[] password, int estado, String observaciones) {
+   public UsuarioModel( int idGendarme, int idUnidad, int idRol, String nombre,  String apellido, int dni, String username,   String rango, String area, byte[] password, int estado, String observaciones) {
 
+      this.idGendarme = idGendarme;
       this.idUnidad = idUnidad;
       this.idRol = idRol;
       this.nombre = nombre;
@@ -32,6 +34,13 @@ public class UsuarioModel {
    // Getters y setters
 
 
+   public int getIdGendarme() {
+      return idGendarme;
+   }
+
+   public void setIdGendarme(int idGendarme) {
+      this.idGendarme = idGendarme;
+   }
 
    public int getIdUnidad() {
       return idUnidad;
