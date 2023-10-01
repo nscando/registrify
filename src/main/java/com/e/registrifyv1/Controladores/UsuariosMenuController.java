@@ -1,17 +1,16 @@
 package com.e.registrifyv1.Controladores;
 
+import com.e.registrifyv1.Dao.UsuarioDAO;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import com.e.registrifyv1.Dao.UsuarioDAO;
-import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +22,8 @@ public class UsuariosMenuController {
    @FXML
    private TableColumn<UsuarioModel, Integer> idCol;
 
+   @FXML
+   private CheckBox cBoxIncluirUsuariosBaja;
    @FXML
    private TableColumn<UsuarioModel, String> nombreCol;
 
@@ -54,12 +55,35 @@ public class UsuariosMenuController {
    @FXML
    private void initialize() {
       usuarioDAO = new UsuarioDAO();
+      // Agregar evento de doble clic a la columna que deseas
+      nombreCol.setCellFactory(tc -> {
+         TableCell<UsuarioModel, String> cell = new TableCell<UsuarioModel, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+               super.updateItem(item, empty);
+               if (empty) {
+                  setText(null);
+               } else {
+                  setText(item);
+               }
+            }
+         };
+         cell.setOnMouseClicked(event -> {
+            if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+               UsuarioModel rowData = cell.getTableView().getItems().get(cell.getIndex());
+               abrirFormularioModificarUsuario(rowData);
+            }
+         });
+         return cell;
+      });
    }
 
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda);
+      boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
+
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja);
       cargarUsuariosEnTableView(usuarios);
    }
 
@@ -95,6 +119,27 @@ public class UsuariosMenuController {
       }
    }
 
+   @FXML
+   private void abrirFormularioModificarUsuario(UsuarioModel usuario) {
+      try {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
+         Parent root = loader.load();
+
+         // Obtener el controlador del formulario de modificación
+         ModificarUsuarioFormController controller = loader.getController();
+
+         // Pasar los datos del usuario seleccionado al controlador del formulario de modificación
+         controller.inicializarDatos(usuario);
+
+         // Mostrar el formulario de modificación
+         Stage stage = new Stage();
+         stage.setTitle("Modificar Usuario");
+         stage.setScene(new Scene(root));
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
 
 
 }
