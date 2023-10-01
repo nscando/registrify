@@ -85,7 +85,7 @@
                 </Button>
                 <Button style="-fx-background-radius: 20 20 20 20; -fx-cursor: hand;" GridPane.columnIndex="1"
                         GridPane.rowIndex="1" contentDisplay="TOP"
-                        graphicTextGap="15.0" mnemonicParsing="false"
+                        graphicTextGap="15.0" mnemonicParsing="false" onAction="#handleButtonClick"
                         prefHeight="274.0" prefWidth="304.0" text="ARMAS"
                         textFill="#023535" fx:id="btnArmas"
                         stylesheets="@../../Styles/MenuPrincipal.css">
