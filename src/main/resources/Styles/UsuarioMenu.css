@@ -78,3 +78,17 @@
     -fx-border-color: derive(-fx-pie-color, 1%);
     -fx-border-width: 0px;
 }
+#cBoxIncluirUsuariosBaja {
+    -fx-text-fill: #000000; /* Cambia el color del texto */
+    -fx-font-size: 12px; /* Cambia el tamaño del texto */
+    -fx-padding: 0 0 0 10px;
+}
+
+#cBoxIncluirUsuariosBaja:selected .box {
+    -fx-background-color: #5ad25a; /* Cambia el color de la marca de verificación cuando está seleccionado */
+}
+
+
+
+
+
