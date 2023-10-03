@@ -87,7 +87,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="SALIR" textFill="#d9d9d9">
+                <Button fx:id="btnSalir" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="SALIR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
                     </graphic>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <AnchorPane prefHeight="670.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.UnidadMenuController">
    <children>
       <VBox layoutX="-1.0" prefHeight="670.0" prefWidth="280.0" style="-fx-background-color: #6b3fa0; -fx-background-radius: 0 0 80 0;">
@@ -31,7 +31,7 @@
             </Label>
             <Button fx:id="nuevaUnidad" mnemonicParsing="false" onAction="#menuUnidad" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="NUEVA UNIDAD" textFill="LAVENDER">
                <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0"/>
+                  <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
                </graphic>
                <padding>
                   <Insets left="30.0" />
@@ -84,7 +84,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="SALIR" textFill="LAVENDER">
+            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="SALIR" textFill="LAVENDER">
                <graphic>
                   <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
                </graphic>

@@ -16,41 +16,34 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UsuariosMenuController {
-
+   @FXML
+   private Button btnSalir;
    @FXML
    private TableView<UsuarioModel> tablaMenuUsuario;
    @FXML
    private TableColumn<UsuarioModel, Integer> idCol;
-
    @FXML
    private CheckBox cBoxIncluirUsuariosBaja;
    @FXML
    private TableColumn<UsuarioModel, String> nombreCol;
-
    @FXML
    private TableColumn<UsuarioModel, String> apellidoCol;
    @FXML
    private TableColumn<UsuarioModel, String> rangoCol;
    @FXML
    private TableColumn<UsuarioModel, String> observacionesCol;
-
    @FXML
    private TableColumn<UsuarioModel, Integer> dniCol;
-
    @FXML
    private TableColumn<UsuarioModel, String> usernameCol;
-
    @FXML
    private TableColumn<UsuarioModel, String> rolCol;
-
    @FXML
    private TableColumn<UsuarioModel, Integer> estadoCol;
-
    @FXML
    private TextField txtFieldMenuUsuario;
-
-
    private UsuarioDAO usuarioDAO;
+
 
    @FXML
    private void initialize() {
@@ -77,7 +70,11 @@ public class UsuariosMenuController {
          return cell;
       });
    }
-
+   @FXML
+   private void handleSalirButtonAction(ActionEvent event) {
+      Stage stage = (Stage) btnSalir.getScene().getWindow();
+      stage.close();
+   }
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();

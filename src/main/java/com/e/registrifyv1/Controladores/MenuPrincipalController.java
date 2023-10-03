@@ -39,6 +39,7 @@ public class MenuPrincipalController implements Initializable {
       if (actionEvent.getSource() == btnUsuarios) {
          loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
       }
+
       if (actionEvent.getSource() == btnVehiculos) {
          loadStage("/View/Vehiculos/VehiculosMenuView.fxml", "Menu Vehiculos");
       }
@@ -49,6 +50,10 @@ public class MenuPrincipalController implements Initializable {
 
       if(actionEvent.getSource() == btnArmas){
          loadStage("/View/Arma/ArmaMenuView.fxml", "Menu Arma");
+      }
+
+      if(actionEvent.getSource() == btnEventosDiarios){
+         loadStage("/View/EventoDiario/EventoDiarioView.fxml", "Menu Evento");
       }
    }
   // @FXML

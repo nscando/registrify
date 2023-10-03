@@ -84,7 +84,7 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="SALIR" textFill="LAVENDER">
+                <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="SALIR" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
                     </graphic>
