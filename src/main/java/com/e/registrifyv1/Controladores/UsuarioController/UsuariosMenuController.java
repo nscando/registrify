@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores;
+package com.e.registrifyv1.Controladores.UsuarioController;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
@@ -20,6 +20,8 @@ public class UsuariosMenuController {
    private Button btnSalir;
    @FXML
    private TableView<UsuarioModel> tablaMenuUsuario;
+   
+
    @FXML
    private TableColumn<UsuarioModel, Integer> idCol;
    @FXML

@@ -184,9 +184,6 @@ public class UsuarioDAO {
 
 
 
-
-
-
    public boolean insertarUsuario(UsuarioModel usuario) {
       Connection connection = null;
       PreparedStatement statement = null;

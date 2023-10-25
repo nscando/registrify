@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="580.0" prefWidth="550.0" style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane" stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.ModificarUsuarioFormController">
+<AnchorPane prefHeight="580.0" prefWidth="550.0" style="-fx-background-color: #EAF5FF; -fx-background-radius: 0 0 20 20;" styleClass="pane" stylesheets="@../../Styles/AgregarUsuarioForm.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.UsuarioController.ModificarUsuarioFormController">
     <children>
         <Pane layoutY="-3.0" prefHeight="75.0" prefWidth="550.0" style="-fx-background-color: #176ba9;">
             <children>
@@ -214,7 +214,7 @@
         </VBox>
         <Pane layoutX="-1.0" layoutY="505.0" prefHeight="75.0" prefWidth="550.0">
             <children>
-                <Button fx:id="btnCancelar"  layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
+                <Button fx:id="btnCancelar" onAction="#handleCancelarButtonAction"  layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
                 <Button fx:id="btnConfirmar" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
 
             </children>

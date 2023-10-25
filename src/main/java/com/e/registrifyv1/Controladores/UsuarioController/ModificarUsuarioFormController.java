@@ -1,9 +1,11 @@
-package com.e.registrifyv1.Controladores;
+package com.e.registrifyv1.Controladores.UsuarioController;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class ModificarUsuarioFormController {
 
@@ -83,6 +85,14 @@ public class ModificarUsuarioFormController {
 
       // Aquí puedes agregar el código para inicializar los ComboBox según los datos del usuario
    }
+
+
+   @FXML
+   private void handleCancelarButtonAction(ActionEvent event) {
+      Stage stage = (Stage) btnCancelar.getScene().getWindow();
+      stage.close();
+   }
+
 
 }
 

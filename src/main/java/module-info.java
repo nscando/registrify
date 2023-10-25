@@ -17,4 +17,6 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Controladores;
    opens com.e.registrifyv1.Controladores to javafx.fxml;
    opens com.e.registrifyv1.Modelos.Usuarios to javafx.base;
+   exports com.e.registrifyv1.Controladores.UsuarioController;
+   opens com.e.registrifyv1.Controladores.UsuarioController to javafx.fxml;
 }
