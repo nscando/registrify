@@ -8,7 +8,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
             prefWidth="1080.0" stylesheets="@../../Styles/UsuarioMenu.css" AnchorPane.bottomAnchor="0.0"
             AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.e.registrifyv1.Controladores.UsuarioController.UsuariosMenuController">
+            fx:controller="com.e.registrifyv1.Controladores.Usuario.UsuariosMenuController">
     <children>
         <VBox prefHeight="600.0" prefWidth="200.0"
               style="-fx-background-color: #062343; -fx-background-radius: 0 0 80 0;" AnchorPane.bottomAnchor="0.0"

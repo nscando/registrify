@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores.UsuarioController;
+package com.e.registrifyv1.Controladores.Usuario;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Unidad.UnidadModel;
