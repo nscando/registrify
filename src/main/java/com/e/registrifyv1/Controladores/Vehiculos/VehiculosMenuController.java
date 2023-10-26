@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores;
+package com.e.registrifyv1.Controladores.Vehiculos;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores;
+package com.e.registrifyv1.Controladores.Evento;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

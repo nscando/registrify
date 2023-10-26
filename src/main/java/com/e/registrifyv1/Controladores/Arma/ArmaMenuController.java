@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores;
+package com.e.registrifyv1.Controladores.Arma;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,21 +10,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UnidadMenuController {
+public class ArmaMenuController {
+
     @FXML
-    public void menuUnidad(ActionEvent event) {
+    public void menuArma(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Unidad/UnidadView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Arma/ArmaMenuView.fxml")); //corregir.
             Parent root = loader.load();
 
             Stage stage = new Stage();
-            stage.setTitle("Agregar unidad");
+            stage.setTitle("Agregar Arma");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private Button btnSalir;
     @FXML
@@ -32,5 +34,4 @@ public class UnidadMenuController {
         Stage stage = (Stage) btnSalir.getScene().getWindow();
         stage.close();
     }
-
 }
