@@ -41,7 +41,11 @@ public class LoginController {
       // Asignar eventos para el manejo de teclas
       usuarioTxtField.setOnKeyPressed(this::handleKeyPress);
       passwordTxtField.setOnKeyPressed(this::handleKeyPress);
-      ingresarBtn.setOnKeyPressed(this::handleKeyPress);
+      ingresarBtn.setOnKeyPressed(event -> {
+         if (event.getCode() == KeyCode.ENTER) {
+            loginBtnAction(new ActionEvent()); // Llamar al método de inicio de sesión
+         }
+      });
       salirBtn.setOnKeyPressed(this::handleKeyPress);
    }
 
@@ -65,6 +69,7 @@ public class LoginController {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
       }
    }
+
 
    public void salirBtnAction(ActionEvent e) {
       Stage stage = (Stage) salirBtn.getScene().getWindow();
