@@ -20,7 +20,6 @@ public class UsuariosMenuController {
    private Button btnSalir;
    @FXML
    private TableView<UsuarioModel> tablaMenuUsuario;
-   
 
    @FXML
    private TableColumn<UsuarioModel, Integer> idCol;
@@ -71,12 +70,21 @@ public class UsuariosMenuController {
          });
          return cell;
       });
+
+      // Asignar un evento de selección a la tabla
+      tablaMenuUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+         if (newValue != null) {
+            abrirFormularioModificarUsuario(newValue);
+         }
+      });
    }
+
    @FXML
    private void handleSalirButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnSalir.getScene().getWindow();
       stage.close();
    }
+
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
@@ -118,7 +126,6 @@ public class UsuariosMenuController {
       }
    }
 
-   @FXML
    private void abrirFormularioModificarUsuario(UsuarioModel usuario) {
       try {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
@@ -140,5 +147,25 @@ public class UsuariosMenuController {
       }
    }
 
+   @FXML
+   private void handleModificarUsuarioButtonAction(ActionEvent event) {
+      UsuarioModel usuarioSeleccionado = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+      if (usuarioSeleccionado != null) {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
+         Parent root;
+         try {
+            root = (Parent) loader.load();
+            ModificarUsuarioFormController controller = loader.getController();
+            controller.inicializarDatos(usuarioSeleccionado); // Pasar idGendarme
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      } else {
+         System.out.println("Por favor, seleccione un usuario para modificar.");
+      }
+   }
 
 }
