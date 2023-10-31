@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -34,6 +36,32 @@ public class LoginController {
       usuarioDAO = new UsuarioDAO();
    }
 
+   @FXML
+   private void initialize() {
+      // Asignar eventos para el manejo de teclas
+      usuarioTxtField.setOnKeyPressed(this::handleKeyPress);
+      passwordTxtField.setOnKeyPressed(this::handleKeyPress);
+      ingresarBtn.setOnKeyPressed(event -> {
+         if (event.getCode() == KeyCode.ENTER) {
+            loginBtnAction(new ActionEvent()); // Llamar al método de inicio de sesión
+         }
+      });
+      salirBtn.setOnKeyPressed(this::handleKeyPress);
+   }
+
+   private void handleKeyPress(KeyEvent event) {
+      if (event.getCode() == KeyCode.TAB) {
+         if (event.getSource() == usuarioTxtField) {
+            passwordTxtField.requestFocus();
+         } else if (event.getSource() == passwordTxtField) {
+            ingresarBtn.requestFocus();
+         } else if (event.getSource() == ingresarBtn) {
+            salirBtn.requestFocus();
+         } else if (event.getSource() == salirBtn) {
+            usuarioTxtField.requestFocus();
+         }
+      }
+   }
    public void loginBtnAction(ActionEvent e) {
       if (!usuarioTxtField.getText().isBlank() && !passwordTxtField.getText().isBlank()) {
          validarLogin();
@@ -41,6 +69,7 @@ public class LoginController {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
       }
    }
+
 
    public void salirBtnAction(ActionEvent e) {
       Stage stage = (Stage) salirBtn.getScene().getWindow();

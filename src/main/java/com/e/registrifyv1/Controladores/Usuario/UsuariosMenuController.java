@@ -16,12 +16,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UsuariosMenuController {
+
    @FXML
    private Button btnSalir;
    @FXML
    private TableView<UsuarioModel> tablaMenuUsuario;
-   
-
    @FXML
    private TableColumn<UsuarioModel, Integer> idCol;
    @FXML
@@ -44,23 +43,22 @@ public class UsuariosMenuController {
    private TableColumn<UsuarioModel, Integer> estadoCol;
    @FXML
    private TextField txtFieldMenuUsuario;
-   private UsuarioDAO usuarioDAO;
 
+   private UsuarioDAO usuarioDAO;
 
    @FXML
    private void initialize() {
       usuarioDAO = new UsuarioDAO();
-      // Agregar evento de doble clic a la columna que deseas
+      configurarColumnas();
+   }
+
+   private void configurarColumnas() {
       nombreCol.setCellFactory(tc -> {
          TableCell<UsuarioModel, String> cell = new TableCell<UsuarioModel, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                super.updateItem(item, empty);
-               if (empty) {
-                  setText(null);
-               } else {
-                  setText(item);
-               }
+               setText(empty ? null : item);
             }
          };
          cell.setOnMouseClicked(event -> {
@@ -71,12 +69,20 @@ public class UsuariosMenuController {
          });
          return cell;
       });
+
+      tablaMenuUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+         if (newValue != null) {
+            abrirFormularioModificarUsuario(newValue);
+         }
+      });
    }
+
    @FXML
    private void handleSalirButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnSalir.getScene().getWindow();
       stage.close();
    }
+
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
@@ -104,11 +110,10 @@ public class UsuariosMenuController {
    }
 
    @FXML
-   public void abrirFormularioAgregarUsuario(ActionEvent event) {
+   private void abrirFormularioAgregarUsuario(ActionEvent event) {
       try {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/AgregarUsuarioForm.fxml"));
          Parent root = loader.load();
-
          Stage stage = new Stage();
          stage.setTitle("Agregar Usuario");
          stage.setScene(new Scene(root));
@@ -118,19 +123,14 @@ public class UsuariosMenuController {
       }
    }
 
-   @FXML
    private void abrirFormularioModificarUsuario(UsuarioModel usuario) {
       try {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
          Parent root = loader.load();
-
-         // Obtener el controlador del formulario de modificación
          ModificarUsuarioFormController controller = loader.getController();
-
-         // Pasar los datos del usuario seleccionado al controlador del formulario de modificación
+         controller.setTablaMenuUsuario(tablaMenuUsuario);
+         controller.setUsuariosMenuController(this);
          controller.inicializarDatos(usuario);
-
-         // Mostrar el formulario de modificación
          Stage stage = new Stage();
          stage.setTitle("Modificar Usuario");
          stage.setScene(new Scene(root));
@@ -140,5 +140,34 @@ public class UsuariosMenuController {
       }
    }
 
+   @FXML
+   private void handleModificarUsuarioButtonAction(ActionEvent event) {
+      UsuarioModel usuarioSeleccionado = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+      if (usuarioSeleccionado != null) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
+            Parent root = (Parent) loader.load();
+            ModificarUsuarioFormController controller = loader.getController();
+            controller.inicializarDatos(usuarioSeleccionado);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      } else {
+         System.out.println("Por favor, seleccione un usuario para modificar.");
+      }
+   }
 
+   public void setTablaMenuUsuario(TableView<UsuarioModel> tablaMenuUsuario) {
+      this.tablaMenuUsuario = tablaMenuUsuario;
+   }
+
+   public void actualizarTableView() {
+      String valorBusqueda = txtFieldMenuUsuario.getText();
+      boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja);
+      cargarUsuariosEnTableView(usuarios);
+   }
 }

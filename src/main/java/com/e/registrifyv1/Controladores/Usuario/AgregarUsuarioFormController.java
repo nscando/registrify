@@ -54,43 +54,48 @@ public class AgregarUsuarioFormController implements Initializable {
 
    @FXML
    private void handleConfirmarButton(ActionEvent event) {
-      // Obtener los datos del formulario
-      int idGendarme = 0;
+      UsuarioModel nuevoUsuario = obtenerDatosFormulario();
+
+      if (nuevoUsuario != null) {
+         UsuarioDAO usuarioDAO = new UsuarioDAO();
+         boolean exito = usuarioDAO.insertarUsuario(nuevoUsuario);
+
+         if (exito) {
+            mostrarAlerta("Usuario Insertado", "El usuario se ha insertado correctamente.");
+            limpiarFormulario();
+         } else {
+            mostrarAlerta("Error", "Error al insertar el usuario.");
+         }
+      }
+   }
+
+   private UsuarioModel obtenerDatosFormulario() {
       String nombre = txtNombre.getText();
       String apellido = txtApellido.getText();
       String username = nombre + apellido;
       byte[] password = "123456".getBytes();
-      String dniString = txtDni.getText(); // Obtener el valor del campo DNI como una cadena
-      int dni = 0; // Inicializar dni como 0 por defecto
+      String dniString = txtDni.getText();
+      int idGendarme = 0;
 
-      // Validar que la cadena de DNI sea numérica antes de intentar convertirla
-      if (dniString.matches("\\d+")) {
-         dni = Integer.parseInt(dniString);
-      } else {
-         System.out.println("El valor del DNI no es un número válido.");
-         return; // Salir del método si el DNI no es válido
+      // Validar que el DNI sea un número válido
+      if (!dniString.matches("\\d+")) {
+         mostrarAlerta("Error de Validación", "El valor del DNI no es un número válido.");
+         return null;
       }
+
+      int dni = Integer.parseInt(dniString);
 
       String area = comboArea.getValue();
       String rango = comboRango.getValue();
       int unidad = idUnidad;
       String observaciones = txtAreaObservaciones.getText();
       int estado = rbEstado.isSelected() ? 1 : 0;
-      int idRol = 0;
+      int idRol = obtenerIdRol();
 
-      // Determinar el valor de idRol en función de la selección del usuario
-      if (rbAdmin.isSelected()) {
-         idRol = 1; // Asignar el valor correspondiente al rol de administrador
-      } else if (rbSupervisor.isSelected()) {
-         idRol = 2; // Asignar el valor correspondiente a otro rol
-      } else if (rbUser.isSelected()) {
-         idRol = 3; // Asignar el valor correspondiente a otro rol
-      }
-
-      // Crear un nuevo objeto UsuarioModel con los datos del formulario
       UsuarioModel nuevoUsuario = new UsuarioModel(
               idGendarme, unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones
       );
+
       nuevoUsuario.setIdGendarme(idGendarme);
       nuevoUsuario.setNombre(nombre);
       nuevoUsuario.setApellido(apellido);
@@ -101,15 +106,40 @@ public class AgregarUsuarioFormController implements Initializable {
       nuevoUsuario.setObservaciones(observaciones);
       nuevoUsuario.setEstado(estado);
 
-      // Llamar al método insertarUsuario en UsuarioDAO
-      UsuarioDAO usuarioDAO = new UsuarioDAO();
-      boolean exito = usuarioDAO.insertarUsuario(nuevoUsuario);
+      return nuevoUsuario;
+   }
 
-      if (exito) {
-         System.out.println("Usuario insertado correctamente.");
-      } else {
-         System.out.println("Error al insertar el usuario.");
+   private int obtenerIdRol() {
+      if (rbAdmin.isSelected()) {
+         return 1;
+      } else if (rbSupervisor.isSelected()) {
+         return 2;
+      } else if (rbUser.isSelected()) {
+         return 3;
       }
+      return 0; // Puedes manejar esto según tus necesidades
+   }
+
+   private void mostrarAlerta(String titulo, String mensaje) {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle(titulo);
+      alert.setHeaderText(mensaje);
+      ButtonType okButton = new ButtonType("OK");
+      alert.getButtonTypes().setAll(okButton);
+      alert.showAndWait();
+   }
+
+   private void limpiarFormulario() {
+      txtNombre.clear();
+      txtApellido.clear();
+      txtDni.clear();
+      comboArea.getSelectionModel().clearSelection();
+      comboRango.getSelectionModel().clearSelection();
+      txtAreaObservaciones.clear();
+      rbAdmin.setSelected(false);
+      rbSupervisor.setSelected(false);
+      rbUser.setSelected(false);
+      rbEstado.setSelected(false);
    }
 
 
