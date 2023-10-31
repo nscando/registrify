@@ -1,6 +1,6 @@
 package com.e.registrifyv1.Dao;
 
-import com.e.registrifyv1.Modelos.Unidad.UnidadModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
@@ -151,8 +151,8 @@ public class UsuarioDAO {
       return usuarios;
    }
 
-   public List<UnidadModel> obtenerOpcionesUnidad() throws SQLException {
-      List<UnidadModel> opcionesUnidad = new ArrayList<>();
+   public List<UnidadMenuModel> obtenerOpcionesUnidad() throws SQLException {
+      List<UnidadMenuModel> opcionesUnidad = new ArrayList<>();
 
       Connection connection = null;
       PreparedStatement statement = null;
@@ -169,7 +169,7 @@ public class UsuarioDAO {
             String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
             String ubicacion = resultSet.getString("UBICACION");
 
-            UnidadModel unidad = new UnidadModel(idUnidad, nombreUnidad, ubicacion);
+            UnidadMenuModel unidad = new UnidadMenuModel(idUnidad, nombreUnidad, ubicacion);
             opcionesUnidad.add(unidad);
          }
       } catch (SQLException e) {
@@ -180,9 +180,6 @@ public class UsuarioDAO {
 
       return opcionesUnidad;
    }
-
-
-
 
    public boolean insertarUsuario(UsuarioModel usuario) {
       Connection connection = null;
@@ -213,7 +210,6 @@ public class UsuarioDAO {
          closeResources(connection, statement, null);
       }
    }
-
 
    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
       try {

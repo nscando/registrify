@@ -29,7 +29,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="nuevaUnidad" mnemonicParsing="false" onAction="#menuUnidad" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="NUEVA UNIDAD" textFill="LAVENDER">
+            <Button fx:id="nuevaUnidad" mnemonicParsing="false" onAction="#menuAgregarUnidad" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="NUEVA UNIDAD" textFill="LAVENDER">
                <graphic>
                   <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
                </graphic>
@@ -106,27 +106,34 @@
           <RowConstraints maxHeight="418.3999816894531" minHeight="10.0" prefHeight="390.5999755859375" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="410.0" prefWidth="902.0" style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
+            <TableView fx:id="tablaMenuUnidad" prefHeight="410.0" prefWidth="902.0"
+                       style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
               <columns>
-                <TableColumn prefWidth="75.0" text="ID" />
-                <TableColumn prefWidth="130.39996337890625" text="TIPO DE UNIDAD" />
-                  <TableColumn prefWidth="140.0" text="NOMBRE DE UNIDAD" />
-                  <TableColumn minWidth="7.99993896484375" prefWidth="151.199951171875" text="FECHA DE CREACION" />
-                  <TableColumn prefWidth="113.60003662109375" text="FUERZA EFECTIVA" />
-                  <TableColumn minWidth="4.0" prefWidth="270.4" text="OBSERVACIONES" />
+                <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="nombreUnidadColum" prefWidth="200.0" text="NOMBRE DE UNIDAD" />
+                  <TableColumn fx:id="ubicacionUnidadColum" prefWidth="200.0" text="UBICACIÓN" />
               </columns>
             </TableView>
             <HBox prefHeight="25.0" prefWidth="890.0" style="-fx-background-color: #cec8e9;">
                <children>
-                  <TextField prefHeight="36.0" prefWidth="719.0" promptText="Ingrese datos para realizar la busqueda...." style="-fx-background-radius: 20 20 20 20;">
+                  <TextField fx:id="txtFieldMenuUnidad" prefHeight="36.0" prefWidth="719.0"
+                             promptText="Ingrese datos para realizar la busqueda...."
+                             style="-fx-background-radius: 20 20 20 20;">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="157.0" style="-fx-background-radius: 20;" stylesheets="@../../Styles/UnidadMenu.css" text="BUSCAR" textFill="LAVENDER">
+                  <Button
+                          fx:id="btnBuscarUnidadMenu" mnemonicParsing="false" onAction="#btnBuscarUnidadAction"
+                          prefHeight="31.0" prefWidth="157.0" style="-fx-background-radius: 20;-fx-cursor: hand;"
+                          stylesheets="@../../Styles/UnidadMenu.css"
+                          text="BUSCAR" textFill="LAVENDER">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
+                     </graphic>
                   </Button>
                </children>
                <padding>

@@ -27,4 +27,6 @@ module com.e.registrifyv1 {
    opens com.e.registrifyv1.Controladores.Arma to javafx.fxml;
    exports com.e.registrifyv1.Controladores.Evento;
    opens com.e.registrifyv1.Controladores.Evento to javafx.fxml;
+   opens com.e.registrifyv1.Modelos.Unidad to javafx.base;
+
 }
