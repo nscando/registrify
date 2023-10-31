@@ -17,11 +17,9 @@ import java.util.Optional;
 public class ModificarUsuarioFormController {
 
    @FXML
-   private TextField txtNombre; // Ajusta esto con el nombre de tus campos en la vista
+   private TextField txtNombre;
    @FXML
-   private TextField txtApellido; // Ajusta esto con el nombre de tus campos en la vista
-
-   private int idGendarmeSeleccionado;
+   private TextField txtApellido;
    @FXML
    private TextField txtDni;
    @FXML
@@ -43,11 +41,12 @@ public class ModificarUsuarioFormController {
    @FXML
    private Button btnCancelar;
 
+   private UsuarioModel usuario;
+   private int idUnidad = 0;
+   private TableView<UsuarioModel> tablaMenuUsuario;
+   private UsuariosMenuController usuariosMenuController;
+   private int idGendarmeSeleccionado;
 
-   private UsuarioModel usuario; // Esta variable contendrá los datos del usuario
-   int idUnidad = 0;
-
-   @FXML
    public void initialize() {
       UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -72,41 +71,33 @@ public class ModificarUsuarioFormController {
       }
    }
 
-   // Este método será llamado desde UsuariosMenuController para pasar los datos del usuario seleccionado
    public void inicializarDatos(UsuarioModel usuario) {
       this.usuario = usuario;
       this.idGendarmeSeleccionado = usuario.getIdGendarme();
 
-
-      // Asignar los valores del usuario a los campos correspondientes
       txtNombre.setText(usuario.getNombre());
       txtApellido.setText(usuario.getApellido());
-      txtDni.setText(String.valueOf(usuario.getDni())); // Convertir a cadena
+      txtDni.setText(String.valueOf(usuario.getDni()));
       comboRango.setValue(usuario.getRango());
       comboArea.setValue(usuario.getArea());
       txtAreaObservaciones.setText(usuario.getObservaciones());
 
-      // Dependiendo del estado, seleccionar el RadioButton correspondiente
-      if (usuario.getEstado() == 1) {
-         rbEstado.setSelected(true);
-      } else {
-         rbEstado.setSelected(false);
-      }
+      rbEstado.setSelected(usuario.getEstado() == 1);
 
-      // Dependiendo del idRol, seleccionar el RadioButton correspondiente
-      int idRol = usuario.getIdRol();
-      switch (idRol) {
+      switch (usuario.getIdRol()) {
          case 1 -> rbAdmin.setSelected(true);
          case 2 -> rbSupervisor.setSelected(true);
          case 3 -> rbUser.setSelected(true);
-         default -> {
-         }
-         // No se selecciona ningún RadioButton
       }
-
-      // Aquí puedes agregar el código para inicializar los ComboBox según los datos del usuario
    }
 
+   public void setTablaMenuUsuario(TableView<UsuarioModel> tablaMenuUsuario) {
+      this.tablaMenuUsuario = tablaMenuUsuario;
+   }
+
+   public void setUsuariosMenuController(UsuariosMenuController usuariosMenuController) {
+      this.usuariosMenuController = usuariosMenuController;
+   }
 
    @FXML
    private void handleConfirmarButtonAction(ActionEvent event) {
@@ -122,15 +113,20 @@ public class ModificarUsuarioFormController {
       Optional<ButtonType> result = alert.showAndWait();
 
       if (result.isPresent() && result.get() == buttonTypeConfirmar) {
-         UsuarioModel nuevoUsuario = obtenerDatosFormulario();
+         UsuarioModel updateUsuario = obtenerDatosFormulario();
 
-         if (nuevoUsuario != null) {
+         if (updateUsuario != null) {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            boolean exito = usuarioDAO.actualizarUsuario(nuevoUsuario);
+            boolean exito = usuarioDAO.actualizarUsuario(updateUsuario);
 
             if (exito) {
                mostrarAlerta("Actualización Exitosa", "Los datos del usuario han sido actualizados correctamente.");
                limpiarCamposFormulario();
+
+               if (usuariosMenuController != null) {
+                  usuariosMenuController.actualizarTableView();
+               }
+
                Stage stage = (Stage) txtNombre.getScene().getWindow();
                stage.close();
             } else {
@@ -140,7 +136,6 @@ public class ModificarUsuarioFormController {
       }
    }
 
-
    private UsuarioModel obtenerDatosFormulario() {
       String nombre = txtNombre.getText();
       String apellido = txtApellido.getText();
@@ -149,17 +144,12 @@ public class ModificarUsuarioFormController {
       String password = "123456";
       int idGendarme = usuario.getIdGendarme();
 
-
-
-      // Validar que el DNI sea un número válido
       if (!dniString.matches("\\d+")) {
          mostrarAlerta("Error de Validación", "El valor del DNI no es un número válido.");
          return null;
       }
 
       int dni = Integer.parseInt(dniString);
-
-
       String area = comboArea.getValue();
       String rango = comboRango.getValue();
       int unidad = idUnidad;
@@ -184,8 +174,6 @@ public class ModificarUsuarioFormController {
       return updateUsuario;
    }
 
-
-
    private int obtenerIdRol() {
       if (rbAdmin.isSelected()) {
          return 1;
@@ -194,9 +182,8 @@ public class ModificarUsuarioFormController {
       } else if (rbUser.isSelected()) {
          return 3;
       }
-      return 0; // Puedes manejar esto según tus necesidades
+      return 0;
    }
-
 
    private void limpiarCamposFormulario() {
       txtNombre.clear();
@@ -220,15 +207,9 @@ public class ModificarUsuarioFormController {
       alert.showAndWait();
    }
 
-
    @FXML
    private void handleCancelarButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnCancelar.getScene().getWindow();
       stage.close();
    }
-
-
 }
-
-
-
