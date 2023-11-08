@@ -1,7 +1,7 @@
 package com.e.registrifyv1.Controladores.Usuario;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
-import com.e.registrifyv1.Modelos.Unidad.UnidadModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -158,10 +158,10 @@ public class AgregarUsuarioFormController implements Initializable {
          ObservableList<String> rangoList = FXCollections.observableArrayList("Cabo Primero", "Sargento", "Suboficial Principal", "Oficial Principal");
          comboRango.setItems(rangoList);
 
-         List<UnidadModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+         List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
          ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
 
-         for (UnidadModel unidad : unidades) {
+         for (UnidadMenuModel unidad : unidades) {
             idUnidad = unidad.getIdUnidad();
             unidadesNombres.add(unidad.getNombreUnidad());
          }

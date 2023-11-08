@@ -1,6 +1,6 @@
 package com.e.registrifyv1.Dao;
 
-import com.e.registrifyv1.Modelos.Unidad.UnidadModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
@@ -108,8 +108,51 @@ public class UsuarioDAO {
       return usuarios;
    }
 
-   public  List<UnidadModel> obtenerOpcionesUnidad() throws SQLException {
-      List<UnidadModel> opcionesUnidad = new ArrayList<>();
+   public ObservableList<UsuarioModel> buscarUsuariosActivos(String valor) {
+      ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT * FROM USUARIO WHERE LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?) AND ESTADO = 1";
+         statement = connection.prepareStatement(query);
+         statement.setString(1, valor);
+         statement.setString(2, "%" + valor + "%");
+         statement.setString(3, "%" + valor + "%");
+         statement.setString(4, valor);
+         resultSet = statement.executeQuery();
+
+         while (resultSet.next()) {
+            int idGendarme = resultSet.getInt("ID_GENDARME");
+            int idUnidad = resultSet.getInt("ID_UNIDAD");
+            int idRol = resultSet.getInt("ID_ROL");
+            String nombre = resultSet.getString("NOMBRE");
+            String apellido = resultSet.getString("APELLIDO");
+            int dni = resultSet.getInt("DNI");
+            String username = resultSet.getString("USERNAME");
+            String rango = resultSet.getString("RANGO");
+            String area = resultSet.getString("AREA");
+            byte[] password = resultSet.getBytes("PASSWORD");
+            int estado = resultSet.getInt("ESTADO");
+            String observaciones = resultSet.getString("OBSERVACIONES");
+
+            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
+            usuarios.add(usuario);
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return usuarios;
+   }
+
+   public List<UnidadMenuModel> obtenerOpcionesUnidad() throws SQLException {
+      List<UnidadMenuModel> opcionesUnidad = new ArrayList<>();
 
       Connection connection = null;
       PreparedStatement statement = null;
@@ -126,7 +169,7 @@ public class UsuarioDAO {
             String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
             String ubicacion = resultSet.getString("UBICACION");
 
-            UnidadModel unidad = new UnidadModel(idUnidad, nombreUnidad, ubicacion);
+            UnidadMenuModel unidad = new UnidadMenuModel(idUnidad, nombreUnidad, ubicacion);
             opcionesUnidad.add(unidad);
          }
       } catch (SQLException e) {
@@ -196,9 +239,8 @@ public class UsuarioDAO {
          return false;
       } finally {
          closeResources(connection, statement, null);
-      }
    }
-
+}
 
    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
       try {
@@ -217,4 +259,6 @@ public class UsuarioDAO {
          e.printStackTrace();
       }
    }
+
+
 }
