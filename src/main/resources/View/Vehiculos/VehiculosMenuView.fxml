@@ -111,14 +111,14 @@
             <children>
                 <TableView fx:id="tablaMenuVehiculo" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/VehiculoMenu.css" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="nombreCol" prefWidth="75.0" text="Patente" />
-                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" text="Encargado" />
-                        <TableColumn fx:id="dniCol" prefWidth="75.0" text="Gastos" />
-                        <TableColumn fx:id="rangoCol" prefWidth="75.0" text="Estado " />
-                        <TableColumn fx:id="usernameCol" prefWidth="75.0" text="Ultimo Uso" />
-                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" text="Observaciones" />
-                        <TableColumn fx:id="rolCol" prefWidth="75.0" text="---" />
+                        <TableColumn fx:id="idCol" prefWidth="75.0" text="ID-Vehiculo" />
+                        <TableColumn fx:id="nombreCol" prefWidth="75.0" text="ID-Unidad" />
+                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" text="Id-Gendarme" />
+                        <TableColumn fx:id="dniCol" prefWidth="75.0" text="Tipo-Vehiculo" />
+                        <TableColumn fx:id="rangoCol" prefWidth="75.0" text="Marca-Vehiculo" />
+                        <TableColumn fx:id="usernameCol" prefWidth="75.0" text="Modelo" />
+                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" text="Kilometraje" />
+                        <TableColumn fx:id="rolCol" prefWidth="75.0" text="Patente" />
                         <TableColumn fx:id="estadoCol" prefWidth="75.0" text="----" />
                     </columns>
                     <columnResizePolicy>
