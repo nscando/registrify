@@ -27,7 +27,7 @@ public class AgregarUnidadController implements Initializable {
     @FXML
     private TextField txtUbicacionUnidad;
 
-    private UnidadDAO unidadDAO;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

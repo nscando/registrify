@@ -211,6 +211,37 @@ public class UsuarioDAO {
       }
    }
 
+   public boolean actualizarUsuario(UsuarioModel usuario) {
+      Connection connection = null;
+      PreparedStatement statement = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "UPDATE USUARIO SET ID_UNIDAD=?, ID_ROL=?, NOMBRE=?, APELLIDO=?, DNI=?, USERNAME=?, RANGO=?, AREA=?, PASSWORD=?, ESTADO=?, OBSERVACIONES=? WHERE ID_GENDARME=?";
+         statement = connection.prepareStatement(query);
+         statement.setInt(1, usuario.getIdUnidad());
+         statement.setInt(2, usuario.getIdRol());
+         statement.setString(3, usuario.getNombre());
+         statement.setString(4, usuario.getApellido());
+         statement.setInt(5, usuario.getDni());
+         statement.setString(6, usuario.getUsername());
+         statement.setString(7, usuario.getRango());
+         statement.setString(8, usuario.getArea());
+         statement.setBytes(9, usuario.getPassword());
+         statement.setInt(10, usuario.getEstado());
+         statement.setString(11, usuario.getObservaciones());
+         statement.setInt(12, usuario.getIdGendarme());
+
+         int rowsAffected = statement.executeUpdate();
+         return rowsAffected > 0;
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return false;
+      } finally {
+         closeResources(connection, statement, null);
+   }
+}
+
    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
       try {
          if (resultSet != null) {
@@ -228,4 +259,6 @@ public class UsuarioDAO {
          e.printStackTrace();
       }
    }
+
+
 }
