@@ -83,6 +83,7 @@ public class UsuariosMenuController {
       stage.close();
    }
 
+
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
