@@ -29,7 +29,7 @@
                         <Insets bottom="30.0" />
                     </VBox.margin>
                     <graphic>
-                        <FontAwesomeIconView fill="#c9ebf9" glyphName="BOOK" />
+                        <FontAwesomeIconView fill="#c9ebf9" glyphName="CALENDAR" />
                     </graphic>
                 </Label>
                 <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="BUSQUEDA" textFill="#d9d9d9">

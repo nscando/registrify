@@ -1,0 +1,80 @@
+.button {
+    -fx-background-color:  #473ba1; /* Azul principal */
+}
+
+.button:hover {
+    -fx-background-color: #2980b9; /* Azul más claro al pasar el mouse */
+}
+
+.button:pressed {
+    -fx-background-color: #1f618d; /* Azul más oscuro al hacer clic */
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-cell-size: 20;
+    -fx-background-color: #3498db; /* Azul para los encabezados de columna */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .cell {
+    -fx-cell-size: 30;
+    -fx-alignment: center-left;
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #85c1e9; /* Azul seleccionado para las filas */
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+/* scroll bar starts here */
+
+/* The increment and decrement button CSS class of scrollbar */
+.table-view .increment-button, .table-view .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+/* The main scrollbar **track** CSS class  */
+.table-view .scroll-bar:horizontal .track,
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: #3498db; /* Azul para el riel del scrollbar */
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #85c1e9; /* Azul para el thumb del scrollbar */
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+/* chart properties   #3498db*/
+
+.chart {
+    -fx-padding: 10px;
+    -fx-background-color: transparent;
+    -fx-legend-visible: false;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-pie {
+    -fx-border-color: #3498db; /* Azul para el borde del gráfico de pastel */
+    -fx-border-width: 0px;
+}

@@ -57,6 +57,10 @@ public class MenuPrincipalController implements Initializable {
       if(actionEvent.getSource() == btnEventosDiarios){
          loadStage("/View/EventoDiario/EventoDiarioView.fxml", "Menu Evento");
       }
+
+      if(actionEvent.getSource() == btnInventario){
+         loadStage("/View/Inventario/InventarioMenuView.fxml", "Menu Inventario");
+      }
    }
 
 

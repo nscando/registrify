@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores.Vehiculos;
+package com.e.registrifyv1.Controladores.Inventario;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class VehiculosMenuController {
+public class InventarioMenuController {
     @FXML
     private Button btnSalir;
     @FXML
@@ -26,19 +26,5 @@ public class VehiculosMenuController {
         Stage stage = (Stage) btnSalir.getScene().getWindow();
         stage.close();
     }
-
-    @FXML
-    public void menuAgregarVehiculo(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/AgregarVehiculoForm.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Agregar Vehiculo");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
+
