@@ -242,6 +242,27 @@ public class UsuarioDAO {
    }
 }
 
+   public boolean bajaUsuario(int idUsuario) {
+      Connection connection = null;
+      PreparedStatement statement = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "UPDATE USUARIO SET ESTADO=? WHERE ID_GENDARME=?";
+         statement = connection.prepareStatement(query);
+         statement.setInt(1, 0);  // Establece el estado a 0 (dar de baja)
+         statement.setInt(2, idUsuario);  // Utiliza el ID del usuario que deseas dar de baja
+
+         int rowsAffected = statement.executeUpdate();
+         return rowsAffected > 0;
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return false;
+      } finally {
+         closeResources(connection, statement, null);
+      }
+   }
+
    private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
       try {
          if (resultSet != null) {

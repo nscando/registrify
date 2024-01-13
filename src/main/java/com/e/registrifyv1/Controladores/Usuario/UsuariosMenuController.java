@@ -14,11 +14,15 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class UsuariosMenuController {
 
    @FXML
    private Button btnSalir;
+
+   @FXML
+   private Button btnBaja;
    @FXML
    private TableView<UsuarioModel> tablaMenuUsuario;
    @FXML
@@ -160,9 +164,70 @@ public class UsuariosMenuController {
       }
    }
 
-   public void setTablaMenuUsuario(TableView<UsuarioModel> tablaMenuUsuario) {
-      this.tablaMenuUsuario = tablaMenuUsuario;
+
+   @FXML
+   private void handleBtnBajaClick(ActionEvent event) {
+      // Obtén el usuario que se dará de baja (puedes obtenerlo de la tabla o de donde sea necesario)
+      UsuarioModel usuarioSeleccionado = obtenerUsuarioSeleccionado();
+
+      // Verifica si el usuario seleccionado no es nulo
+      if (usuarioSeleccionado != null) {
+         // Muestra el primer alert de advertencia
+         Alert alert = new Alert(Alert.AlertType.WARNING);
+         alert.setTitle("Advertencia");
+         alert.setHeaderText("¡Atención!");
+         alert.setContentText("Estás a punto de dar de baja a un usuario. ¿Estás seguro?");
+         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+         Alert alert1 = new Alert(Alert.AlertType.WARNING);
+         alert1.setTitle("Advertencia");
+         alert1.setHeaderText("¡Atención!");
+         alert1.setContentText("Entendes los riesgos de dar la BAJA de un USUARIO?. ¿Estás seguro?");
+         alert1.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+         // Espera a la respuesta del primer alert
+         Optional<ButtonType> result1 = alert.showAndWait();
+         Optional<ButtonType> result2 = alert1.showAndWait();
+
+         // Si se hace clic en "Sí" en el primer alert
+         if (result1.isPresent() && result1.get() == ButtonType.YES) {
+            // Utiliza el método de bajaUsuario de UsuarioDAO
+            boolean bajaExitosa = usuarioDAO.bajaUsuario(usuarioSeleccionado.getIdGendarme());
+
+            // Muestra el segundo alert de confirmación
+            if (bajaExitosa) {
+               Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
+               alert2.setTitle("Confirmación");
+               alert2.setHeaderText("¡Usuario dado de baja correctamente!");
+               alert2.show();
+               actualizarTableView();
+               // Realiza acciones adicionales después de dar de baja si es necesario
+               // ...
+            } else {
+               // Maneja el caso en que la baja no fue exitosa
+               Alert alertError = new Alert(Alert.AlertType.ERROR);
+               alertError.setTitle("Error");
+               alertError.setHeaderText("Error al dar de baja");
+               alertError.setContentText("Hubo un problema al dar de baja al usuario.");
+               alertError.show();
+            }
+         }
+      } else {
+         // Maneja el caso en que no se ha seleccionado ningún usuario para dar de baja
+         Alert alertError = new Alert(Alert.AlertType.ERROR);
+         alertError.setTitle("Error");
+         alertError.setHeaderText("Error al dar de baja");
+         alertError.setContentText("Selecciona un usuario antes de dar de baja.");
+         alertError.show();
+      }
    }
+
+   // Método para obtener el usuario seleccionado (ajústalo según tu lógica)
+   private UsuarioModel obtenerUsuarioSeleccionado() {
+      // Lógica para obtener el usuario seleccionado
+      return tablaMenuUsuario.getSelectionModel().getSelectedItem();
+   }
+
 
    public void actualizarTableView() {
       String valorBusqueda = txtFieldMenuUsuario.getText();
