@@ -156,9 +156,10 @@
                         </TextField>
                         <Button fx:id="btnBuscarUsuarioMenu" mnemonicParsing="false" onAction="#btBuscarAction"
                                 prefHeight="31.0" prefWidth="138.0"
-                                style="-fx-background-color: #176ba9; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;"
+                                style="-fx-background-color: #176ba9;
+                                -fx-background-radius: 20 20 20 20;
+                                -fx-cursor: hand;"
                                 text="Buscar" textFill="#d9d9d9">
-
                             <font>
                                 <Font name="System Bold" size="14.0"/>
                             </font>
@@ -172,7 +173,8 @@
                 </HBox>
             </children>
         </GridPane>
-        <Pane layoutX="200.0" prefHeight="105.0" prefWidth="882.0" style="-fx-background-color: #176ba9;"
+        <Pane layoutX="200.0" prefHeight="105.0" prefWidth="882.0"
+              style="-fx-background-color: #176ba9;"
               stylesheets="@../../Styles/UsuarioMenu.css" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Label layoutX="49.0" layoutY="37.0" text="BUSQUEDA" textFill="#d9d9d9">
