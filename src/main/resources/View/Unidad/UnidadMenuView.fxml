@@ -6,155 +6,173 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="670.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Unidad.UnidadMenuController">
-   <children>
-      <VBox layoutX="-1.0" prefHeight="670.0" prefWidth="280.0" style="-fx-background-color: #6b3fa0; -fx-background-radius: 0 0 80 0;">
-         <children>
-            <Label alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="217.0" text="REGISTRIFY" textFill="WHITE">
-               <padding>
-                  <Insets left="100.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="60.0" prefWidth="226.0" text="Menu unidades" textFill="LAVENDER">
-               <VBox.margin>
-                  <Insets bottom="30.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" left="100.0" top="20.0" />
-               </padding>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Button fx:id="nuevaUnidad" mnemonicParsing="false" onAction="#menuAgregarUnidad" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="NUEVA UNIDAD" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="BUSCAR UNIDAD" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="MODIFICAR UNIDAD" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="BAJA UNIDAD" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="CONFIGURACION" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/UnidadMenu.css" text="SALIR" textFill="LAVENDER">
-               <graphic>
-                  <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
-               </graphic>
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <GridPane layoutX="281.0" layoutY="191.0" prefHeight="454.0" prefWidth="882.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="152.60001220703126" minHeight="2.1999877929687557" prefHeight="51.4000244140625" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="418.3999816894531" minHeight="10.0" prefHeight="390.5999755859375" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TableView fx:id="tablaMenuUnidad" prefHeight="410.0" prefWidth="902.0"
-                       style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
-              <columns>
-                <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID" />
-                  <TableColumn fx:id="nombreUnidadColum" prefWidth="200.0" text="NOMBRE DE UNIDAD" />
-                  <TableColumn fx:id="ubicacionUnidadColum" prefWidth="200.0" text="UBICACIÓN" />
-              </columns>
-            </TableView>
-            <HBox prefHeight="25.0" prefWidth="890.0" style="-fx-background-color: #cec8e9;">
-               <children>
-                  <TextField fx:id="txtFieldMenuUnidad" prefHeight="36.0" prefWidth="719.0"
-                             promptText="Ingrese datos para realizar la busqueda...."
-                             style="-fx-background-radius: 20 20 20 20;">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </TextField>
-                  <Button
-                          fx:id="btnBuscarUnidadMenu" mnemonicParsing="false" onAction="#btnBuscarUnidadAction"
-                          prefHeight="31.0" prefWidth="157.0" style="-fx-background-radius: 20;-fx-cursor: hand;"
-                          stylesheets="@../../Styles/UnidadMenu.css"
-                          text="BUSCAR" textFill="LAVENDER">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
-                     </graphic>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-         </children>
-      </GridPane>
-      <Pane layoutX="282.0" prefHeight="192.0" prefWidth="882.0" style="-fx-background-color: #cec8e9;" AnchorPane.leftAnchor="282.0">
-         <children>
-            <Label layoutX="47.0" layoutY="49.0" text="MENU/BUSQUEDA" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="47.0" layoutY="86.0" text="BUSQUEDA" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="36.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="1080.0" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.e.registrifyv1.Controladores.Unidad.UnidadMenuController">
+   <VBox prefHeight="600.0" prefWidth="200.0"
+         style="-fx-background-color: #6b3fa0; -fx-background-radius: 0 0 80 0;" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.topAnchor="0.0">
+      <children>
+         <Label alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="200.0" text="REGISTRIFY" textFill="#d9d9d9">
+            <padding>
+               <Insets left="20.0"/>
+            </padding>
+            <font>
+               <Font name="Fira Code Light" size="16.0"/>
+            </font>
+         </Label>
+         <Label prefHeight="40.0" prefWidth="200.0" text="MENU UNIDADES" textFill="LAVENDER">
+            <VBox.margin>
+               <Insets bottom="20.0" left="20.0"/>
+            </VBox.margin>
+            <padding>
+               <Insets bottom="20.0" left="10.0" top="20.0"/>
+            </padding>
+            <font>
+               <Font size="12.0"/>
+            </font>
+            <VBox.margin>
+               <Insets bottom="30.0"/>
+            </VBox.margin>
+            <graphic>
+               <FontAwesomeIconView fill="#c9ebf9" glyphName="FOLDER"/>
+            </graphic>
+         </Label>
+         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+                 stylesheets="@../../Styles/UnidadMenu.css" text="BUSQUEDA" textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font  size="15.0"/>
+            </font>
+         </Button>
+         <Button fx:id="nuevaUnidad" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarUnidad" prefHeight="50.0"
+                 prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UnidadMenu.css"
+                 text="NUEVA" textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font size="15.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+                 stylesheets="@../../Styles/UnidadMenu.css" text="MODIFICAR" textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+                 stylesheets="@../../Styles/UnidadMenu.css" text="BAJA UNIDAD" textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+                 stylesheets="@../../Styles/UnidadMenu.css" text="CONFIGURACION" textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+         <Button fx:id="btnSalir" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0"
+                 prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UnidadMenu.css" text="SALIR"
+                 textFill="LAVENDER">
+            <graphic>
+               <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0"/>
+            </graphic>
+            <padding>
+               <Insets left="30.0"/>
+            </padding>
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+      </children>
+   </VBox>
+   <GridPane layoutX="209.0" layoutY="117.0" prefHeight="472.0" prefWidth="864.0">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="221.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="424.0" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <children>
+         <TableView fx:id="tablaMenuUnidad" prefHeight="200.0" prefWidth="200.0"
+                    style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
+            <columns>
+               <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID"/>
+               <TableColumn fx:id="nombreUnidadColum" prefWidth="200.0" text="NOMBRE DE UNIDAD"/>
+               <TableColumn fx:id="ubicacionUnidadColum" prefWidth="200.0" text="UBICACIÓN"/>
+            </columns>
+         </TableView>
+         <HBox prefHeight="25.0" prefWidth="890.0" style="-fx-background-color: #9c8fb3;">
+            <children>
+               <TextField fx:id="txtFieldMenuUnidad" prefHeight="32.0" prefWidth="526.0"
+                          promptText="Ingrese datos para realizar la busqueda...."
+                          style="-fx-background-radius: 20 20 20 20;">
+                  <HBox.margin>
+                     <Insets right="5.0"/>
+                  </HBox.margin>
+               </TextField>
+               <Button
+                       fx:id="btnBuscarUnidadMenu" mnemonicParsing="false" onAction="#btnBuscarUnidadAction"
+                       prefHeight="31.0" prefWidth="138.0" style="-fx-background-radius: 20;-fx-cursor: hand;"
+                       stylesheets="@../../Styles/UnidadMenu.css"
+                       text="Buscar" textFill="LAVENDER">
+                  <font>
+                     <Font name="System Bold" size="14.0"/>
+                  </font>
+                  <graphic>
+                     <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="13.0"/>
+                  </graphic>
+               </Button>
+            </children>
+            <padding>
+               <Insets top="10.0"/>
+            </padding>
+         </HBox>
+      </children>
+   </GridPane>
+   <Pane layoutX="200.0" prefHeight="105.0" prefWidth="882.0" style="-fx-background-color: #9c8fb3;"
+         AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
+      <children>
+         <Label layoutX="49.0" layoutY="37.0" text="BUSQUEDA" textFill="#d9d9d9">
+            <font>
+               <Font name="System Bold" size="36.0"/>
+            </font>
+         </Label>
+         <Label layoutX="47.0" layoutY="86.0" text="/UNIDADES/BUSQUEDA" textFill="#d9d9d9">
+            <font>
+               <Font name="System Bold" size="12.0"/>
+            </font>
+         </Label>
+      </children>
+   </Pane>
 </AnchorPane>

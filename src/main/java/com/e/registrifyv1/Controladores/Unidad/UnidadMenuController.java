@@ -1,7 +1,9 @@
 package com.e.registrifyv1.Controladores.Unidad;
 
+import com.e.registrifyv1.Controladores.Usuario.ModificarUsuarioFormController;
 import com.e.registrifyv1.Dao.UnidadDAO;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -126,12 +128,6 @@ public class UnidadMenuController{
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
 
 
 }

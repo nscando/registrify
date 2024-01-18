@@ -6,41 +6,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Arma.ArmaMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.e.registrifyv1.Controladores.Arma.ArmaMenuController">
     <children>
-        <VBox layoutX="-1.0" prefHeight="670.0" prefWidth="280.0" style="-fx-background-color: #990000; -fx-background-radius: 0 0 80 0;">
+        <VBox prefHeight="600.0" prefWidth="200.0"
+              style="-fx-background-color: #990000; -fx-background-radius: 0 0 80 0;" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
-                <Label alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="279.0" text="REGISTRIFY" textFill="WHITE">
+                <Label alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="200.0" text="REGISTRIFY" textFill="WHITE">
                     <padding>
-                        <Insets left="100.0" />
+                        <Insets left="20.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="Fira Code Light" size="16.0"/>
                     </font>
                 </Label>
-                <Label prefHeight="60.0" prefWidth="284.0" text="Menu Armas" textFill="LAVENDER">
+                <Label alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="200.0" text="MENU ARMAS" textFill="LAVENDER">
                     <VBox.margin>
                         <Insets bottom="30.0" />
                     </VBox.margin>
                     <padding>
-                        <Insets bottom="20.0" left="100.0" top="20.0" />
+                        <Insets bottom="20.0" left="20.0"/>
                     </padding>
                     <font>
-                        <Font size="14.0" />
+                        <Font size="12.0" />
                     </font>
-                </Label>
-                <Button fx:id="nuevaArma" mnemonicParsing="false" onAction="#menuArma" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="NUEVA ARMA" textFill="LAVENDER">
                     <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
+                        <FontAwesomeIconView fill="#c9ebf9" glyphName="SHIELD"/>
                     </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font name="System Bold" size="16.0" />
-                    </font>
-                </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="BUSCAR ARMA" textFill="LAVENDER">
+                </Label>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0"
+                        mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="BUSCAR" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
                     </graphic>
@@ -48,10 +48,28 @@
                         <Insets left="30.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="MODIFICAR ARMA" textFill="LAVENDER">
+                <Button fx:id="nuevaArma" alignment="BASELINE_LEFT" graphicTextGap="10.0"
+                        mnemonicParsing="false" onAction="#menuArma" prefHeight="50.0"
+                        prefWidth="200.0" stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="NUEVA" textFill="LAVENDER">
+                    <graphic>
+                        <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
+                    </graphic>
+                    <padding>
+                        <Insets left="30.0" />
+                    </padding>
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Button>
+
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="MODIFICAR" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0" />
                     </graphic>
@@ -59,10 +77,13 @@
                         <Insets left="30.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="ELIMINAR ARMA" textFill="LAVENDER">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="ELIMINAR" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
                     </graphic>
@@ -70,10 +91,13 @@
                         <Insets left="30.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="CONFIGURACION" textFill="LAVENDER">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="CONFIGURACION" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
                     </graphic>
@@ -81,10 +105,13 @@
                         <Insets left="30.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="275.0" stylesheets="@../../Styles/ArmaMenu.css" text="SALIR" textFill="LAVENDER">
+                <Button fx:id="btnSalir" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
+                        onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
+                        text="SALIR" textFill="LAVENDER">
                     <graphic>
                         <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
                     </graphic>
@@ -92,43 +119,51 @@
                         <Insets left="30.0" />
                     </padding>
                     <font>
-                        <Font name="System Bold" size="16.0" />
+                        <Font size="15.0" />
                     </font>
                 </Button>
             </children>
         </VBox>
-        <GridPane layoutX="281.0" layoutY="191.0" prefHeight="454.0" prefWidth="882.0">
+        <GridPane layoutX="209.0" layoutY="117.0" prefHeight="472.0" prefWidth="864.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="152.60001220703126" minHeight="2.1999877929687557" prefHeight="51.4000244140625" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="418.3999816894531" minHeight="10.0" prefHeight="390.5999755859375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="221.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="424.0" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <TableView prefHeight="410.0" prefWidth="902.0" style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
+                <TableView prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="ID" />
-                        <TableColumn minWidth="4.0" prefWidth="270.4" text="NUMERO DE SERIE" />
-                        <TableColumn prefWidth="140.0" text="NOMBRE DE UNIDAD" />
-                        <TableColumn minWidth="7.99993896484375" prefWidth="151.199951171875" text="MARCA DE LA PISTOLA" />
-                        <TableColumn prefWidth="130.39996337890625" text="GENDARME" />
-                        <TableColumn prefWidth="113.60003662109375" text="TIPO DE ARMA" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="ID" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Numero de serie" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Nombre de unidad" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Marca de pistola" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Gendarme" />
+                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Observaciones" />
                     </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
                 </TableView>
-                <HBox prefHeight="25.0" prefWidth="890.0" style="-fx-background-color: #990000;">
+                <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="864.0">
                     <children>
-                        <TextField prefHeight="36.0" prefWidth="719.0" promptText="Ingrese datos para realizar la busqueda...." style="-fx-background-radius: 20 20 20 20;">
+                        <TextField prefHeight="32.0" prefWidth="526.0"
+                                   promptText="Ingrese datos para realizar la busqueda...."
+                                   style="-fx-background-radius: 20 20 20 20;" styleClass="text-info">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="157.0" style="-fx-background-radius: 20;" stylesheets="@../../Styles/ArmaMenu.css" text="BUSCAR" textFill="LAVENDER">
+                        <Button mnemonicParsing="false"
+                                prefHeight="31.0" prefWidth="138.0"
+                                style="-fx-background-color: #990000;
+                                -fx-background-radius: 20 20 20 20;
+                                -fx-cursor: hand;"
+                                stylesheets="@../../Styles/ArmaMenu.css"
+                                text="Buscar" textFill="#d9d9d9">
                             <graphic>
-                                <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
-                            </graphic>
-                            <graphic>
-                                <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
+                                <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="13.0" />
                             </graphic>
                             <font>
                                 <Font name="System Bold" size="14.0" />
@@ -141,16 +176,18 @@
                 </HBox>
             </children>
         </GridPane>
-        <Pane layoutX="282.0" prefHeight="192.0" prefWidth="882.0" style="-fx-background-color: #FFB6C1;" AnchorPane.leftAnchor="282.0">
+        <Pane layoutX="200.0" prefHeight="105.0" prefWidth="882.0"
+              style="-fx-background-color: #FFB6C1;"
+              AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <Label layoutX="47.0" layoutY="49.0" text="MENU/BUSQUEDA" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font>
-                </Label>
-                <Label layoutX="47.0" layoutY="86.0" text="BUSQUEDA" textFill="WHITE">
+                <Label layoutX="49.0" layoutY="49.0" text="BUSQUEDA" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+                <Label layoutX="51.0" layoutY="17.0" text="/ARMAS/BUSQUEDA" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
             </children>
