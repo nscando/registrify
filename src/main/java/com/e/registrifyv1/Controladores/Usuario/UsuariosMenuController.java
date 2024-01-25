@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores.Usuario;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import com.e.registrifyv1.Utiles.ReporteUtil;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +13,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class UsuariosMenuController {
@@ -229,6 +236,47 @@ public class UsuariosMenuController {
       return tablaMenuUsuario.getSelectionModel().getSelectedItem();
    }
 
+   @FXML
+   private void handleGenerarReporte(ActionEvent event) {
+      try {
+         // Obtén la lista actual de usuarios en la TableView
+         ObservableList<UsuarioModel> usuarios = tablaMenuUsuario.getItems();
+
+         // Cargar el diseño del informe desde un archivo jrxml
+         // Cambia la ruta según la ubicación real de tu archivo de diseño
+         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report.jrxml");
+         JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+         // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
+         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(usuarios);
+
+         // Parámetros del informe (puedes agregar más según tus necesidades)
+         Map<String, Object> parameters = new HashMap<>();
+         parameters.put("UsuarioDataSource", dataSource);
+
+         // Compilar y llenar el informe con los datos
+         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+         // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
+         String pdfFileName = "src/main/resources/ReportesGenerados/registrify_report.pdf";
+         JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
+
+         // Muestra un mensaje de éxito
+         mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
+      } catch (JRException e) {
+         e.printStackTrace();
+         // Muestra un mensaje de error
+         mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
+      }
+   }
+
+   private void mostrarAlerta(Alert.AlertType alertType, String title, String headerText, String contentText) {
+      Alert alert = new Alert(alertType);
+      alert.setTitle(title);
+      alert.setHeaderText(headerText);
+      alert.setContentText(contentText);
+      alert.showAndWait();
+   }
 
    public void actualizarTableView() {
       String valorBusqueda = txtFieldMenuUsuario.getText();
