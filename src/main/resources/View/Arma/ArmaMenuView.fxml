@@ -52,7 +52,7 @@
                     </font>
                 </Button>
                 <Button fx:id="nuevaArma" alignment="BASELINE_LEFT" graphicTextGap="10.0"
-                        mnemonicParsing="false" onAction="#menuArma" prefHeight="50.0"
+                        mnemonicParsing="false" onAction="#menuAgregarArma" prefHeight="50.0"
                         prefWidth="200.0" stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="NUEVA" textFill="LAVENDER">
                     <graphic>
@@ -133,14 +133,18 @@
                 <RowConstraints maxHeight="424.0" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <TableView prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
+                <TableView
+                        fx:id="tablaMenuArmas"
+                        prefHeight="200.0" prefWidth="200.0"
+                        style="-fx-background-radius: 0 0 20 20;"
+                        GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="ID" />
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Numero de serie" />
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Nombre de unidad" />
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Marca de pistola" />
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Gendarme" />
-                        <TableColumn minWidth="4.0" prefWidth="75.0" text="Observaciones" />
+                        <TableColumn fx:id="idArmaColum" minWidth="4.0" prefWidth="75.0" text="Id Arma" />
+                        <TableColumn fx:id="idGendarmeColum" minWidth="4.0" prefWidth="75.0" text="Id Gendarme" />
+                        <TableColumn fx:id="idUnidadColum" minWidth="4.0" prefWidth="75.0" text="Id Unidad" />
+                        <TableColumn fx:id="marcaArmaColum" minWidth="4.0" prefWidth="75.0" text="Marca de pistola" />
+                        <TableColumn fx:id="tipoArmaColum" minWidth="4.0" prefWidth="75.0" text="Tipo de arma" />
+                        <TableColumn fx:id="numeroSerieArmaColum" minWidth="4.0" prefWidth="75.0" text="Numero de Serie" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -148,14 +152,18 @@
                 </TableView>
                 <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="864.0">
                     <children>
-                        <TextField prefHeight="32.0" prefWidth="526.0"
-                                   promptText="Ingrese datos para realizar la busqueda...."
-                                   style="-fx-background-radius: 20 20 20 20;" styleClass="text-info">
+                        <TextField
+                                fx:id="txtFieldMenuArma"
+                                prefHeight="32.0" prefWidth="526.0"
+                                promptText="Ingrese datos para realizar la busqueda...."
+                                style="-fx-background-radius: 20 20 20 20;" styleClass="text-info">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button mnemonicParsing="false"
+                        <Button fx:id="btnBuscarArmaMenu"
+                                onAction="#btnBuscarArmaAction"
+                                mnemonicParsing="false"
                                 prefHeight="31.0" prefWidth="138.0"
                                 style="-fx-background-color: #990000;
                                 -fx-background-radius: 20 20 20 20;

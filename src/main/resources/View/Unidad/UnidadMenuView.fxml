@@ -51,7 +51,8 @@
                <Font  size="15.0"/>
             </font>
          </Button>
-         <Button fx:id="nuevaUnidad" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarUnidad" prefHeight="50.0"
+         <Button fx:id="nuevaUnidad" alignment="BASELINE_LEFT" graphicTextGap="10.0"
+                 mnemonicParsing="false" onAction="#menuAgregarUnidad" prefHeight="50.0"
                  prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UnidadMenu.css"
                  text="NUEVA" textFill="LAVENDER">
             <graphic>
@@ -142,8 +143,12 @@
                   </HBox.margin>
                </TextField>
                <Button
-                       fx:id="btnBuscarUnidadMenu" mnemonicParsing="false" onAction="#btnBuscarUnidadAction"
-                       prefHeight="31.0" prefWidth="138.0" style="-fx-background-radius: 20;-fx-cursor: hand;"
+                       fx:id="btnBuscarUnidadMenu"
+                       mnemonicParsing="false"
+                       onAction="#btnBuscarUnidadAction"
+                       prefHeight="31.0" prefWidth="138.0"
+                       style="-fx-background-radius: 20 20 20 20;
+                       -fx-cursor: hand;"
                        stylesheets="@../../Styles/UnidadMenu.css"
                        text="Buscar" textFill="LAVENDER">
                   <font>

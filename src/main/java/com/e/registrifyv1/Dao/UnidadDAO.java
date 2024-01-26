@@ -65,6 +65,7 @@ public class UnidadDAO {
 
         try {
             connection = dbConnection.getConexion();
+
             String query = "SELECT * FROM UNIDAD WHERE (LOWER(ID_UNIDAD) = LOWER(?) OR LOWER(NOMBRE_UNIDAD) LIKE LOWER(?) OR LOWER(UBICACION) LIKE LOWER(?))";
 
 
