@@ -65,7 +65,7 @@
                <Font size="15.0"/>
             </font>
          </Button>
-         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button alignment="BASELINE_LEFT" onAction="#handleModificarUnidadButtonAction" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="MODIFICAR" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0"/>

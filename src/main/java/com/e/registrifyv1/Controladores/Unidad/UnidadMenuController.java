@@ -42,8 +42,11 @@ public class UnidadMenuController{
     @FXML
     private void initialize() {
         unidadDAO = new UnidadDAO();
+        configurarColumnas();
         // Agregar evento de doble clic a la columna que deseas
+    }
 
+    private void configurarColumnas(){
         nombreUnidadColum.setCellFactory(tc -> {
             TableCell<UnidadMenuModel, String> cell = new TableCell<UnidadMenuModel, String>() {
                 @Override
@@ -126,6 +129,32 @@ public class UnidadMenuController{
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleModificarUnidadButtonAction(ActionEvent event) {
+        UnidadMenuModel unidadSeleccionada = tablaMenuUnidad.getSelectionModel().getSelectedItem();
+
+        if(unidadSeleccionada != null){
+            try {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Unidad/ModificarUnidadView.fxml"));
+                Parent root = (Parent) loader.load();
+                ModificarUnidadController controller = loader.getController();
+                controller.inicializarDatosModificacion(unidadSeleccionada);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al modificar la unidad");
+            alertError.setContentText("Selecciona una unidad antes de modificarla.");
+            alertError.show();
         }
     }
 

@@ -188,7 +188,8 @@ public class ArmaMenuController {
             alertError.setTitle("Error");
             alertError.setHeaderText("Error al dar de baja");
             alertError.setContentText("Selecciona un armamento antes de dar de baja.");
-            alertError.show();        }
+            alertError.show();
+        }
     }
 
     @FXML
