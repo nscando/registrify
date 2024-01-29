@@ -184,8 +184,11 @@ public class ArmaMenuController {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Porfavor, seleccione un armamento para modificar.");
-        }
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al dar de baja");
+            alertError.setContentText("Selecciona un armamento antes de dar de baja.");
+            alertError.show();        }
     }
 
     @FXML
