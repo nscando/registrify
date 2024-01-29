@@ -11,6 +11,7 @@ module com.e.registrifyv1 {
    requires net.synedra.validatorfx;
    requires org.kordamp.ikonli.javafx;
    requires org.kordamp.bootstrapfx.core;
+   requires jasperreports;
 
    opens com.e.registrifyv1 to javafx.fxml;
    exports com.e.registrifyv1;
@@ -30,5 +31,7 @@ module com.e.registrifyv1 {
    opens com.e.registrifyv1.Modelos.Unidad to javafx.base;
    exports com.e.registrifyv1.Controladores.Inventario;
    opens com.e.registrifyv1.Controladores.Inventario to javafx.fxml;
+   opens com.e.registrifyv1.Modelos.Arma to javafx.base;
+
 
 }

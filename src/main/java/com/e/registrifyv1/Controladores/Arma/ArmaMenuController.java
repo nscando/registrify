@@ -1,9 +1,7 @@
 package com.e.registrifyv1.Controladores.Arma;
 
 import com.e.registrifyv1.Dao.ArmaDAO;
-import com.e.registrifyv1.Dao.UnidadDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
-import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,30 +54,33 @@ public class ArmaMenuController {
     @FXML
     private void initialize() {
         armaDAO = new ArmaDAO();
+        configurarColumnas();
 
-        // Agregar evento de doble clic a la columna que deseas
-/*
-        nombreUnidadColum.setCellFactory(tc -> {
-            TableCell<UnidadMenuModel, String> cell = new TableCell<UnidadMenuModel, String>() {
+    }
+
+    private void configurarColumnas() {
+        idGendarmeColum.setCellFactory(tc -> {
+            TableCell<ArmaMenuModel, Integer> cell = new TableCell<ArmaMenuModel, Integer>() {
                 @Override
-                protected void updateItem(String item, boolean empty) {
+                protected void updateItem(Integer item, boolean empty) {
                     super.updateItem(item, empty);
-                    if (empty) {
-                        setText(null);
-                    } else {
-                        setText(item);
-                    }
+                    setText(empty ? null : item != null ? item.toString() : "");
                 }
             };
             cell.setOnMouseClicked(event -> {
                 if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                    UnidadMenuModel rowData = cell.getTableView().getItems().get(cell.getIndex());
-                    abrirFormularioModificarUnidad(rowData);
+                    ArmaMenuModel rowData = cell.getTableView().getItems().get(cell.getIndex());
+                    abrirFormularioModificarArma(rowData);
                 }
             });
             return cell;
         });
-        */
+
+        tablaMenuArmas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                abrirFormularioModificarArma(newValue);
+            }
+        });
     }
 
     @FXML
@@ -147,47 +148,48 @@ public class ArmaMenuController {
         }
     }
 
-
-/*
-    @FXML
-    public void handleConfirmarButton(ActionEvent event) {
-        int idUnidad = 0;
-
-        String nombreUnidad = txtNombreUnidad.getText();
-        String ubicacionUnidad = txtUbicacionUnidad.getText();
-
-        UnidadMenuModel nuevaUnidad = new UnidadMenuModel(idUnidad, nombreUnidad, ubicacionUnidad);
-
-        nuevaUnidad.setIdUnidad(idUnidad);
-        nuevaUnidad.setNombreUnidad(nombreUnidad);
-        nuevaUnidad.setUbicacionUnidad(ubicacionUnidad);
-
-        // Llamar al método insertarUsuario en UsuarioDAO
-        UnidadDAO unidadDAO1 = new UnidadDAO();
-        boolean exito = unidadDAO1.insertarUnidad(nuevaUnidad);
-
-        mostrarMensaje(exito);
-    }
-
-    private void mostrarMensaje(boolean exito) {
-        Alert alert = new Alert(exito ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
-        alert.setTitle(exito ? "Éxito" : "Error");
-        alert.setHeaderText(null);
-
-        if (exito) {
-            alert.setContentText("La unidad se insertó correctamente.");
-            txtNombreUnidad.clear();
-            txtUbicacionUnidad.clear();
-        } else {
-            alert.setContentText("No se pudo insertar la unidad.");
+    private void abrirFormularioModificarArma(ArmaMenuModel arma) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Arma/ModificarArmaView.fxml"));
+            Parent root = loader.load();
+            ModificarArmaController controller = loader.getController();
+            controller.setTablaMenuArma(tablaMenuArmas);
+            controller.setArmaMenuController(this);
+            controller.inicializarDatosModificacion(arma);
+            Stage stage = new Stage();
+            stage.setTitle("Modificar Arma");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        // Configurar el cuadro de diálogo para que sea siempre visible
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.setAlwaysOnTop(true);
-
-        alert.showAndWait();
     }
-    */
+
+    public void handleModificarUsuarioButtonAction(ActionEvent event) {
+        ArmaMenuModel armaSeleccionada = tablaMenuArmas.getSelectionModel().getSelectedItem();
+        if (armaSeleccionada != null) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Arma/ModificarArmaView.fxml"));
+                Parent root = (Parent) loader.load();
+                ModificarArmaController controller = loader.getController();
+                controller.inicializarDatosModificacion(armaSeleccionada);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Porfavor, seleccione un armamento para modificar.");
+        }
+    }
+
+    public void actualizarTableView() {
+        String valorBusqueda = txtFieldMenuArma.getText();
+        ObservableList<ArmaMenuModel> armas = armaDAO.buscarArma(valorBusqueda);
+        cargarArmasEnTableView(armas);
+    }
+
+
 
 }

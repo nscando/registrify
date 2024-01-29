@@ -114,4 +114,33 @@ public class ArmaDAO {
             e.printStackTrace();
         }
     }
+
+    public boolean actualizarArma(ArmaMenuModel arma) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+
+            String query = "UPDATE ARMA SET ID_GENDARME=?, ID_UNIDAD=?, MARCA_ARMA=?, TIPO_ARMA=?, NUMSERIE_ARMA=? WHERE ID_ARMA=?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, arma.getIdGendarme());
+            statement.setInt(2, arma.getIdUnidad());
+            statement.setString(3, arma.getMarcaArma());
+            statement.setString(4, arma.getTipoArma());
+            statement.setString(5, arma.getNumeroSerieArma());
+            statement.setInt(6, arma.getIdArma());
+
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
+
+    }
 }

@@ -64,7 +64,8 @@
                         <Font size="15.0"/>
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" onAction="#handleModificarUsuarioButtonAction"  graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0"
+                <Button alignment="BASELINE_LEFT" onAction="#handleModificarUsuarioButtonAction"  graphicTextGap="10.0"
+                        mnemonicParsing="false" prefHeight="50.0"
                         prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UsuarioMenu.css"
                         text="MODIFICAR" textFill="#d9d9d9">
                     <graphic>
