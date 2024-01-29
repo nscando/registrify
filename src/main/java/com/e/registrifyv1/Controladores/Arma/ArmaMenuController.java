@@ -78,11 +78,13 @@ public class ArmaMenuController {
             return cell;
         });
 
-        tablaMenuArmas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+/*
+            ESTA PARTE DEL CODIGO ES LA QUE ABRE EL MENU DE MODIFICAR EL USUARIO SIN QUE SE HAGA DOBLE CLICK.
+            tablaMenuArmas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 abrirFormularioModificarArma(newValue);
             }
-        });
+        });*/
     }
 
     @FXML
