@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores.Arma;
 
 import com.e.registrifyv1.Dao.ArmaDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class ArmaMenuController {
 
@@ -184,10 +186,69 @@ public class ArmaMenuController {
         }
     }
 
+    @FXML
+    private void handleBtnBajaClick(ActionEvent event) {
+        ArmaMenuModel armaSeleccionada = obtenerArmaSeleccionada();
+
+        if (armaSeleccionada != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText("¡Atención!");
+            alert.setContentText("Estás a punto de dar de baja un arma. ¿Estás seguro?");
+            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                try {
+                    boolean bajaExitosa = armaDAO.bajaArma(armaSeleccionada.getIdArma());
+
+                    if (bajaExitosa) {
+                        Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+                        alertConfirmacion.setTitle("Confirmación");
+                        alertConfirmacion.setHeaderText("¡Armamento dado de baja correctamente!");
+                        alertConfirmacion.show();
+                        actualizarTableView();
+                        // Realiza acciones adicionales después de dar de baja si es necesario
+                    } else {
+                        Alert alertError = new Alert(Alert.AlertType.ERROR);
+                        alertError.setTitle("Error");
+                        alertError.setHeaderText("Error al dar de baja");
+                        alertError.setContentText("Hubo un problema al dar de baja el armamento.");
+                        alertError.show();
+                    }
+                } catch (Exception e) {
+                    // Imprime la excepción en la consola
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al dar de baja");
+            alertError.setContentText("Selecciona un armamento antes de dar de baja.");
+            alertError.show();
+        }
+    }
+
+
+    private ArmaMenuModel obtenerArmaSeleccionada() {
+        // Lógica para obtener el armamento seleccionado
+        return tablaMenuArmas.getSelectionModel().getSelectedItem();
+    }
+
     public void actualizarTableView() {
         String valorBusqueda = txtFieldMenuArma.getText();
         ObservableList<ArmaMenuModel> armas = armaDAO.buscarArma(valorBusqueda);
         cargarArmasEnTableView(armas);
+    }
+
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 
 
