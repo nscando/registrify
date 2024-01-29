@@ -39,7 +39,7 @@
                <FontAwesomeIconView fill="#c9ebf9" glyphName="FOLDER"/>
             </graphic>
          </Label>
-         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button alignment="BASELINE_LEFT"  graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="BUSQUEDA" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0"/>
@@ -77,7 +77,7 @@
                <Font size="16.0"/>
             </font>
          </Button>
-         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button alignment="BASELINE_LEFT" onAction="#handleBtnBajaClick" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="BAJA UNIDAD" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0"/>

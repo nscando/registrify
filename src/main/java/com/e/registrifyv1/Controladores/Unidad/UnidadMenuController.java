@@ -1,9 +1,8 @@
 package com.e.registrifyv1.Controladores.Unidad;
 
-import com.e.registrifyv1.Controladores.Usuario.ModificarUsuarioFormController;
 import com.e.registrifyv1.Dao.UnidadDAO;
+import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
-import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +15,7 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+import java.util.Optional;
 
 
 public class UnidadMenuController{
@@ -134,7 +133,7 @@ public class UnidadMenuController{
 
     @FXML
     private void handleModificarUnidadButtonAction(ActionEvent event) {
-        UnidadMenuModel unidadSeleccionada = tablaMenuUnidad.getSelectionModel().getSelectedItem();
+        UnidadMenuModel unidadSeleccionada = obtenerUnidadSeleccionada();
 
         if(unidadSeleccionada != null){
             try {
@@ -156,6 +155,62 @@ public class UnidadMenuController{
             alertError.setContentText("Selecciona una unidad antes de modificarla.");
             alertError.show();
         }
+    }
+
+    @FXML
+    private void handleBtnBajaClick(ActionEvent event) {
+        UnidadMenuModel unidadSeleccionada = obtenerUnidadSeleccionada();
+
+        if (unidadSeleccionada != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText("¡Atención!");
+            alert.setContentText("Estás a punto de dar de baja la unodad. ¿Estás seguro?");
+            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                try {
+                    boolean bajaExitosa = unidadDAO.bajaUnidad(unidadSeleccionada.getIdUnidad());
+
+                    if (bajaExitosa) {
+                        Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+                        alertConfirmacion.setTitle("Confirmación");
+                        alertConfirmacion.setHeaderText("¡Unidad dada de baja correctamente!");
+                        alertConfirmacion.show();
+                        actualizarTableView();
+                        // Realiza acciones adicionales después de dar de baja si es necesario
+                    } else {
+                        Alert alertError = new Alert(Alert.AlertType.ERROR);
+                        alertError.setTitle("Error");
+                        alertError.setHeaderText("Error al dar de baja");
+                        alertError.setContentText("Hubo un problema al dar de baja la unidad.");
+                        alertError.show();
+                    }
+                } catch (Exception e) {
+                    // Imprime la excepción en la consola
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al dar de baja");
+            alertError.setContentText("Selecciona una unidad antes de dar de baja.");
+            alertError.show();
+        }
+    }
+
+    public void actualizarTableView() {
+        String valorBusqueda = txtFieldMenuUnidad.getText();
+        ObservableList<UnidadMenuModel> unidad = unidadDAO.buscarUnidad(valorBusqueda);
+        cargarUnidadesEnTableView(unidad);
+    }
+
+    private UnidadMenuModel obtenerUnidadSeleccionada() {
+        // Lógica para obtener la unidad seleccionado
+        return tablaMenuUnidad.getSelectionModel().getSelectedItem();
     }
 
 

@@ -158,5 +158,25 @@ public class UnidadDAO {
         }
     }
 
+    public boolean bajaUnidad(int idUnidad) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+            String query = "DELETE FROM UNIDAD WHERE ID_UNIDAD=?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, idUnidad);  // Establece el estado a 0 (dar de baja)
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
+    }
+
 
 }
