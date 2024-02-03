@@ -87,8 +87,7 @@ public class LoginController {
       UsuarioModel usuario = usuarioDAO.getUsuarioByUsernameAndPassword(username, password);
 
       if (usuario != null) {
-         // Aquí inicia la sesión con el usuario encontrado
-         Session.iniciarSesion(usuario); // <-- Agrega esta línea
+         Session.iniciarSesion(usuario);
 
          loginMensajeLabel.setText("Bienvenido a Registrify");
 
@@ -104,9 +103,6 @@ public class LoginController {
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal");
 
-            // Aquí puedes pasar la sesión al controlador del menú principal si es necesario
-            // MenuPrincipalController controller = loader.getController();
-            // controller.setUsuario(usuario);
 
             stage.show();
          } catch (Exception e) {

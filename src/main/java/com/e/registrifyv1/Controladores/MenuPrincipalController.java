@@ -100,7 +100,6 @@ public class MenuPrincipalController implements Initializable {
       } else if (event.getCode() == KeyCode.F5) {
          loadStage("/View/EventoDiario/EventoDiarioView.fxml", "Menu Evento");
       } else if (event.getCode() == KeyCode.F6) {
-         // Agregar aquí la lógica para la tecla F6 si es necesario
       }
    }
 

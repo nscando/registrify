@@ -22,7 +22,6 @@ public class Session {
       return usuarioLogueado;
    }
 
-   // Métodos adicionales para obtener datos específicos del usuario logueado
    public static int getIdRol() {
       if (isSesionIniciada()) {
          return usuarioLogueado.getIdRol();
