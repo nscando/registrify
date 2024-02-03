@@ -1,24 +1,29 @@
 package com.e.registrifyv1.Controladores;
 
+import com.e.registrifyv1.Utiles.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MenuPrincipalController implements Initializable {
 
    @FXML
    private Button btnArmas;
+
+   @FXML
+   private Label userNameLabel;
 
    @FXML
    private Button btnEventosDiarios;
@@ -35,6 +40,25 @@ public class MenuPrincipalController implements Initializable {
    @FXML
    private Button btnVehiculos;
 
+   @FXML
+   private MenuBar menuBar;
+
+
+
+
+   @Override
+   public void initialize(URL url, ResourceBundle resourceBundle) {
+      // Asignar eventos de teclado para las teclas F1-F6
+      btnUsuarios.setOnKeyPressed(this::handleFKey);
+      btnVehiculos.setOnKeyPressed(this::handleFKey);
+      btnUnidad.setOnKeyPressed(this::handleFKey);
+      btnArmas.setOnKeyPressed(this::handleFKey);
+      btnEventosDiarios.setOnKeyPressed(this::handleFKey);
+
+      if (Session.isSesionIniciada()) {
+         userNameLabel.setText(Session.getNombreUsuario() + " " + Session.getApellidoUsuario());
+      }
+   }
 
    @FXML
    private void handleButtonClick(ActionEvent actionEvent) {
@@ -64,16 +88,6 @@ public class MenuPrincipalController implements Initializable {
    }
 
 
-   @Override
-   public void initialize(URL url, ResourceBundle resourceBundle) {
-      // Asignar eventos de teclado para las teclas F1-F6
-      btnUsuarios.setOnKeyPressed(this::handleFKey);
-      btnVehiculos.setOnKeyPressed(this::handleFKey);
-      btnUnidad.setOnKeyPressed(this::handleFKey);
-      btnArmas.setOnKeyPressed(this::handleFKey);
-      btnEventosDiarios.setOnKeyPressed(this::handleFKey);
-   }
-
    private void handleFKey(KeyEvent event) {
       if (event.getCode() == KeyCode.F1) {
          loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
@@ -89,6 +103,41 @@ public class MenuPrincipalController implements Initializable {
          // Agregar aquí la lógica para la tecla F6 si es necesario
       }
    }
+
+   @FXML
+   private void cerrarSesion(ActionEvent event) {
+      // Crear el alert de confirmación
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cerrar sesión");
+      alert.setHeaderText(null);
+      alert.setContentText("¿Estás seguro de que deseas cerrar sesión?");
+
+      // Esperar la respuesta del usuario
+      Optional<ButtonType> result = alert.showAndWait();
+      if (((Optional<?>) result).isPresent() && result.get() == ButtonType.OK) {
+         // El usuario presionó OK, cerrar sesión
+         Session.cerrarSesion();
+
+         // Cierra la ventana del menú principal
+         Stage stageActual = (Stage) menuBar.getScene().getWindow();
+         stageActual.close();
+
+         // Abre la ventana de login
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+            stage.show();
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      } else {
+         // no se hace nada
+      }
+   }
+
 
    private void loadStage(String fxml, String title) {
       try {

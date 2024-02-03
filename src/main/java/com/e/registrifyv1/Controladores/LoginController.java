@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import com.e.registrifyv1.Utiles.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,10 +64,14 @@ public class LoginController {
       }
    }
    public void loginBtnAction(ActionEvent e) {
-      if (!usuarioTxtField.getText().isBlank() && !passwordTxtField.getText().isBlank()) {
-         validarLogin();
-      } else {
+      String usuario = usuarioTxtField.getText();
+      String password = passwordTxtField.getText();
+
+      // Verifica si alguno de los campos está vacío o contiene espacios en blanco
+      if (usuario.trim().isEmpty() || password.trim().isEmpty() || usuario.contains(" ") || password.contains(" ")) {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
+      } else {
+         validarLogin();
       }
    }
 
@@ -82,6 +87,9 @@ public class LoginController {
       UsuarioModel usuario = usuarioDAO.getUsuarioByUsernameAndPassword(username, password);
 
       if (usuario != null) {
+         // Aquí inicia la sesión con el usuario encontrado
+         Session.iniciarSesion(usuario); // <-- Agrega esta línea
+
          loginMensajeLabel.setText("Bienvenido a Registrify");
 
          // Cerrar la ventana actual
@@ -95,6 +103,11 @@ public class LoginController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal");
+
+            // Aquí puedes pasar la sesión al controlador del menú principal si es necesario
+            // MenuPrincipalController controller = loader.getController();
+            // controller.setUsuario(usuario);
+
             stage.show();
          } catch (Exception e) {
             e.printStackTrace();
@@ -103,4 +116,5 @@ public class LoginController {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
       }
    }
+
 }

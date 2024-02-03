@@ -10,3 +10,38 @@
 {
     -fx-background-color : #0caba8;
 }
+
+.menu-bar {
+    -fx-background-color: #0fc2c0; /* Color de fondo para la barra de menú */
+    -fx-border-radius: 10 10 10 10; /* Redondeo de bordes */
+}
+
+.menu-bar .menu {
+    -fx-background-color: transparent; /* Hace el fondo de los Menus transparente */
+    -fx-text-fill: #023535;
+}
+
+.menu-bar .menu .menu-item {
+    -fx-background-color: #0fc2c0; /* Fondo de los items */
+    -fx-text-fill: #023535; /* Color del texto */
+}
+
+.menu-bar .menu .menu-item:focused, .menu-bar .menu .menu-item:hover {
+    -fx-background-color: #017e7a; /* Color para hover */
+    -fx-text-fill: white; /* Texto en blanco para hover */
+}
+
+.context-menu {
+    -fx-background-color: #0fc2c0; /* Fondo del menú desplegable */
+    -fx-border-radius: 10; /* Bordes redondeados para el menú desplegable */
+}
+
+.context-menu .menu-item {
+    -fx-background-color: #0fc2c0; /* Fondo de los items del menú desplegable */
+    -fx-text-fill: #023535; /* Color de texto para los items */
+}
+
+.context-menu .menu-item:focused, .context-menu .menu-item:hover {
+    -fx-background-color: #017e7a; /* Fondo para hover de items */
+    -fx-text-fill: white; /* Texto en blanco para hover */
+}
