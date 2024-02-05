@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Modelos.RolModel;
+package com.e.registrifyv1.Modelos.Rol;
 
 public class RolModel {
    private int idRol;

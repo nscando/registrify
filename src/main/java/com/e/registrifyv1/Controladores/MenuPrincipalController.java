@@ -1,5 +1,6 @@
 package com.e.registrifyv1.Controladores;
 
+import com.e.registrifyv1.Modelos.Rol.Rol;
 import com.e.registrifyv1.Utiles.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ public class MenuPrincipalController implements Initializable {
 
    @FXML
    private Label userNameLabel;
+   @FXML
+   private Label userRolLabel;
 
    @FXML
    private Button btnEventosDiarios;
@@ -44,8 +47,6 @@ public class MenuPrincipalController implements Initializable {
    private MenuBar menuBar;
 
 
-
-
    @Override
    public void initialize(URL url, ResourceBundle resourceBundle) {
       // Asignar eventos de teclado para las teclas F1-F6
@@ -57,6 +58,8 @@ public class MenuPrincipalController implements Initializable {
 
       if (Session.isSesionIniciada()) {
          userNameLabel.setText(Session.getNombreUsuario() + " " + Session.getApellidoUsuario());
+         String descripcionRol = Rol.getDescripcionRol(Session.getIdRol());
+         userRolLabel.setText(descripcionRol);
       }
    }
 
@@ -74,15 +77,15 @@ public class MenuPrincipalController implements Initializable {
          loadStage("/View/Unidad/UnidadMenuView.fxml", "Menu Unidad");
       }
 
-      if(actionEvent.getSource() == btnArmas){
+      if (actionEvent.getSource() == btnArmas) {
          loadStage("/View/Arma/ArmaMenuView.fxml", "Menu Arma");
       }
 
-      if(actionEvent.getSource() == btnEventosDiarios){
+      if (actionEvent.getSource() == btnEventosDiarios) {
          loadStage("/View/EventoDiario/EventoDiarioView.fxml", "Menu Evento");
       }
 
-      if(actionEvent.getSource() == btnInventario){
+      if (actionEvent.getSource() == btnInventario) {
          loadStage("/View/Inventario/InventarioMenuView.fxml", "Menu Inventario");
       }
    }

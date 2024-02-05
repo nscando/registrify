@@ -28,8 +28,8 @@
                         <Font name="System Bold" size="13.0" />
                     </font>
                 </Label>
-                <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="779.0" layoutY="40.0" size="25" />
-              <MenuBar fx:id="menuBar" layoutX="779.0" layoutY="60.0" style="-fx-background-radius: 20 20 20 20;" stylesheets="@../../Styles/MenuPrincipal.css">
+                <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="779.0" layoutY="50.0" size="35" />
+              <MenuBar fx:id="menuBar" layoutX="779.0" layoutY="114.0" style="-fx-background-radius: 20 20 20 20;" stylesheets="@../../Styles/MenuPrincipal.css">
                   <menus>
                       <Menu text="Opciones Usuario">
                           <items>
@@ -42,6 +42,11 @@
             <Label fx:id="userNameLabel" layoutX="810.0" layoutY="21.0" prefHeight="17.0" prefWidth="256.0" text="NOMBRE PRUEBA" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="userRolLabel" layoutX="810.0" layoutY="39.0" prefHeight="17.0" prefWidth="256.0" text="ROL" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="10.0" />
                </font>
             </Label>
             </children>

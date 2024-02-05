@@ -1,6 +1,6 @@
 package com.e.registrifyv1.Dao;
 
-import com.e.registrifyv1.Modelos.RolModel.RolModel;
+import com.e.registrifyv1.Modelos.Rol.RolModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 
 import java.sql.Connection;
