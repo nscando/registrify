@@ -33,6 +33,7 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Controladores.Inventario;
    opens com.e.registrifyv1.Controladores.Inventario to javafx.fxml;
    opens com.e.registrifyv1.Modelos.Arma to javafx.base;
+   exports com.e.registrifyv1.Modelos.Unidad;
 
 
 }
