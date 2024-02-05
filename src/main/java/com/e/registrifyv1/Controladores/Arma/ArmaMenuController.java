@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores.Arma;
 
 import com.e.registrifyv1.Dao.ArmaDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class ArmaMenuController {
@@ -255,6 +263,47 @@ public class ArmaMenuController {
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+
+    @FXML
+    public void handleGenerarReporte(ActionEvent event) {
+        try {
+            // Obtén la lista actual de usuarios en la TableView
+            ObservableList<ArmaMenuModel> arma = tablaMenuArmas.getItems();
+
+            // Cargar el diseño del informe desde un archivo jrxml
+            // Cambia la ruta según la ubicación real de tu archivo de diseño
+            InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_armas.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+            // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(arma);
+
+            // Parámetros del informe (puedes agregar más según tus necesidades)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("ArmaDataSource", dataSource);
+
+            // Compilar y llenar el informe con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Obtén la marca de tiempo actual para el nombre único del archivo
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timeStamp = dateFormat.format(new Date());
+
+            // Construye el nombre del archivo con la marca de tiempo
+            String pdfFileName = "src/main/resources/ReportesGenerados/ReportesArmas/registrify_report_armas_" + timeStamp + ".pdf";
+
+            // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
+
+            // Muestra un mensaje de éxito
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
+        } catch (JRException e) {
+            e.printStackTrace();
+            // Muestra un mensaje de error
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
+        }
     }
 
 

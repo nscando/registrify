@@ -95,6 +95,19 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
+                <Button fx:id="btnGenerarReporte" onAction="#handleGenerarReporte" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UsuarioMenu.css"
+                        text="GENERAR REPORTE" textFill="#d9d9d9">
+                    <graphic>
+                        <FontAwesomeIconView fill="#b6dcef" glyphName="FILE" size="18.0"/>
+                    </graphic>
+                    <padding>
+                        <Insets left="30.0"/>
+                    </padding>
+                    <font>
+                        <Font size="15.0"/>
+                    </font>
+                </Button>
                 <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
                         prefHeight="50.0" prefWidth="200.0"
                         stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"

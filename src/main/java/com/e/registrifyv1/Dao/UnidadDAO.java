@@ -1,7 +1,6 @@
 package com.e.registrifyv1.Dao;
 
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
-import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +17,7 @@ public class UnidadDAO {
     public UnidadDAO() {
         dbConnection = new DBConnection();
     }
+/*
 
     public UnidadMenuModel getUnidadByNameAndLocation(String name, String location){
         UnidadMenuModel unidad = null;
@@ -53,6 +53,7 @@ public class UnidadDAO {
 
         return unidad;
     }
+*/
 
 
 
