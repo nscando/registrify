@@ -7,11 +7,10 @@ public class VehiculosModel {
     private String tipoVehiculo;
     private String marcaVehiculo;
     private String modelo;
-
-    //private Float kilometraje;//
+    private int kilometraje;
     private String patente;
 
-    public VehiculosModel( int idVehiculo, int idUnidad, int idGendarme, String tipoVehiculo,  String marcaVehiculo, String modelo, String patente) {
+    public VehiculosModel(int idVehiculo, int idUnidad, int idGendarme, String tipoVehiculo, String marcaVehiculo, String modelo, int kilometraje, String patente) {
 
         this.idVehiculo = idVehiculo;
         this.idGendarme = idGendarme;
@@ -20,10 +19,11 @@ public class VehiculosModel {
         this.marcaVehiculo = marcaVehiculo;
         this.modelo = modelo;
         this.patente = patente;
-        //falta km
+        this.kilometraje = kilometraje;
     }
 
     // Getters y setters
+    //no se porque pingo no me lee algunas cosas.
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -33,21 +33,15 @@ public class VehiculosModel {
         this.idVehiculo = idVehiculo;
     }
 
-    public int getIdGendarme() {
-        return idGendarme;
-    }
+    public int getIdGendarme() { return idGendarme; }
 
     public void setIdGendarme(int idGendarme) {
         this.idGendarme = idGendarme;
     }
 
-    public int getIdUnidad() {
-        return idUnidad;
-    }
+    public int getIdUnidad() { return idUnidad;}
 
-    public void setIdUnidad(int idUnidad) {
-        this.idUnidad = idUnidad;
-    }
+    public void setIdUnidad(int idUnidad) { this.idUnidad = idUnidad; }
 
     public String getTipoVehiculo() {
         return tipoVehiculo;
@@ -73,6 +67,10 @@ public class VehiculosModel {
         this.modelo = modelo;
     }
 
+    public int getkilometraje() { return kilometraje;  }
+
+    public void setKilometraje(int kilometraje) {this.kilometraje = kilometraje;   }
+
     public String getPatente() {
         return patente;
     }
@@ -80,4 +78,5 @@ public class VehiculosModel {
     public void setPatente(String patente) {
         this.patente = patente;
     }
+
 }

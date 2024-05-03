@@ -10,7 +10,7 @@
     <children>
         <Pane layoutY="-3.0" prefHeight="75.0" prefWidth="550.0" style="-fx-background-color: #113b03;">
             <children>
-                <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" prefWidth="320.0" styleClass="h2" text="AGREGAR  USUARIO" textFill="#dddada">
+                <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" prefWidth="320.0" styleClass="h2" text="AGREGAR VEHICULO" textFill="#dddada">
                     <font>
                         <Font name="System Bold" size="28.0" />
                     </font>
@@ -19,7 +19,7 @@
         </Pane>
         <VBox layoutY="71.0" prefHeight="292.0" prefWidth="250.0">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Nombre:" textFill="#514f4f">
+                <Label prefHeight="25.0" prefWidth="100.0" text="Vehiculo id" textFill="#514f4f">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -30,7 +30,7 @@
                         <Insets left="10.0" />
                     </padding>
                 </Label>
-                <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un nombre..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
+                <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese un  id..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
                     <VBox.margin>
                         <Insets left="8.0" top="2.0" />
                     </VBox.margin>

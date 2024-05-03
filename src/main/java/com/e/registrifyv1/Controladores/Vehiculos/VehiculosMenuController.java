@@ -1,5 +1,8 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
 
+import com.e.registrifyv1.Dao.VehiculoDAO;
+import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+// acabo de agregar estos 2 import
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +19,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+//wtf?
 
 
 public class VehiculosMenuController {
