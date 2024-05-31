@@ -21,8 +21,7 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Modelos.Usuarios; // Añadir esta línea
    exports com.e.registrifyv1.Controladores.Usuario;
    opens com.e.registrifyv1.Controladores.Usuario to javafx.fxml;
-   exports com.e.registrifyv1.Controladores.Vehiculos;
-   opens com.e.registrifyv1.Controladores.Vehiculos to javafx.fxml;
+
    exports com.e.registrifyv1.Controladores.Unidad;
    opens com.e.registrifyv1.Controladores.Unidad to javafx.fxml;
    exports com.e.registrifyv1.Controladores.Arma;
@@ -36,6 +35,9 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Modelos.Unidad;
    exports com.e.registrifyv1.Modelos.Arma;
 
+   exports com.e.registrifyv1.Controladores.Vehiculos;
+   opens com.e.registrifyv1.Controladores.Vehiculos to javafx.fxml;
+   opens com.e.registrifyv1.Modelos.Vehiculos to javafx.base;  // Abre el paquete a javafx.base
 
 
 }

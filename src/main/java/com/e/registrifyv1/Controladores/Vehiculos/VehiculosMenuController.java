@@ -63,7 +63,7 @@ public class VehiculosMenuController {
 
 
     @FXML
-    private void initialice(){
+    private void initialize(){
         vehiculoDAO=new VehiculoDAO();
         configurarColumnas();
     }
@@ -127,9 +127,10 @@ public class VehiculosMenuController {
             idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
             tipoVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("tipoVehiculo"));
             marcaVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("marcaVehiculo"));
-            modeloVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("modeloVehiculo"));
-            kilometrajeColum.setCellValueFactory(new PropertyValueFactory<>("kmVehiculo"));
-            patenteColum.setCellValueFactory(new PropertyValueFactory<>("patenteVehiculo"));
+            modeloVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+            patenteColum.setCellValueFactory(new PropertyValueFactory<>("patente"));
+            kilometrajeColum.setCellValueFactory(new PropertyValueFactory<>("kilometraje"));
+
         } else {
             tablaMenuVehiculo.getItems().clear();
         }

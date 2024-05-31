@@ -117,8 +117,8 @@
                         <TableColumn fx:id="tipoVehiculoColum" prefWidth="75.0" text="Tipo-Vehiculo" />
                         <TableColumn fx:id="marcaVehiculoColum" prefWidth="75.0" text="Marca-Vehiculo" />
                         <TableColumn fx:id="modeloVehiculoColum" prefWidth="75.0" text="Modelo" />
-                        <TableColumn fx:id="patenteColum" prefWidth="75.0" text="Kilometraje" />
-                        <TableColumn fx:id="kilometrajeColum" prefWidth="75.0" text="Patente" />
+                        <TableColumn fx:id="patenteColum" prefWidth="75.0" text="Patente" />
+                        <TableColumn fx:id="kilometrajeColum" prefWidth="75.0" text="Kilometraje" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

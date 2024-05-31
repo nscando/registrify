@@ -13,11 +13,11 @@ import java.sql.SQLException;
 
 public class VehiculoDAO {
 
-    private DBConnection dbConnection;
+    private DBConnection dbConnection;//
 
     public VehiculoDAO() { dbConnection = new DBConnection();   }
 
-    public ObservableList<VehiculosModel> buscarVehiculo(String valor)
+    public ObservableList<VehiculosModel> buscarVehiculo(String valor)//
     {
         ObservableList<VehiculosModel> vehiculos = FXCollections.observableArrayList();
         Connection connection = null;

@@ -1,8 +1,6 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
 
-import com.e.registrifyv1.Dao.ArmaDAO;
 import com.e.registrifyv1.Dao.VehiculoDAO;
-import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -77,13 +77,6 @@ public class VehiculosModel {
         this.modelo = modelo;
     }
 
-    public String getKilometraje() {
-        return kilometraje;
-    }
-
-    public void setKilometraje(String kilometraje) {
-        this.kilometraje = kilometraje;
-    }
 
     public String getPatente() {
         return patente;
@@ -91,5 +84,13 @@ public class VehiculosModel {
 
     public void setPatente(String patente) {
         this.patente = patente;
+    }
+
+    public String getKilometraje() {
+        return kilometraje;
+    }
+
+    public void setKilometraje(String kilometraje) {
+        this.kilometraje = kilometraje;
     }
 }
