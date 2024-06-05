@@ -48,7 +48,7 @@ public class  AgregarVehiculoController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
-        int idVehiculo = 0;
+        int idVehiculo = 13;// Configurar - AutoIncrement
         int idUnidad = Integer.parseInt(txbIdUnidad.getText());
         int idGendarme = Integer.parseInt(txbIdGendarme.getText());
         String tipoVehiculo = txbTipoVehiculo.getText();
