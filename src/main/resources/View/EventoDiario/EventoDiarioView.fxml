@@ -112,11 +112,11 @@
                 <TableView fx:id="tablaMenuVehiculo" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/EventoDiario.css" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="idCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="ID" />
-                        <TableColumn fx:id="nombreCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Encargado" />
-                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Afectados" />
-                        <TableColumn fx:id="dniCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Gastos" />
-                        <TableColumn fx:id="usernameCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Descripcion" />
-                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Observaciones" />
+                        <TableColumn fx:id="nombreCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Unidad" />
+                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Gendarme" />
+                        <TableColumn fx:id="dniCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Descripcion" />
+                        <TableColumn fx:id="usernameCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Fecha" />
+                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="Estado" />
                         <TableColumn fx:id="rolCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="---" />
                         <TableColumn fx:id="estadoCol" prefWidth="75.0" style="-fx-background-color: #136b6a;" text="----" />
                     </columns>

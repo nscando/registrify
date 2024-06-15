@@ -43,7 +43,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="nuevoVehiculo" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarVehiculo" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="NUEVO" textFill="#d9d9d9">
+                <Button fx:id="nuevoVehiculo" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuVehiculos" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
                     </graphic>
@@ -111,15 +111,14 @@
             <children>
                 <TableView fx:id="tablaMenuVehiculo" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/VehiculoMenu.css" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="75.0" text="ID-Vehiculo" />
-                        <TableColumn fx:id="nombreCol" prefWidth="75.0" text="ID-Unidad" />
-                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" text="Id-Gendarme" />
-                        <TableColumn fx:id="dniCol" prefWidth="75.0" text="Tipo-Vehiculo" />
-                        <TableColumn fx:id="rangoCol" prefWidth="75.0" text="Marca-Vehiculo" />
-                        <TableColumn fx:id="usernameCol" prefWidth="75.0" text="Modelo" />
-                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" text="Kilometraje" />
-                        <TableColumn fx:id="rolCol" prefWidth="75.0" text="Patente" />
-                        <TableColumn fx:id="estadoCol" prefWidth="75.0" text="----" />
+                        <TableColumn fx:id="idVehiculoColum" prefWidth="75.0" text="ID-Vehiculo" />
+                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID-Unidad" />
+                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0" text="Id-Gendarme" />
+                        <TableColumn fx:id="tipoVehiculoColum" prefWidth="75.0" text="Tipo-Vehiculo" />
+                        <TableColumn fx:id="marcaVehiculoColum" prefWidth="75.0" text="Marca-Vehiculo" />
+                        <TableColumn fx:id="modeloVehiculoColum" prefWidth="75.0" text="Modelo" />
+                        <TableColumn fx:id="patenteColum" prefWidth="75.0" text="Patente" />
+                        <TableColumn fx:id="kilometrajeColum" prefWidth="75.0" text="Kilometraje" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -132,7 +131,7 @@
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button fx:id="btnBuscarVehiculoMenu" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #113b03; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="Buscar" textFill="#d9d9d9">
+                        <Button fx:id="btnBuscarVehiculoMenu" mnemonicParsing="false" onAction="#btnBuscarVehiculosAction" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #113b03; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="Buscar" textFill="#d9d9d9">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>

@@ -54,7 +54,7 @@ public class UnidadMenuController{
         usuarioDAO = new UsuarioDAO();
 
         configurarColumnas();
-        // Agregar evento de doble clic a la columna que deseas
+
     }
 
 
@@ -97,7 +97,6 @@ public class UnidadMenuController{
     private void cargarUnidadesEnTableView(ObservableList<UnidadMenuModel> unidad) {
         if (unidad != null && !unidad.isEmpty()) {
             tablaMenuUnidad.setItems(unidad);
-
             idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
             nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
             ubicacionUnidadColum.setCellValueFactory(new PropertyValueFactory<>("ubicacionUnidad"));
