@@ -1,6 +1,7 @@
 package com.e.registrifyv1.Controladores.Unidad;
 
 import com.e.registrifyv1.Dao.UnidadDAO;
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
@@ -33,6 +34,8 @@ public class UnidadMenuController{
     private TextField txtFieldMenuUnidad;
     private UnidadDAO unidadDAO;
 
+    private UsuarioDAO usuarioDAO;
+
     @FXML
     private TableView<UnidadMenuModel> tablaMenuUnidad;
 
@@ -48,9 +51,12 @@ public class UnidadMenuController{
     @FXML
     private void initialize() {
         unidadDAO = new UnidadDAO();
+        usuarioDAO = new UsuarioDAO();
+
         configurarColumnas();
         // Agregar evento de doble clic a la columna que deseas
     }
+
 
     private void configurarColumnas(){
         nombreUnidadColum.setCellFactory(tc -> {

@@ -29,8 +29,6 @@ public class AgregarUsuarioFormController implements Initializable {
    @FXML
    private ComboBox<String> comboArea;
 
-   private UsuarioDAO usuarioDao;
-
    @FXML
    private TextField txtNombre;
 

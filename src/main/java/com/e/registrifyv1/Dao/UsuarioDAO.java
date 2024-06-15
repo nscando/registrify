@@ -282,4 +282,34 @@ public class UsuarioDAO {
    }
 
 
+   public List<UsuarioModel> buscarUsuariosActivos() throws SQLException {
+      List<UsuarioModel> opcionesUsuarios = new ArrayList<>();
+
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT ID_GENDARME, NOMBRE, APELLIDO, DNI FROM USUARIO";
+         statement = connection.prepareStatement(query);
+         resultSet = statement.executeQuery();
+
+         while (resultSet.next()) {
+            int idGendarme = resultSet.getInt("ID_GENDARME");
+            String nombreGendarme = resultSet.getString("NOMBRE");
+            String apellidoGendarme = resultSet.getString("APELLIDO");
+            int dniGendarme = resultSet.getInt("DNI");
+
+            UsuarioModel usuario = new UsuarioModel(idGendarme, nombreGendarme, apellidoGendarme, dniGendarme );
+            opcionesUsuarios.add(usuario);
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return opcionesUsuarios;
+   }
 }
