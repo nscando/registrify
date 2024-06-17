@@ -74,7 +74,7 @@
             <font>
                 <Font name="System Bold" size="14.0" />
             </font></Button>
-        <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="171.0" layoutY="490.0" mnemonicParsing="false" onAction="#handleConfirmarButton" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: #218838;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff">
+        <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="171.0" layoutY="490.0" mnemonicParsing="false" onAction="#handleConfirmarButtonAction" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: #218838;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>
