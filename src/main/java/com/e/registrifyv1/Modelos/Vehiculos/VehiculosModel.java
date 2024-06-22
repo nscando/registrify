@@ -25,9 +25,6 @@ public class VehiculosModel {
     }
 
     // Getters y setters
-    //no se porque pingo no me lee algunas cosas
-    // COMO QUE NEVER USED LA PUTA QUE TE PARIO
-
 
     public int getIdUnidad() {
         return idUnidad;
@@ -76,7 +73,6 @@ public class VehiculosModel {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
 
     public String getPatente() {
         return patente;

@@ -18,6 +18,7 @@ public class  AgregarVehiculoController implements Initializable {
     private Button btnConfirmar;
     @FXML
     private Button btnCancelar;
+
     @FXML
     private TextField txbIdVehiculo;
     @FXML
@@ -48,7 +49,7 @@ public class  AgregarVehiculoController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
-        int idVehiculo = 0;
+        int idVehiculo = Integer.parseInt(txbIdVehiculo.getText());
         int idUnidad = Integer.parseInt(txbIdUnidad.getText());
         int idGendarme = Integer.parseInt(txbIdGendarme.getText());
         String tipoVehiculo = txbTipoVehiculo.getText();
@@ -80,6 +81,7 @@ public class  AgregarVehiculoController implements Initializable {
 
         if (carga) {
             alert.setContentText("El Vehiculo se insertó correctamente.");
+            txbIdVehiculo.clear();
             txbIdGendarme.clear();
             txbIdUnidad.clear();
             txbTipoVehiculo.clear();

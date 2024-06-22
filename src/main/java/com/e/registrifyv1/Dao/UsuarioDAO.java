@@ -112,7 +112,7 @@ public class UsuarioDAO {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;
-      ResultSet resultSet = null;
+      ResultSet resultSet = null; //comentario de prueba para hacer commit
 
       try {
          connection = dbConnection.getConexion();
