@@ -49,11 +49,6 @@ public class ModificarVehiculoController {
 
     }
 
-    @FXML
-    private void handleCancelarButtonAction(ActionEvent event) {
-        Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
-    }
 
     public void inicializarDatosModificacion(VehiculosModel vehiculo){
         this.vehiculo = vehiculo;
@@ -73,6 +68,51 @@ public class ModificarVehiculoController {
     }
     public void setVehiculosMenuController (VehiculosMenuController vehiculosMenuController){
         this.vehiculosMenuController = vehiculosMenuController;
+    }
+
+    @FXML
+    private void handleConfirmarButtonAction(ActionEvent event){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Modificación");
+        alert.setHeaderText("Está a punto de modificar los datos del armamento.");
+        alert.setContentText("¿Está seguro de que desea continuar?");
+
+        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
+        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == buttonTypeConfirmar){
+            VehiculosModel updateVehiculo = obtenerDatosFormulario();
+
+            if(updateVehiculo != null) {
+                VehiculoDAO vehiculoDAO = new VehiculoDAO();
+
+                boolean exito = vehiculoDAO.actualizarVehiculo(updateVehiculo);
+
+                if (exito) {
+                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
+                    limpiarCamposFormulario();
+                }
+
+                if (vehiculosMenuController != null) {
+                    vehiculosMenuController.actualizarTableView();
+                }
+
+                Stage stage = (Stage) txbIdVehiculo.getScene().getWindow(); //todo cambiar a idGendarme?
+                stage.close();
+            }
+            else{
+                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
+            }
+        }
+    }
+
+    @FXML
+    private void handleCancelarButtonAction(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
     }
 
 
@@ -98,45 +138,15 @@ public class ModificarVehiculoController {
 
         return new VehiculosModel(vehiculo.getIdVehiculo(), idGendarme, idUnidad, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
     }
-    @FXML
-    private void handleConfirmarButtonAction(ActionEvent event){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar Modificación");
-        alert.setHeaderText("Está a punto de modificar los datos del armamento.");
-        alert.setContentText("¿Está seguro de que desea continuar?");
 
-        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
-        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == buttonTypeConfirmar){
-            VehiculosModel updateVehiculo = obtenerDatosFormulario();
-
-            if(updateVehiculo != null){
-                VehiculoDAO vehiculoDAO = new VehiculoDAO();
-
-                boolean exito = vehiculoDAO.actualizarVehiculo(updateVehiculo);
-
-                if(exito){
-                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
-                    limpiarCamposFormulario();
-                }
-
-                if(vehiculosMenuController != null){
-                    vehiculosMenuController.actualizarTableView();
-                }
-
-                Stage stage = (Stage) txbIdGendarme.getScene().getWindow();
-                stage.close();
-            }else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
-            }
-        }
-
-
+    public void mostrarAlerta(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
+
     private void limpiarCamposFormulario() {
         txbIdGendarme.clear();
         txbIdUnidad.clear();
@@ -148,15 +158,9 @@ public class ModificarVehiculoController {
         txbTipoVehiculo.clear();
 
     }
-    public void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
 
-// 13/06/24
+
+// 1/07/24
 }
 
 

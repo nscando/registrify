@@ -54,7 +54,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="MODIFICAR" textFill="#d9d9d9">
+                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleModificacionButtonAction" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="MODIFICAR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0" />
                     </graphic>
@@ -68,6 +68,17 @@
                 <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="BAJA" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
+                    </graphic>
+                    <padding>
+                        <Insets left="30.0" />
+                    </padding>
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnGenerarReporte" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleGenerarReporte" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="GENERAR REPORTE" textFill="#e7d9d9">
+                    <graphic>
+                        <FontAwesomeIconView fill="#b6dcef" glyphName="FILE" size="18.0" />
                     </graphic>
                     <padding>
                         <Insets left="30.0" />

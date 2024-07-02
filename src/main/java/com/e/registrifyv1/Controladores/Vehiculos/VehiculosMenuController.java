@@ -1,6 +1,8 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
 
+import com.e.registrifyv1.Controladores.Arma.ModificarArmaController;
 import com.e.registrifyv1.Dao.VehiculoDAO;
+import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class VehiculosMenuController {
 
@@ -151,24 +152,46 @@ public class VehiculosMenuController {
             e.printStackTrace();
         }
     }
-    private void abrirFormularioModificarVehiculo(VehiculosModel vehiculo) {/*
-        try {
-            todo //Generar ModificarVehiculoForm
-            todo //Generar ModificarVehiculoController
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoForm.fxml"));
+
+    //todo creo que esto no hace un pingo, progar de borrarlo.
+    private void abrirFormularioModificarVehiculo(VehiculosModel vehiculo) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoView.fxml"));
             Parent root = loader.load();
-            ModificarArmaController controller = loader.getController();
-            controller.setTablaMenuArma(tablaMenuArmas);
-            controller.setArmaMenuController(this);
-            controller.inicializarDatosModificacion(arma);
+            ModificarVehiculoController controller = loader.getController();
+            controller.setTablaMenuVehiculo(tablaMenuVehiculo);
+            controller.setVehiculosMenuController(this);
+            controller.inicializarDatosModificacion(vehiculo);
             Stage stage = new Stage();
-            stage.setTitle("Modificar Arma");
+            stage.setTitle("Modificar Vehiculo");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+    }
+    public void handleModificacionButtonAction(ActionEvent event) {
+        VehiculosModel vehiculoSeleccionado = tablaMenuVehiculo.getSelectionModel().getSelectedItem();
+        if (vehiculoSeleccionado != null) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoForm.fxml"));
+                Parent root = (Parent) loader.load();
+                ModificarVehiculoController controller = loader.getController();
+                controller.inicializarDatosModificacion(vehiculoSeleccionado);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al seleccionar");
+            alertError.setContentText("Selecciona un Vehiculo antes de modificar.");
+            alertError.show();
+        }
     }
 
     public void actualizarTableView() {
@@ -178,4 +201,50 @@ public class VehiculosMenuController {
     }
 
 
+    public void handleGenerarReporte(ActionEvent event) {
+        try {
+            // Obtén la lista actual de usuarios en la TableView
+            ObservableList<VehiculosModel> vehiculo = tablaMenuVehiculo.getItems();
+
+            // Cargar el diseño del informe desde un archivo jrxml
+            // Cambia la ruta según la ubicación real de tu archivo de diseño
+            InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_vehiculos.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+            // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(vehiculo);
+
+            // Parámetros del informe (puedes agregar más según tus necesidades)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("VehiculosDataSource", dataSource);
+
+            // Compilar y llenar el informe con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Obtén la marca de tiempo actual para el nombre único del archivo
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timeStamp = dateFormat.format(new Date());
+
+            // Construye el nombre del archivo con la marca de tiempo
+            String pdfFileName = "src/main/resources/ReportesGenerados/ReportesVehiculos/registrify_report_vehiculos_" + timeStamp + ".pdf";
+
+            // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
+
+            // Muestra un mensaje de éxito
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
+        } catch (JRException e) {
+            e.printStackTrace();
+            // Muestra un mensaje de error
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
+        }
+
+    }
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 }
