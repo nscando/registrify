@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,12 +17,12 @@
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
-                <TextField fx:id="txbIdGendarme" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+            <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Id Unidad" textAlignment="RIGHT" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
-                <TextField  fx:id="txbIdUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+            <ComboBox fx:id="comboUnidad" prefHeight="26.0" prefWidth="313.0" promptText="---Seleccionar Unidad---" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="Marca del Arma" textAlignment="RIGHT" textFill="RED">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -56,20 +57,11 @@
                 </Label>
             </children>
         </Pane>
-        <Button fx:id="btnCancelar" layoutX="303.0" layoutY="364.0"
-                mnemonicParsing="false" onAction="#handleCancelarButtonAction"
-                prefHeight="42.0" prefWidth="94.0"
-                style="-fx-background-radius: 20; -fx-background-color: c82333;"
-                stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER">
+        <Button fx:id="btnCancelar" layoutX="303.0" layoutY="364.0" mnemonicParsing="false" onAction="#handleCancelarButtonAction" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: c82333;" stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font></Button>
-        <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="175.0" layoutY="364.0"
-                mnemonicParsing="false" onAction="#handleConfirmarButton"
-                prefHeight="42.0" prefWidth="94.0"
-                style="-fx-background-radius: 20; -fx-background-color: #218838;"
-                stylesheets="@../../Styles/UnidadMenu.css"
-                text="Confirmar" textFill="#ebebff">
+        <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="175.0" layoutY="364.0" mnemonicParsing="false" onAction="#handleConfirmarButton" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: #218838;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff">
             <font>
                 <Font name="System Bold" size="14.0" />
             </font>

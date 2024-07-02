@@ -31,7 +31,14 @@ public class UsuarioModel {
       this.observaciones = observaciones;
    }
 
-   // Getters y setters
+    public UsuarioModel(int idGendarme, String nombreGendarme, String apellidoGendarme, int dniGendarme) {
+      this.idGendarme = idGendarme;
+      this.nombre = nombreGendarme;
+      this.apellido = apellidoGendarme;
+      this.dni = dniGendarme;
+    }
+
+    // Getters y setters
 
 
    public int getIdGendarme() {
