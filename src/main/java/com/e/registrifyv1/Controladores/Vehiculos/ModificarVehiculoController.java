@@ -1,7 +1,6 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
 import com.e.registrifyv1.Dao.VehiculoDAO;
 import  com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,8 +14,8 @@ public class ModificarVehiculoController {
     @FXML
     private Button btnCancelar;
 
-    @FXML
-    private TextField txbIdVehiculo;
+    //@FXML
+   // private TextField txbIdVehiculo;
     @FXML
     private TextField txbIdGendarme;
     @FXML
@@ -52,14 +51,15 @@ public class ModificarVehiculoController {
 
     public void inicializarDatosModificacion(VehiculosModel vehiculo){
         this.vehiculo = vehiculo;
-        this.idVehiculoSeleccionado = vehiculo.getIdGendarme();//todo como funciona esto..?
+        this.idVehiculoSeleccionado = vehiculo.getIdVehiculo();//todo como funciona esto..?//antes estaba idGendarme
 
+        //txbIdVehiculo.setText(String.valueOf(vehiculo.getIdVehiculo()));
         txbIdGendarme.setText(String.valueOf(vehiculo.getIdGendarme()));
         txbIdUnidad.setText(String.valueOf(vehiculo.getIdUnidad()));
         txbTipoVehiculo.setText(vehiculo.getTipoVehiculo());
         txbMarcaVehiculo.setText(vehiculo.getMarcaVehiculo());
-        txbKilometrajeVehiculo.setText(vehiculo.getKilometraje());
         txbModeloVehiculo.setText(vehiculo.getModelo());
+        txbKilometrajeVehiculo.setText(vehiculo.getKilometraje());
         txbPatenteVehiculo.setText(vehiculo.getPatente());
     }
 
@@ -100,7 +100,7 @@ public class ModificarVehiculoController {
                     vehiculosMenuController.actualizarTableView();
                 }
 
-                Stage stage = (Stage) txbIdVehiculo.getScene().getWindow(); //todo cambiar a idGendarme?
+                Stage stage = (Stage) txbPatenteVehiculo.getScene().getWindow(); //todo cambiar a idGendarme?
                 stage.close();
             }
             else{
@@ -117,8 +117,9 @@ public class ModificarVehiculoController {
 
 
     private VehiculosModel obtenerDatosFormulario() {
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
+        //int idVehiculo = Integer.parseInt(txbIdVehiculo.getText());
         int idUnidad = Integer.parseInt(txbIdUnidad.getText());
+        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
         String tipoVehiculo = txbTipoVehiculo.getText();
         String marcaVehiculo = txbMarcaVehiculo.getText();
         String modelo = txbModeloVehiculo.getText();
@@ -153,7 +154,7 @@ public class ModificarVehiculoController {
         txbPatenteVehiculo.clear();
         txbModeloVehiculo.clear();
         txbMarcaVehiculo.clear();
-        txbIdVehiculo.clear();
+        //txbIdVehiculo.clear();
         txbKilometrajeVehiculo.clear();
         txbTipoVehiculo.clear();
 

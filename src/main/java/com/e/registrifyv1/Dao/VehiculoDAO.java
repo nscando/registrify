@@ -113,7 +113,7 @@ public class VehiculoDAO {
     }
 
 
-    //esto lo vamos a usar en el controlador de el m,odificador de vehiculo(el cual hay que crear).
+    //esto lo vamos a usar en el controlador del modificador de vehiculo (el cual hay que crear).
     public boolean actualizarVehiculo(VehiculosModel vehiculo) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -121,7 +121,7 @@ public class VehiculoDAO {
         try {
             connection = dbConnection.getConexion();
 
-            String query = "UPDATE VEHICULO SET ID_UNIDAD=?, ID_GENDARME=?, TIPO_VEHICULO=?, MARCA_VEHICULO=?, MODELO=?, PATENTE=?,KILOMETRAJE=?, WHERE ID_VEHICULO=?";
+            String query = "UPDATE VEHICULO SET ID_UNIDAD=?, ID_GENDARME=?, TIPO_VEHICULO=?, MARCA_VEHICULO=?, MODELO=?, PATENTE=?,KILOMETRAJE=? WHERE ID_VEHICULO=?";
             statement = connection.prepareStatement(query);
             statement.setInt(1, vehiculo.getIdUnidad());
             statement.setInt(2, vehiculo.getIdGendarme());
@@ -130,6 +130,7 @@ public class VehiculoDAO {
             statement.setString(5, vehiculo.getModelo());
             statement.setString(6, vehiculo.getPatente());
             statement.setString(7, vehiculo.getKilometraje());
+            statement.setInt(8, vehiculo.getIdVehiculo());
 
 
             int rowsAffected = statement.executeUpdate();

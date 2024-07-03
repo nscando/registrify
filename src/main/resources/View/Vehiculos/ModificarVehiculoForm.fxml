@@ -8,11 +8,6 @@
     <children>
         <VBox layoutX="132.0" layoutY="86.0" prefHeight="367.0" prefWidth="311.0" style="-fx-background-color: #1c6603;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="ID Vehiculo(int)" textAlignment="RIGHT" textFill="WHITE">
-                    <font>
-                        <Font name="System Bold" size="14.0" />
-                    </font></Label>
-                <TextField fx:id="txbIdVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="ID Gendarme(int)" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
