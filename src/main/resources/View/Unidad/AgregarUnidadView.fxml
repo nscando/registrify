@@ -4,9 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="313.0" prefWidth="593.0" style="-fx-background-color: #cec8e9;"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.e.registrifyv1.Controladores.Unidad.AgregarUnidadController">
+<AnchorPane prefHeight="313.0" prefWidth="593.0" style="-fx-background-color: #cec8e9;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Unidad.AgregarUnidadController">
    <children>
       <Pane prefHeight="67.0" prefWidth="605.0" style="-fx-background-color: #6b3fa0;">
          <children>
@@ -19,43 +17,23 @@
       </Pane>
       <VBox layoutX="111.0" layoutY="80.0" prefHeight="141.0" prefWidth="371.0" style="-fx-background-color: #cec8e9;">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER"
-                   prefHeight="20.0" prefWidth="370.0"
-                   text="Nombre de Unidad:" textAlignment="CENTER"
-                   textFill="#4b006e">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="370.0" text="Nombre de Unidad:" textAlignment="CENTER" textFill="#4b006e">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <TextField prefHeight="30.0" prefWidth="354.0"
-                       style="-fx-background-radius: 20;"
-                       fx:id="txtNombreUnidad" />
-            <Label alignment="CENTER" contentDisplay="CENTER"
-                   prefHeight="20.0" prefWidth="370.0"
-                   text="Ubicacion de la Unidad" textAlignment="RIGHT"
-                   textFill="#4b006e">
+            <TextField fx:id="txtNombreUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: Unidad Canina Nro3" style="-fx-background-radius: 20;" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="370.0" text="Ubicacion de la Unidad" textAlignment="RIGHT" textFill="#4b006e">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <TextField prefHeight="30.0" prefWidth="354.0"
-                       style="-fx-background-radius: 20;"
-                       fx:id="txtUbicacionUnidad" />
+            <TextField fx:id="txtUbicacionUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: Cordoba Capital (Barrio Lasalle)" style="-fx-background-radius: 20;" />
          </children>
       </VBox>
-      <Button layoutX="325.0" layoutY="225.0"
-              mnemonicParsing="false" prefHeight="42.0"
-              prefWidth="94.0" style="-fx-background-radius: 0 0 0 0; -fx-background-color: c82333;"
-              stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER"
-              fx:id="btnCancelar" onAction="#handleCancelarButtonAction"
-      >
+      <Button fx:id="btnCancelar" layoutX="325.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleCancelarButtonAction" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 0 0 0 0; -fx-background-color: c82333;" stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button alignment="CENTER" layoutX="191.0" layoutY="225.0"
-              mnemonicParsing="false" prefHeight="42.0"
-              prefWidth="94.0" style="-fx-background-radius: 0 0 0 0; -fx-background-color: #218838;"
-              stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff"
-              fx:id="btnConfirmar" onAction="#handleConfirmarButton"
-      >
+      <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="191.0" layoutY="225.0" mnemonicParsing="false" onAction="#handleConfirmarButton" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 0 0 0 0; -fx-background-color: #218838;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

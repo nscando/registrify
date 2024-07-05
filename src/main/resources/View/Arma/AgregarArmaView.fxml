@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="437.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Arma.AgregarArmaController">
+<AnchorPane prefHeight="437.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Arma.AgregarArmaController">
     <children>
         <VBox layoutX="132.0" layoutY="86.0" prefHeight="239.0" prefWidth="311.0" style="-fx-background-color: pink;">
             <children>
@@ -28,19 +23,19 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txbMarcaArma" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+            <TextField fx:id="txbMarcaArma" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej:  WALTHER PDP" style="-fx-background-radius: 20;" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" text="Tipo de Arma" textAlignment="RIGHT" textFill="RED">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txbTipoArma" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" style="-fx-background-radius: 20;" />
+            <TextField fx:id="txbTipoArma" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: Full Size 5&quot; 9mm pb" style="-fx-background-radius: 20;" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Numero de Serie del Arma" textAlignment="RIGHT" textFill="RED">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txbNumeroSerieArma" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" style="-fx-background-radius: 20;" />
+            <TextField fx:id="txbNumeroSerieArma" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: AH777292" style="-fx-background-radius: 20;" />
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" textAlignment="RIGHT" textFill="RED">
                <font>
                   <Font name="System Bold" size="14.0" />
