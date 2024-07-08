@@ -21,27 +21,51 @@ public class EventoDiarioModel {
 
     // Getters y setters
 
-    public int getIdEvento() {return idEvento;    }
+    public int getIdEvento() {
+        return idEvento;
+    }
 
-    public void setIdEvento(int idEvento) {this.idEvento = idEvento;    }
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
+    }
 
-    public int getIdUnidad() {return idUnidad;    }
+    public int getIdUnidad() {
+        return idUnidad;    }
 
-    public void setIdUnidad(int idUnidad) {this.idUnidad = idUnidad;    }
 
-    public int getIdGendarme() {return idGendarme;    }
+    public void setIdUnidad(int idUnidad) {
+        this.idUnidad = idUnidad;    }
 
-    public void setIdGendarme(int idGendarme) {this.idGendarme = idGendarme;    }
 
-    public String getDescrEvento() {return descrEvento;    }
+    public int getIdGendarme() {
+        return idGendarme;    }
 
-    public void setDescrEvento(String descrEvento) {this.descrEvento = descrEvento;    }
 
-    public Date getFechaEvento() {return fechaEvento;    }
+    public void setIdGendarme(int idGendarme) {
+        this.idGendarme = idGendarme;    }
 
-    public void setFechaEvento(Date fechaEvento) {this.fechaEvento = fechaEvento;    }
 
-    public int getEstado() {return estado;    }
+    public String getDescrEvento() {
+        return descrEvento;    }
 
-    public void setEstado(int estado) {this.estado = estado;   }
+
+    public void setDescrEvento(String descrEvento) {
+        this.descrEvento = descrEvento;    }
+
+
+    public Date getFechaEvento() {
+        return fechaEvento;    }
+
+
+    public void setFechaEvento(Date fechaEvento) {
+        this.fechaEvento = fechaEvento;    }
+
+
+    public int getEstado() {
+        return estado;    }
+
+
+    public void setEstado(int estado) {
+        this.estado = estado;   }
+
 }
