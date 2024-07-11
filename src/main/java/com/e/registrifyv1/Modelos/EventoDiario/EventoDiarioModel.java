@@ -7,10 +7,10 @@ public class EventoDiarioModel {
     private int idUnidad;
     private int idGendarme;
     private String descrEvento;
-    private Date fechaEvento;
+    private String fechaEvento;
     private int estado;
 
-    public EventoDiarioModel(int idEvento, int idUnidad, int idGendarme, String descrEvento, Date fechaEvento, int estado){
+    public EventoDiarioModel(int idEvento, int idUnidad, int idGendarme, String descrEvento, String fechaEvento, int estado){
         this.idEvento=idEvento;
         this.idUnidad=idUnidad;
         this.idGendarme=idGendarme;
@@ -22,12 +22,12 @@ public class EventoDiarioModel {
     // Getters y setters
 
     public int getIdEvento() {
-        return idEvento;
-    }
+
+        return idEvento;    }
 
     public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
-    }
+
+        this.idEvento = idEvento;    }
 
     public int getIdUnidad() {
         return idUnidad;    }
@@ -53,11 +53,11 @@ public class EventoDiarioModel {
         this.descrEvento = descrEvento;    }
 
 
-    public Date getFechaEvento() {
+    public String getFechaEvento() {
         return fechaEvento;    }
 
 
-    public void setFechaEvento(Date fechaEvento) {
+    public void setFechaEvento(String fechaEvento) {
         this.fechaEvento = fechaEvento;    }
 
 

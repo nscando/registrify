@@ -87,7 +87,7 @@ public class VehiculosMenuController {
         return cell;
     });
     }
-
+// todo> creo que este metodo es redundante.
     @FXML
     public void menuVehiculos(ActionEvent event){
         try {
@@ -154,7 +154,7 @@ public class VehiculosMenuController {
     }
 
 
-    //todo creo que esto no hace un pingo, progar de borrarlo.
+    //todo creo que esto no hace un pingo, probar de borrarlo.
     private void abrirFormularioModificarVehiculo(VehiculosModel vehiculo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoView.fxml"));

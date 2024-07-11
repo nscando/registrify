@@ -42,11 +42,8 @@ public class EventoDAO {
                 int idUnidad = resultSet.getInt("ID_UNIDAD");
                 int idGendarme = resultSet.getInt("ID_GENDARME");
                 String descrEvento = resultSet.getString("DESCRIPCION_EVENTO");
-                Date fechaEvento = resultSet.getString("FECHAEVENTO");
+                String fechaEvento = resultSet.getString("FECHAEVENTO");
                 int estado = resultSet.getInt("ESTADO");
-
-                //todo, funciona??
-                //String fechaEvento = String.valueOf(resultSet.getDate("FECHAEVENTO"));// funciona??/convertir a string
 
                 EventoDiarioModel evento = new EventoDiarioModel(idEvento, idUnidad, idGendarme,  descrEvento, fechaEvento, estado);
                 eventos.add(evento);
