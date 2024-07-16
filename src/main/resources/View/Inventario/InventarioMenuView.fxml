@@ -109,30 +109,26 @@
                 <RowConstraints maxHeight="424.0" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TableView fx:id="tablaMenuVehiculo" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/InventarioMenu.css" GridPane.rowIndex="1">
+                <TableView fx:id="tablaMenuInventario" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/InventarioMenu.css" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="ID-Vehiculo" />
-                        <TableColumn fx:id="nombreCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="ID-Unidad" />
-                        <TableColumn fx:id="apellidoCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Id-Gendarme" />
-                        <TableColumn fx:id="dniCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Tipo-Vehiculo" />
-                        <TableColumn fx:id="rangoCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Marca-Vehiculo" />
-                        <TableColumn fx:id="usernameCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Modelo" />
-                        <TableColumn fx:id="observacionesCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Kilometraje" />
-                        <TableColumn fx:id="rolCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="Patente" />
-                        <TableColumn fx:id="estadoCol" prefWidth="75.0" style="-fx-background-color: #473ba1;" text="----" />
-                    </columns>
+                        <TableColumn fx:id="idAccesorioColum" prefWidth="75.0"  text="ID-Accesorio" />
+                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0"  text="ID-Unidad" />
+                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0"  text="Id-Gendarme" />
+                        <TableColumn fx:id="nombreAccesorioColum" prefWidth="75.0"  text="Nombre" />
+                        <TableColumn fx:id="descrAccesorioColum" prefWidth="75.0"  text="Descripcion" />
+                        </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
                 <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="864.0">
                     <children>
-                        <TextField fx:id="txtFieldMenuVehiculo" prefHeight="32.0" prefWidth="719.0" promptText="Ingrese datos para realizar la busqueda...." style="-fx-background-radius: 20 20 20 20;" styleClass="text-info">
+                        <TextField fx:id="txtFieldMenuInventario" prefHeight="32.0" prefWidth="719.0" promptText="Ingrese datos para realizar la busqueda...." style="-fx-background-radius: 20 20 20 20;" styleClass="text-info">
                             <HBox.margin>
                                 <Insets right="5.0" />
                             </HBox.margin>
                         </TextField>
-                        <Button fx:id="btnBuscarVehiculoMenu" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #473ba1; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="Buscar" textFill="#d9d9d9">
+                        <Button fx:id="btnBuscarInventarioMenu" mnemonicParsing="false" onAction="#btnBuscarInventarioAction" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #473ba1; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="Buscar" textFill="#d9d9d9">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
