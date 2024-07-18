@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<!DOCTYPE
+		jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-			  name="UnidadesReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+			  name="UnidadesReport"
+			  pageWidth="595" pageHeight="842"
+			  columnWidth="555"
+			  leftMargin="20" rightMargin="20"
+			  topMargin="20" bottomMargin="20">
+
 	<field name="idUnidad" class="java.lang.Integer"/>
 	<field name="nombreUnidad" class="java.lang.String"/>
 	<field name="ubicacionUnidad" class="java.lang.String"/>
 
 	<title>
-		<band height="50">
+		<band height="50" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="10" width="100" height="30"/>
 				<text><![CDATA[ID]]></text>
@@ -27,22 +33,21 @@
 
 	<detail>
 		<band height="30" splitType="Stretch">
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement x="0" y="0" width="100" height="30"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{idUnidad}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement x="100" y="0" width="100" height="30"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{nombreUnidad}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="StretchHeight">
 				<reportElement x="200" y="0" width="100" height="30"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{ubicacionUnidad}]]></textFieldExpression>
 			</textField>
-
 		</band>
 	</detail>
 </jasperReport>

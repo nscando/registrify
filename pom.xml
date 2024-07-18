@@ -123,7 +123,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.21.0</version> <!-- Reemplaza con la versión más reciente disponible -->
+            <version>6.21.3</version> <!-- Reemplaza con la versión más reciente disponible -->
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>

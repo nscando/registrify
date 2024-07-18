@@ -35,6 +35,7 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Modelos.Unidad;
    exports com.e.registrifyv1.Modelos.Arma;
 
+   exports com.e.registrifyv1.Modelos.Vehiculos;
    exports com.e.registrifyv1.Controladores.Vehiculos;
    opens com.e.registrifyv1.Controladores.Vehiculos to javafx.fxml;
    opens com.e.registrifyv1.Modelos.Vehiculos to javafx.base;  // Abre el paquete a javafx.base
