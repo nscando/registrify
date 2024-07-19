@@ -75,6 +75,6 @@
 }
 
 .chart-pie {
-    -fx-border-color: #3498db; /* Azul para el borde del gráfico de pastel */
+    -fx-border-color: #473ba1; /* Azul para el borde del gráfico de pastel */
     -fx-border-width: 0px;
 }

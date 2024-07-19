@@ -1,7 +1,5 @@
 package com.e.registrifyv1.Dao;
-import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
-
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,6 +55,34 @@ public class InventarioDAO {
 
         return inventarios;
     }
+
+    public boolean insertarInventario(InventarioModel inventario) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+            String query = "INSERT INTO ACCESORIO WHERE (LOWER(ID_ACCESORIO) = LOWER(?) OR LOWER(ID_UNIDAD) LIKE LOWER(?) OR LOWER(ID_GENDARME) LIKE LOWER(?) OR LOWER(NUMEROSERIE_ACCESORIO) LIKE LOWER(?)  OR LOWER(TIPO_ACCESORIO) LIKE LOWER(?))";
+
+            statement = connection.prepareStatement(query);
+
+            statement.setInt(1, inventario.getIdAccesorio());
+            statement.setInt(2, inventario.getIdUnidad());
+            statement.setInt(3, inventario.getIdGendarme());
+            statement.setString(4, inventario.getNombreAccesorio());
+            statement.setString(5, inventario.getDescrAccesorio());
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
+
+    }
+
     private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
         try {
             if (resultSet != null) {

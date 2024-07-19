@@ -43,7 +43,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="NUEVO" textFill="#d9d9d9">
+                <Button fx:id="nuevoInventario" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#f8f8fc" glyphName="PLUS" size="18.0" />
                     </graphic>
@@ -111,11 +111,11 @@
             <children>
                 <TableView fx:id="tablaMenuInventario" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/InventarioMenu.css" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idAccesorioColum" prefWidth="75.0"  text="ID-Accesorio" />
-                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0"  text="ID-Unidad" />
-                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0"  text="Id-Gendarme" />
-                        <TableColumn fx:id="nombreAccesorioColum" prefWidth="75.0"  text="Nombre" />
-                        <TableColumn fx:id="descrAccesorioColum" prefWidth="75.0"  text="Descripcion" />
+                        <TableColumn fx:id="idAccesorioColum" prefWidth="75.0" text="ID-Accesorio" />
+                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID-Unidad" />
+                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0" text="Id-Gendarme" />
+                        <TableColumn fx:id="nombreAccesorioColum" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="descrAccesorioColum" prefWidth="75.0" text="Descripcion" />
                         </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
