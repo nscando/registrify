@@ -62,15 +62,15 @@ public class InventarioDAO {
 
         try {
             connection = dbConnection.getConexion();
-            String query = "INSERT INTO ACCESORIO WHERE (LOWER(ID_ACCESORIO) = LOWER(?) OR LOWER(ID_UNIDAD) LIKE LOWER(?) OR LOWER(ID_GENDARME) LIKE LOWER(?) OR LOWER(NUMEROSERIE_ACCESORIO) LIKE LOWER(?)  OR LOWER(TIPO_ACCESORIO) LIKE LOWER(?))";
+            String query = "INSERT INTO ACCESORIO (ID_ACCESORIO, ID_UNIDAD, ID_GENDARME, NUMEROSERIE_ACCESORIO, TIPO_ACCESORIO) VALUES (?, ?, ?, ?, ?)";
 
             statement = connection.prepareStatement(query);
-
             statement.setInt(1, inventario.getIdAccesorio());
             statement.setInt(2, inventario.getIdUnidad());
             statement.setInt(3, inventario.getIdGendarme());
             statement.setString(4, inventario.getNombreAccesorio());
             statement.setString(5, inventario.getDescrAccesorio());
+
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -80,7 +80,6 @@ public class InventarioDAO {
         } finally {
             closeResources(connection, statement, null);
         }
-
     }
 
     private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {

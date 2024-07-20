@@ -76,7 +76,7 @@ public class  AgregarInventarioController implements Initializable {
             txbDescripcion.clear();
 
         } else {
-            alert.setContentText("No se pudo insertar el Vehiculo.");
+            alert.setContentText("No se pudo insertar el Objeto.");
         }
 
         // Configurar el cuadro de diálogo para que sea siempre visible
