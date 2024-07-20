@@ -17,6 +17,7 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1;
    exports com.e.registrifyv1.Controladores;
    opens com.e.registrifyv1.Controladores to javafx.fxml;
+
    opens com.e.registrifyv1.Modelos.Usuarios to javafx.base;
    exports com.e.registrifyv1.Modelos.Usuarios; // Añadir esta línea
    exports com.e.registrifyv1.Controladores.Usuario;
@@ -41,12 +42,14 @@ module com.e.registrifyv1 {
    opens com.e.registrifyv1.Controladores.Evento to javafx.fxml;
    opens com.e.registrifyv1.Modelos.EventoDiario to javafx.base;// Abre el paquete a javafx.base
    exports com.e.registrifyv1.Modelos.EventoDiario; //este es el paquete que hay que agregar cuando no se genera el evento y salta el
-                                                   //error que el id es nulo, es porque no esta esta linea de codigo, ajustar a cada caso correspondiente.
+    //error que el id es nulo, es porque no esta esta linea de codigo, ajustar a cada caso correspondiente.
 
 
    exports com.e.registrifyv1.Controladores.Inventario;
    opens com.e.registrifyv1.Controladores.Inventario to javafx.fxml;
    opens com.e.registrifyv1.Modelos.Inventario to javafx.base;
+   exports com.e.registrifyv1.Modelos.Inventario;//este es el paquete que hay que agregar cuando no se genera el evento y salta el
+   //error que el id es nulo, es porque no esta esta linea de codigo, ajustar a cada caso correspondiente.
 
 
 

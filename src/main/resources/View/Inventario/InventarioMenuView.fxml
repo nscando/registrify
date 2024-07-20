@@ -76,6 +76,17 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
+                <Button fx:id="btnGenerarReporte" onAction="#handleGenerarReporte" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="GENERAR REPORTE" textFill="#d9d9d9">
+                    <graphic>
+                        <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
+                    </graphic>
+                    <padding>
+                        <Insets left="30.0" />
+                    </padding>
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Button>
                 <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
