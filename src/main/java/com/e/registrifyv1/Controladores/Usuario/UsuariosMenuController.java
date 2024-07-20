@@ -19,6 +19,8 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -244,7 +246,7 @@ public class UsuariosMenuController {
 
          // Cargar el diseño del informe desde un archivo jrxml
          // Cambia la ruta según la ubicación real de tu archivo de diseño
-         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report.jrxml");
+         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_usuarios.jrxml");
          JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
          // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
@@ -257,8 +259,13 @@ public class UsuariosMenuController {
          // Compilar y llenar el informe con los datos
          JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
-         // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
-         String pdfFileName = "src/main/resources/ReportesGenerados/registrify_report.pdf";
+         // Obtén la marca de tiempo actual para el nombre único del archivo
+         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+         String timeStamp = dateFormat.format(new Date());
+
+         // Construye el nombre del archivo con la marca de tiempo
+         String pdfFileName = "src/main/resources/ReportesGenerados/ReportesUsuarios/registrify_report_usuarios_" + timeStamp + ".pdf";
+
          JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
 
          // Muestra un mensaje de éxito

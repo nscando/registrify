@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores.Inventario;
 
 import com.e.registrifyv1.Dao.InventarioDAO;
 import com.e.registrifyv1.Dao.VehiculoDAO;
+import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import javafx.collections.ObservableList;
@@ -129,9 +130,6 @@ public class InventarioMenuController {
         }
     }
 
-
-
-
     @FXML
     private Button btnSalir;
     @FXML
@@ -139,5 +137,56 @@ public class InventarioMenuController {
         Stage stage = (Stage) btnSalir.getScene().getWindow();
         stage.close();
     }
+
+
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
+
+    @FXML
+    public void handleGenerarReporte(ActionEvent event) {
+        try {
+            // Obtén la lista actual de usuarios en la TableView
+            ObservableList<InventarioModel> inventario = tablaMenuInventario.getItems();
+
+            // Cargar el diseño del informe desde un archivo jrxml
+            // Cambia la ruta según la ubicación real de tu archivo de diseño
+            InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_inventario.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+            // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(inventario);
+
+            // Parámetros del informe (puedes agregar más según tus necesidades)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("InventarioDataSource", dataSource);
+
+            // Compilar y llenar el informe con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Obtén la marca de tiempo actual para el nombre único del archivo
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timeStamp = dateFormat.format(new Date());
+
+            // Construye el nombre del archivo con la marca de tiempo
+            String pdfFileName = "src/main/resources/ReportesGenerados/ReportesInventario/registrify_report_inventario" + timeStamp + ".pdf";
+
+            // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
+
+            // Muestra un mensaje de éxito
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
+        } catch (JRException e) {
+            e.printStackTrace();
+            // Muestra un mensaje de error
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
+        }
+    }
+
 }
 

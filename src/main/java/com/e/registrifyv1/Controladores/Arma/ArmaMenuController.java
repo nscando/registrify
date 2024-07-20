@@ -61,6 +61,8 @@ public class ArmaMenuController {
 
 
 
+
+
     @FXML
     private void initialize() {
         armaDAO = new ArmaDAO();

@@ -1,6 +1,7 @@
 package com.e.registrifyv1.Controladores.Evento;
 
 
+import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,8 +58,6 @@ public class EventoDiarioController {
 
     @FXML
     private EventoDAO eventoDAO;
-
-
 
     @FXML
     private Button btnSalir;
@@ -120,5 +119,52 @@ public class EventoDiarioController {
         }
     }
 
+    public void handleGenerarReporte(ActionEvent event) {
+        try {
+            // Obtén la lista actual de usuarios en la TableView
+            ObservableList<EventoDiarioModel> eventos = tablaMenuEvento.getItems();
+
+            // Cargar el diseño del informe desde un archivo jrxml
+            // Cambia la ruta según la ubicación real de tu archivo de diseño
+            InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_eventos_diarios.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+
+            // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(eventos);
+
+            // Parámetros del informe (puedes agregar más según tus necesidades)
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("EventosDiariosDataSource", dataSource);
+
+            // Compilar y llenar el informe con los datos
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+
+            // Obtén la marca de tiempo actual para el nombre único del archivo
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String timeStamp = dateFormat.format(new Date());
+
+            // Construye el nombre del archivo con la marca de tiempo
+            String pdfFileName = "src/main/resources/ReportesGenerados/ReportesEventos/registrify_report_eventos_diarios_" + timeStamp + ".pdf";
+
+            // Guardar el informe como un archivo PDF en la carpeta ReportesGenerados
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
+
+            // Muestra un mensaje de éxito
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
+        } catch (JRException e) {
+            e.printStackTrace();
+            // Muestra un mensaje de error
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
+        }
+
+    }
+
+    private void mostrarAlerta(Alert.AlertType alertType, String title, String headerText, String contentText) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 
 }
