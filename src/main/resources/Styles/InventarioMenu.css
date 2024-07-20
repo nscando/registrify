@@ -13,7 +13,7 @@
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-cell-size: 20;
-    -fx-background-color: #3498db; /* Azul para los encabezados de columna */
+    -fx-background-color:  #473ba1; /* Azul para los encabezados de columna */
 }
 
 .table-view .column-header .label {
@@ -75,6 +75,6 @@
 }
 
 .chart-pie {
-    -fx-border-color: #3498db; /* Azul para el borde del gráfico de pastel */
+    -fx-border-color: #473ba1; /* Azul para el borde del gráfico de pastel */
     -fx-border-width: 0px;
 }

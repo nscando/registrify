@@ -7,10 +7,10 @@ public class EventoDiarioModel {
     private int idUnidad;
     private int idGendarme;
     private String descrEvento;
-    private Date fechaEvento;
+    private String fechaEvento;
     private int estado;
 
-    public EventoDiarioModel(int idEvento, int idUnidad, int idGendarme, String descrEvento, Date fechaEvento, int estado){
+    public EventoDiarioModel(int idEvento, int idUnidad, int idGendarme, String descrEvento, String fechaEvento, int estado){
         this.idEvento=idEvento;
         this.idUnidad=idUnidad;
         this.idGendarme=idGendarme;
@@ -21,27 +21,51 @@ public class EventoDiarioModel {
 
     // Getters y setters
 
-    public int getIdEvento() {return idEvento;    }
+    public int getIdEvento() {
 
-    public void setIdEvento(int idEvento) {this.idEvento = idEvento;    }
+        return idEvento;    }
 
-    public int getIdUnidad() {return idUnidad;    }
+    public void setIdEvento(int idEvento) {
 
-    public void setIdUnidad(int idUnidad) {this.idUnidad = idUnidad;    }
+        this.idEvento = idEvento;    }
 
-    public int getIdGendarme() {return idGendarme;    }
+    public int getIdUnidad() {
+        return idUnidad;    }
 
-    public void setIdGendarme(int idGendarme) {this.idGendarme = idGendarme;    }
 
-    public String getDescrEvento() {return descrEvento;    }
+    public void setIdUnidad(int idUnidad) {
+        this.idUnidad = idUnidad;    }
 
-    public void setDescrEvento(String descrEvento) {this.descrEvento = descrEvento;    }
 
-    public Date getFechaEvento() {return fechaEvento;    }
+    public int getIdGendarme() {
+        return idGendarme;    }
 
-    public void setFechaEvento(Date fechaEvento) {this.fechaEvento = fechaEvento;    }
 
-    public int getEstado() {return estado;    }
+    public void setIdGendarme(int idGendarme) {
+        this.idGendarme = idGendarme;    }
 
-    public void setEstado(int estado) {this.estado = estado;   }
+
+    public String getDescrEvento() {
+        return descrEvento;    }
+
+
+    public void setDescrEvento(String descrEvento) {
+        this.descrEvento = descrEvento;    }
+
+
+    public String getFechaEvento() {
+        return fechaEvento;    }
+
+
+    public void setFechaEvento(String fechaEvento) {
+        this.fechaEvento = fechaEvento;    }
+
+
+    public int getEstado() {
+        return estado;    }
+
+
+    public void setEstado(int estado) {
+        this.estado = estado;   }
+
 }

@@ -13,7 +13,7 @@
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-cell-size: 20;
-    -fx-background-color: #113b03; /* Verde para los encabezados de columna */
+    -fx-background-color:  #136b6a; /* Verde para los encabezados de columna */
 }
 
 .table-view .column-header .label {
