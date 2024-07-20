@@ -40,6 +40,9 @@ module com.e.registrifyv1 {
    exports com.e.registrifyv1.Controladores.Evento;
    opens com.e.registrifyv1.Controladores.Evento to javafx.fxml;
    opens com.e.registrifyv1.Modelos.EventoDiario to javafx.base;// Abre el paquete a javafx.base
+   exports com.e.registrifyv1.Modelos.EventoDiario; //este es el paquete que hay que agregar cuando no se genera el evento y salta el
+                                                   //error que el id es nulo, es porque no esta esta linea de codigo, ajustar a cada caso correspondiente.
+
 
    exports com.e.registrifyv1.Controladores.Inventario;
    opens com.e.registrifyv1.Controladores.Inventario to javafx.fxml;
