@@ -1,10 +1,11 @@
 package com.e.registrifyv1.Controladores.Inventario;
 
+
 import com.e.registrifyv1.Dao.InventarioDAO;
-import com.e.registrifyv1.Dao.VehiculoDAO;
-import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
+
+
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
-import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -128,6 +129,36 @@ public class InventarioMenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void handleModificacionInventario(ActionEvent event) {
+        InventarioModel inventarioSeleccionado = tablaMenuInventario.getSelectionModel().getSelectedItem();
+        if (inventarioSeleccionado != null) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Inventario/ModificarInventarioForm.fxml"));
+                Parent root = (Parent) loader.load();
+                ModificarInventarioController controller = loader.getController();
+                controller.inicializarDatosModificacion(inventarioSeleccionado);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al seleccionar");
+            alertError.setContentText("Selecciona un Objeto antes de modificar.");
+            alertError.show();
+        }
+    }
+
+    public void actualizarTableView() {
+        String valorBusqueda = txtFieldMenuInventario.getText();
+        ObservableList<InventarioModel> inventario = inventarioDAO.buscarInventario(valorBusqueda);
+        cargarInventariosEnTableView(inventario);
     }
 
     @FXML

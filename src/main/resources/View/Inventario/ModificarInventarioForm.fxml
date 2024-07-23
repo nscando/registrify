@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="453.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Inventario.ModificarInventarioController">
+    <children>
+        <VBox layoutX="147.0" layoutY="95.0" prefHeight="212.0" prefWidth="311.0" style="-fx-background-color:  #473ba1;">
+            <children>
+
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="ID Unidad(int)" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font></Label>
+                <TextField fx:id="txbIdUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="ID Gendarme(int)" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txbIdGendarme" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" text="Nombre(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txbNombre" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: PT92" style="-fx-background-radius: 20;" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Descripcion(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txbDescripcion" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: 9 × 19 mm Parabellum" style="-fx-background-radius: 20;" />
+            </children>
+        </VBox>
+        <Pane prefHeight="67.0" prefWidth="605.0" style="-fx-background-color: #473ba1;">
+            <children>
+                <Label accessibleRole="PARENT" alignment="CENTER" layoutX="131.0" layoutY="-1.0" prefHeight="69.0" prefWidth="343.0" text="MODIFICAR INVENTARIO" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Button fx:id="btnCancelar" layoutX="315.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleCancelarButtonAction" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: c82333;" stylesheets="@../../Styles/UnidadMenu.css" text="Cancelar" textFill="LAVENDER">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font></Button>
+        <Button fx:id="btnConfirmar" alignment="CENTER" layoutX="181.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleConfirmarModificacion" prefHeight="42.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: #218838;" stylesheets="@../../Styles/UnidadMenu.css" text="Confirmar" textFill="#ebebff">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Button>
+    </children>
+
+</AnchorPane>

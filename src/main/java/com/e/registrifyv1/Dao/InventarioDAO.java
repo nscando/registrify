@@ -1,5 +1,6 @@
 package com.e.registrifyv1.Dao;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
+import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,15 +63,15 @@ public class InventarioDAO {
 
         try {
             connection = dbConnection.getConexion();
-            String query = "INSERT INTO ACCESORIO WHERE (LOWER(ID_ACCESORIO) = LOWER(?) OR LOWER(ID_UNIDAD) LIKE LOWER(?) OR LOWER(ID_GENDARME) LIKE LOWER(?) OR LOWER(NUMEROSERIE_ACCESORIO) LIKE LOWER(?)  OR LOWER(TIPO_ACCESORIO) LIKE LOWER(?))";
+            String query = "INSERT INTO ACCESORIO (ID_ACCESORIO, ID_UNIDAD, ID_GENDARME, NUMEROSERIE_ACCESORIO, TIPO_ACCESORIO) VALUES (?, ?, ?, ?, ?)";
 
             statement = connection.prepareStatement(query);
-
             statement.setInt(1, inventario.getIdAccesorio());
             statement.setInt(2, inventario.getIdUnidad());
             statement.setInt(3, inventario.getIdGendarme());
             statement.setString(4, inventario.getNombreAccesorio());
             statement.setString(5, inventario.getDescrAccesorio());
+
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -80,7 +81,32 @@ public class InventarioDAO {
         } finally {
             closeResources(connection, statement, null);
         }
+    }
 
+    public boolean actualizarInventario(InventarioModel inventario) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+
+            String query = "UPDATE ACCESORIO SET ID_UNIDAD=?, ID_GENDARME=?, NUMEROSERIE_ACCESORIO=?, TIPO_ACCESORIO=? WHERE ID_ACCESORIO=?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, inventario.getIdUnidad());
+            statement.setInt(2, inventario.getIdGendarme());
+            statement.setString(3, inventario.getNombreAccesorio());
+            statement.setString(4, inventario.getDescrAccesorio());
+            statement.setInt(5, inventario.getIdAccesorio()); // Aquí se añade el quinto parámetro
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
     }
 
     private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
