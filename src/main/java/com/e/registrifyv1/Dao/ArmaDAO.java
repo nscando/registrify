@@ -20,19 +20,30 @@ public class ArmaDAO {
 
     public ObservableList<ArmaMenuModel> buscarArma(String valor) {
 
-        //se quito dentro de los parametros que recibe este metodo, el "incluir baja".
-
         ObservableList<ArmaMenuModel> armas = FXCollections.observableArrayList();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
         try {
-
             connection = dbConnection.getConexion();
 
-            String query = "SELECT * FROM ARMA WHERE (LOWER(ID_ARMA) = LOWER(?) OR LOWER(ID_GENDARME) LIKE LOWER(?) OR LOWER(ID_UNIDAD) LIKE LOWER(?) OR LOWER(MARCA_ARMA) LIKE LOWER(?) OR LOWER(TIPO_ARMA) LIKE LOWER(?) OR LOWER(NUMSERIE_ARMA) LIKE LOWER(?))";
-
+            String query = "SELECT ARMA.ID_ARMA, ARMA.MARCA_ARMA, ARMA.TIPO_ARMA, ARMA.NUMSERIE_ARMA, "
+                    + "USUARIO.NOMBRE AS NOMBRE_GENDARME, "
+                    + "USUARIO.APELLIDO AS APELLIDO_GENDARME, "
+                    + "USUARIO.DNI AS DNI_GENDARME, "
+                    + "UNIDAD.NOMBRE_UNIDAD AS NOMBRE_UNIDAD "
+                    + "FROM ARMA "
+                    + "LEFT JOIN USUARIO ON ARMA.ID_GENDARME = USUARIO.ID_GENDARME "
+                    + "LEFT JOIN UNIDAD ON ARMA.ID_UNIDAD = UNIDAD.ID_UNIDAD "
+                    + "WHERE (LOWER(ARMA.ID_ARMA) = LOWER(?) "
+                    + "OR LOWER(USUARIO.NOMBRE) LIKE LOWER(?) "
+                    + "OR LOWER(USUARIO.APELLIDO) LIKE LOWER(?) "
+                    + "OR LOWER(USUARIO.DNI) LIKE LOWER(?) "
+                    + "OR LOWER(UNIDAD.NOMBRE_UNIDAD) LIKE LOWER(?) "
+                    + "OR LOWER(ARMA.MARCA_ARMA) LIKE LOWER(?) "
+                    + "OR LOWER(ARMA.TIPO_ARMA) LIKE LOWER(?) "
+                    + "OR LOWER(ARMA.NUMSERIE_ARMA) LIKE LOWER(?))";
 
             statement = connection.prepareStatement(query);
 
@@ -42,22 +53,23 @@ public class ArmaDAO {
             statement.setString(4, "%" + valor + "%");
             statement.setString(5, "%" + valor + "%");
             statement.setString(6, "%" + valor + "%");
-
+            statement.setString(7, "%" + valor + "%");
+            statement.setString(8, "%" + valor + "%");
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-
                 int idArma = resultSet.getInt("ID_ARMA");
-                int idGendarme = resultSet.getInt("ID_GENDARME");
-                int idUnidad = resultSet.getInt("ID_UNIDAD");
                 String marcaArma = resultSet.getString("MARCA_ARMA");
                 String tipoArma = resultSet.getString("TIPO_ARMA");
                 String numeroSerieArma = resultSet.getString("NUMSERIE_ARMA");
+                String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
+                String apellidoGendarme = resultSet.getString("APELLIDO_GENDARME");
+                String dniGendarme = resultSet.getString("DNI_GENDARME");
+                String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
 
-                ArmaMenuModel arma = new ArmaMenuModel(idArma, idGendarme, idUnidad, marcaArma, tipoArma, numeroSerieArma);
+                ArmaMenuModel arma = new ArmaMenuModel(idArma, nombreGendarme, apellidoGendarme, dniGendarme, nombreUnidad, marcaArma, tipoArma, numeroSerieArma);
 
                 armas.add(arma);
-
             }
 
         } catch (SQLException e) {
@@ -86,6 +98,7 @@ public class ArmaDAO {
             statement.setString(4, arma.getMarcaArma());
             statement.setString(5, arma.getTipoArma());
             statement.setString(6, arma.getNumeroSerieArma());
+
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 

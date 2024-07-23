@@ -4,6 +4,7 @@ import com.e.registrifyv1.Dao.ArmaDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +32,6 @@ public class ArmaMenuController {
     @FXML
     private TableView <ArmaMenuModel> tablaMenuArmas;
 
-    //Creacion de las 6 columnas que componen la tabla de Armas
     @FXML
     private TableColumn<ArmaMenuModel, Integer> idArmaColum;
 
@@ -40,6 +40,21 @@ public class ArmaMenuController {
 
     @FXML
     private TableColumn<ArmaMenuModel, Integer> idUnidadColum;
+
+    @FXML
+    private TableColumn<ArmaMenuModel, String> nombreGendarmeColum;
+
+    @FXML
+    private TableColumn<ArmaMenuModel, String> apellidoGendarmeColum;
+
+    @FXML
+    private TableColumn<ArmaMenuModel, String> dniGendarmeColum;
+
+    @FXML
+    private TableColumn<ArmaMenuModel, String> nombreUnidadColum;
+
+    @FXML
+    private TableColumn<ArmaMenuModel, String> gendarmeColum;
 
     @FXML
     private TableColumn<ArmaMenuModel, String> marcaArmaColum;
@@ -71,6 +86,19 @@ public class ArmaMenuController {
     }
 
     private void configurarColumnas() {
+
+        idArmaColum.setCellValueFactory(new PropertyValueFactory<>("idArma"));
+        gendarmeColum.setCellValueFactory(cellData -> {
+            ArmaMenuModel arma = cellData.getValue();
+            String gendarmeInfo = arma.getNombreGendarme() + " " + arma.getApellidoGendarme() + " " + arma.getDniGendarme();
+            return new SimpleStringProperty(gendarmeInfo);
+        });
+        nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
+        marcaArmaColum.setCellValueFactory(new PropertyValueFactory<>("marcaArma"));
+        tipoArmaColum.setCellValueFactory(new PropertyValueFactory<>("tipoArma"));
+        numeroSerieArmaColum.setCellValueFactory(new PropertyValueFactory<>("numeroSerieArma"));
+
+        /*
         idGendarmeColum.setCellFactory(tc -> {
             TableCell<ArmaMenuModel, Integer> cell = new TableCell<ArmaMenuModel, Integer>() {
                 @Override
@@ -87,6 +115,9 @@ public class ArmaMenuController {
             });
             return cell;
         });
+
+
+         */
 
 /*
             ESTA PARTE DEL CODIGO ES LA QUE ABRE EL MENU DE MODIFICAR EL USUARIO SIN QUE SE HAGA DOBLE CLICK.
@@ -130,15 +161,19 @@ public class ArmaMenuController {
 
     }
 
-    private void cargarArmasEnTableView(ObservableList<ArmaMenuModel> arma) {
+    private void cargarArmasEnTableView(ObservableList<ArmaMenuModel> armas) {
 
-        if (arma != null && !arma.isEmpty()) {
+        if (armas != null && !armas.isEmpty()) {
 
-            tablaMenuArmas.setItems(arma);
+            tablaMenuArmas.setItems(armas);
 
             idArmaColum.setCellValueFactory(new PropertyValueFactory<>("idArma"));
-            idGendarmeColum.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
-            idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
+            gendarmeColum.setCellValueFactory(cellData -> {
+                ArmaMenuModel arma = cellData.getValue();
+                String gendarmeInfo = arma.getNombreGendarme() + " " + arma.getApellidoGendarme() + " (" + arma.getDniGendarme() + ")";
+                return new SimpleStringProperty(gendarmeInfo);
+            });
+            nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
             marcaArmaColum.setCellValueFactory(new PropertyValueFactory<>("marcaArma"));
             tipoArmaColum.setCellValueFactory(new PropertyValueFactory<>("tipoArma"));
             numeroSerieArmaColum.setCellValueFactory(new PropertyValueFactory<>("numeroSerieArma"));
@@ -146,6 +181,7 @@ public class ArmaMenuController {
             tablaMenuArmas.getItems().clear();
         }
     }
+
 
     @FXML //ABRIR FORMULARIO PARA AGREGAR UNIDAD
     public void menuAgregarArma(ActionEvent event) {

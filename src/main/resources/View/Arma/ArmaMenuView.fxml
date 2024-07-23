@@ -124,8 +124,8 @@
                 <TableView fx:id="tablaMenuArmas" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="idArmaColum" minWidth="4.0" prefWidth="75.0" text="Id Arma" />
-                        <TableColumn fx:id="idGendarmeColum" minWidth="4.0" prefWidth="75.0" text="Id Gendarme" />
-                        <TableColumn fx:id="idUnidadColum" minWidth="4.0" prefWidth="75.0" text="Id Unidad" />
+                        <TableColumn fx:id="gendarmeColum" minWidth="4.0" prefWidth="75.0" text="Gendarme" />
+                        <TableColumn fx:id="nombreUnidadColum" minWidth="4.0" prefWidth="75.0" text="Nombre de Unidad" />
                         <TableColumn fx:id="marcaArmaColum" minWidth="4.0" prefWidth="75.0" text="Marca de pistola" />
                         <TableColumn fx:id="tipoArmaColum" minWidth="4.0" prefWidth="75.0" text="Tipo de arma" />
                         <TableColumn fx:id="numeroSerieArmaColum" minWidth="4.0" prefWidth="75.0" text="Numero de Serie" />

@@ -17,7 +17,7 @@
 		</conditionalStyle>
 	</style>
 	<field name="idArma" class="java.lang.Integer"/>
-	<field name="idGendarme" class="java.lang.Integer"/>
+	<field name="gendarmeInfo" class="java.lang.String"/>
 	<field name="marcaArma" class="java.lang.String"/>
 	<field name="tipoArma" class="java.lang.String"/>
 	<field name="numeroSerieArma" class="java.lang.String"/>
@@ -50,7 +50,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[ID Gendarme]]></text>
+				<text><![CDATA[Gendarme]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="220" y="150" width="112" height="30" uuid="b9baf59d-2bd4-4ee0-92c8-7b426afc7fd7"/>
@@ -159,7 +159,7 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idGendarme}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{gendarmeInfo}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement mode="Transparent" x="222" y="0" width="111" height="25" uuid="b6a1961e-8ee8-4252-9ab1-7c4e8b9b029d"/>
