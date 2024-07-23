@@ -9,7 +9,8 @@
 	</style>
 	<field name="idEvento" class="java.lang.Integer"/>
 	<field name="idUnidad" class="java.lang.Integer"/>
-	<field name="idGendarme" class="java.lang.Integer"/>
+	<field name="nombreUnidad" class="java.lang.String"/>
+	<field name="gendarmeInfo" class="java.lang.String"/>
 	<field name="descrEvento" class="java.lang.String"/>
 	<field name="fechaEvento" class="java.lang.String"/>
 	<field name="estado" class="java.lang.Integer"/>
@@ -46,7 +47,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[ID UNIDAD]]></text>
+				<text><![CDATA[NOMBRE UNIDAD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="187" y="150" width="92" height="30" uuid="25f19664-291d-4421-895b-65d3ed82b870">
@@ -62,7 +63,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[ID GENDARME]]></text>
+				<text><![CDATA[GENDARME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="279" y="150" width="92" height="30" uuid="f97fe272-b9a8-488c-b20a-4809dd1f4c21">
@@ -178,14 +179,14 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idUnidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nombreUnidad}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement x="187" y="0" width="92" height="25" uuid="13c67e12-649a-4547-ae73-99e9125d0545"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idGendarme}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{gendarmeInfo}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement x="279" y="0" width="92" height="25" uuid="70659fcd-4e88-4f4c-8b9f-73ccc7366b14"/>

@@ -123,8 +123,8 @@
                 <TableView fx:id="tablaMenuEvento" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/EventoDiario.css" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="idEventoColumn" prefWidth="75.0"  text="ID" />
-                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0"  text="Unidad" />
-                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0"  text="Gendarme" />
+                        <TableColumn fx:id="nombreUnidadColum" prefWidth="75.0"  text="Unidad" />
+                        <TableColumn fx:id="gendarmeColum" prefWidth="75.0"  text="Gendarme" />
                         <TableColumn fx:id="descrEventoColumn" prefWidth="75.0"  text="Descripcion" />
                         <TableColumn fx:id="fechaEventoColumn" prefWidth="75.0"  text="Fecha" />
                         <TableColumn fx:id="estadoEventoColumn" prefWidth="75.0"  text="Estado" />

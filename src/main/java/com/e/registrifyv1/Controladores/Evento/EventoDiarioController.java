@@ -2,6 +2,7 @@ package com.e.registrifyv1.Controladores.Evento;
 
 
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,7 +40,13 @@ public class EventoDiarioController {
     private TableColumn<EventoDiarioModel, Integer> idEventoColumn;
 
     @FXML
+    private TableColumn<EventoDiarioModel, String> gendarmeColum;
+
+    @FXML
     private TableColumn<EventoDiarioModel, Integer> idUnidadColum;
+
+    @FXML
+    private TableColumn<EventoDiarioModel, String> nombreUnidadColum;
 
     @FXML
     private TableColumn<EventoDiarioModel, Integer> idGendarmeColum;
@@ -69,6 +76,19 @@ public class EventoDiarioController {
     }
 
     private void configurarColumnas() {
+
+        idEventoColumn.setCellValueFactory(new PropertyValueFactory<>("idEvento"));
+        gendarmeColum.setCellValueFactory(cellData -> {
+            EventoDiarioModel evento = cellData.getValue();
+            String gendarmeInfo = evento.getNombreGendarme() + " " + evento.getApellidoGendarme() + "\nDNI: " + evento.getDniGendarme();
+            return new SimpleStringProperty(gendarmeInfo);
+        });
+        nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
+        descrEventoColumn.setCellValueFactory(new PropertyValueFactory<>("descrEvento"));
+        fechaEventoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaEvento"));
+        estadoEventoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));
+
+   /*
         idGendarmeColum.setCellFactory(tc -> {
             TableCell<EventoDiarioModel, Integer> cell = new TableCell<EventoDiarioModel, Integer>() {
                 @Override
@@ -77,6 +97,7 @@ public class EventoDiarioController {
                     setText(empty ? null : item != null ? item.toString() : "");
                 }
             };
+
             //todo  doble click para modificar
             //cell.setOnMouseClicked(event -> {
               //  if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
@@ -86,6 +107,7 @@ public class EventoDiarioController {
            // });
             return cell;
         });
+*/
     }
     @FXML
     private void handleSalirButtonAction(ActionEvent event) {
@@ -100,19 +122,22 @@ public class EventoDiarioController {
         cargarEventosEnTableView(evento);
     }
 
-    private void cargarEventosEnTableView(ObservableList<EventoDiarioModel> evento) {
+    private void cargarEventosEnTableView(ObservableList<EventoDiarioModel> eventos) {
 
-        if (evento != null && !evento.isEmpty()) {
+        if (eventos != null && !eventos.isEmpty()) {
 
-            tablaMenuEvento.setItems(evento);
+            tablaMenuEvento.setItems(eventos);
 
             idEventoColumn.setCellValueFactory(new PropertyValueFactory<>("idEvento"));
-            idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
-            idGendarmeColum.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
+            gendarmeColum.setCellValueFactory(cellData -> {
+                EventoDiarioModel evento = cellData.getValue();
+                String gendarmeInfo = evento.getNombreGendarme() + " " + evento.getApellidoGendarme() + "\nDNI: " + evento.getDniGendarme();
+                return new SimpleStringProperty(gendarmeInfo);
+            });
+            nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
             descrEventoColumn.setCellValueFactory(new PropertyValueFactory<>("descrEvento"));
             fechaEventoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaEvento"));
             estadoEventoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));
-
 
         } else {
             tablaMenuEvento.getItems().clear();
