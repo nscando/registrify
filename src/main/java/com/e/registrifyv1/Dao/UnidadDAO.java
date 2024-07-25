@@ -164,12 +164,21 @@ public class UnidadDAO {
         PreparedStatement statement = null;
 
         try {
+
+            // Verificar el valor de idAccesorio
+            System.out.println("ID de la Unidad a eliminar: " + idUnidad);
             connection = dbConnection.getConexion();
             String query = "DELETE FROM UNIDAD WHERE ID_UNIDAD=?";
             statement = connection.prepareStatement(query);
             statement.setInt(1, idUnidad);  // Establece el estado a 0 (dar de baja)
 
+            // Verificar la consulta generada
+            System.out.println("Consulta generada: " + statement.toString());
+
             int rowsAffected = statement.executeUpdate();
+
+            // Verificar cuántas filas fueron afectadas
+            System.out.println("Filas afectadas: " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();

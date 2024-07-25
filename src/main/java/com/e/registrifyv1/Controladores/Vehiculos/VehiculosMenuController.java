@@ -3,6 +3,7 @@ package com.e.registrifyv1.Controladores.Vehiculos;
 import com.e.registrifyv1.Controladores.Arma.ModificarArmaController;
 import com.e.registrifyv1.Dao.VehiculoDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
+import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class VehiculosMenuController {
 
@@ -193,6 +195,57 @@ public class VehiculosMenuController {
             alertError.show();
         }
     }
+
+    private VehiculosModel obtenerVehiculoSeleccionado() {
+        // Lógica para obtener el inventario seleccionado
+        return tablaMenuVehiculo.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void handleBtnBajaVehiculo(ActionEvent event) {
+        VehiculosModel vehiculoSeleccionado = obtenerVehiculoSeleccionado();
+
+        if (vehiculoSeleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText("¡Atención!");
+            alert.setContentText("Estás a punto de dar de eliminar ese objeto. ¿Estás seguro?");
+            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                try {
+                    boolean bajaExitosa = vehiculoDAO.bajaVehiculo(vehiculoSeleccionado.getIdVehiculo());
+
+                    if (bajaExitosa) {
+                        Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+                        alertConfirmacion.setTitle("Confirmación");
+                        alertConfirmacion.setHeaderText("¡Objeto eliminado del inventario correctamente!");
+                        alertConfirmacion.show();
+                        actualizarTableView();
+                        // Realiza acciones adicionales después de dar de baja si es necesario
+                    } else {
+                        Alert alertError = new Alert(Alert.AlertType.ERROR);
+                        alertError.setTitle("Error");
+                        alertError.setHeaderText("Error al dar de baja");
+                        alertError.setContentText("Hubo un problema al dar de baja el objeto.");
+                        alertError.show();
+                    }
+                } catch (Exception e) {
+                    // Imprime la excepción en la consola
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al dar de baja");
+            alertError.setContentText("Selecciona un objeto antes de dar de baja.");
+            alertError.show();
+        }
+    }
+
 
     public void actualizarTableView() {
         String valorBusqueda = txtFieldMenuVehiculo.getText();

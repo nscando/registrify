@@ -43,7 +43,7 @@ public class  AgregarInventarioController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
-        int idAccesorio = Integer.parseInt(txbIdAccesorio.getText());
+        int idAccesorio = 0;
         int idUnidad = Integer.parseInt(txbIdUnidad.getText());
         int idGendarme = Integer.parseInt(txbIdGendarme.getText());
         String nombre = txbNombre.getText();
@@ -69,7 +69,6 @@ public class  AgregarInventarioController implements Initializable {
 
         if (carga) {
             alert.setContentText("El Objeto se insertó correctamente.");
-            txbIdAccesorio.clear();
             txbIdUnidad.clear();
             txbIdGendarme.clear();
             txbNombre.clear();

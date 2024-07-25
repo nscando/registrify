@@ -108,6 +108,35 @@ public class InventarioDAO {
             closeResources(connection, statement, null);
         }
     }
+//todo corregir la baja. borra, pero no lo seleccionado
+public boolean bajaInventario(int idAccesorio) {
+    Connection connection = null;
+    PreparedStatement statement = null;
+
+    try {
+
+        // Verificar el valor de idAccesorio
+        System.out.println("ID del Accesorio a eliminar: " + idAccesorio);
+        connection = dbConnection.getConexion();
+        String query = "DELETE FROM ACCESORIO WHERE ID_ACCESORIO=?";
+        statement = connection.prepareStatement(query);
+        statement.setInt(1, idAccesorio);  // Establece el estado a 0 (dar de baja)
+
+        // Verificar la consulta generada
+        System.out.println("Consulta generada: " + statement.toString());
+
+        int rowsAffected = statement.executeUpdate();
+
+        // Verificar cuántas filas fueron afectadas
+        System.out.println("Filas afectadas: " + rowsAffected);
+        return rowsAffected > 0;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        closeResources(connection, statement, null);
+    }
+}
 
     private void closeResources(Connection connection, PreparedStatement statement, ResultSet resultSet) {
         try {

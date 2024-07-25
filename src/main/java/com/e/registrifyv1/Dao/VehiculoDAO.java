@@ -150,12 +150,20 @@ public class VehiculoDAO {
         PreparedStatement statement = null;
 
         try {
+            // Verificar el valor de idAccesorio
+            System.out.println("ID del Accesorio a eliminar: " + idVehiculo);
             connection = dbConnection.getConexion();
             String query = "DELETE FROM VEHICULO WHERE ID_VEHICULO=?";
             statement = connection.prepareStatement(query);
             statement.setInt(1, idVehiculo);
 
+            // Verificar la consulta generada
+            System.out.println("Consulta generada: " + statement.toString());
+
             int rowsAffected = statement.executeUpdate();
+
+            // Verificar cuántas filas fueron afectadas
+            System.out.println("Filas afectadas: " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
