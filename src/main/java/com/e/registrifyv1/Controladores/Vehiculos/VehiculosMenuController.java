@@ -5,6 +5,7 @@ import com.e.registrifyv1.Dao.VehiculoDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,10 +36,10 @@ public class VehiculosMenuController {
     private TableColumn<VehiculosModel, Integer> idVehiculoColum;
 
     @FXML
-    private TableColumn<VehiculosModel, Integer> idUnidadColum;
+    private TableColumn<VehiculosModel, String> nombreUnidadColum;
 
     @FXML
-    private TableColumn<VehiculosModel, Integer> idGendarmeColum;
+    private TableColumn<VehiculosModel, String> gendarmeColum;
 
     @FXML
     private TableColumn<VehiculosModel, String> tipoVehiculoColum;
@@ -72,7 +73,7 @@ public class VehiculosMenuController {
     }
 
     private void configurarColumnas() {
-        idGendarmeColum.setCellFactory(tc -> {
+        idVehiculoColum.setCellFactory(tc -> {
         TableCell<VehiculosModel, Integer> cell = new TableCell<VehiculosModel, Integer>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
@@ -126,8 +127,12 @@ public class VehiculosMenuController {
             tablaMenuVehiculo.setItems(vehiculo);
 
             idVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("idVehiculo"));
-            idGendarmeColum.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
-            idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
+            nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
+            gendarmeColum.setCellValueFactory(cellData -> {
+                VehiculosModel vehiculoItem = cellData.getValue();
+                String gendarmeInfo = vehiculoItem.getNombreGendarme() + " " + vehiculoItem.getApellidoGendarme() + " " + vehiculoItem.getDniGendarme();
+                return new SimpleStringProperty(gendarmeInfo);
+            });
             tipoVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("tipoVehiculo"));
             marcaVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("marcaVehiculo"));
             modeloVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("modelo"));

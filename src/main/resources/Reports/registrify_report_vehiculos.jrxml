@@ -10,6 +10,8 @@
 	<field name="idVehiculo" class="java.lang.Integer"/>
 	<field name="idUnidad" class="java.lang.Integer"/>
 	<field name="idGendarme" class="java.lang.Integer"/>
+	<field name="nombreUnidad" class="java.lang.String"/>
+	<field name="gendarmeInfo" class="java.lang.String"/>
 	<field name="tipoVehiculo" class="java.lang.String"/>
 	<field name="marcaVehiculo" class="java.lang.String"/>
 	<field name="modelo" class="java.lang.String"/>
@@ -49,7 +51,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[ID UNIDAD]]></text>
+				<text><![CDATA[NOMBRE UNIDAD]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="140" y="150" width="68" height="30" uuid="a4383a35-3932-4a64-a766-b60eb0e2c97e">
@@ -65,7 +67,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial"/>
 				</textElement>
-				<text><![CDATA[ID GENDARME]]></text>
+				<text><![CDATA[GENDARME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="208" y="150" width="70" height="30" uuid="f1a1a66e-b18a-4c2c-8adf-e0ac38d247ca">
@@ -233,14 +235,14 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idUnidad}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{nombreUnidad}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement x="141" y="0" width="69" height="25" uuid="19288160-5ba4-4bac-a7ed-1e339cb65fbc"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Arial"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{idGendarme}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{gendarmeInfo}]]></textFieldExpression>
 				</textField>
 				<textField textAdjust="StretchHeight">
 					<reportElement x="210" y="0" width="69" height="25" uuid="bb4d7de6-9d76-4ce7-a930-9b0c3a00cc11"/>

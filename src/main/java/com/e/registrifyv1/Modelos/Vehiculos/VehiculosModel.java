@@ -5,6 +5,12 @@ public class VehiculosModel {
     private int idVehiculo;
     private int idUnidad;
     private int idGendarme;
+
+    private String nombreGendarme;
+    private String apellidoGendarme;
+    private String dniGendarme;
+    private String nombreUnidad;
+
     private String tipoVehiculo;
     private String marcaVehiculo;
     private String modelo;
@@ -49,6 +55,46 @@ public class VehiculosModel {
     public void setIdGendarme(int idGendarme) {
         this.idGendarme = idGendarme;
     }
+
+    public String getNombreGendarme() {
+
+        return nombreGendarme;
+    }
+
+    public void setNombreGendarme(String nombreGendarme) {
+        this.nombreGendarme = nombreGendarme;
+    }
+
+    public String getApellidoGendarme() {
+        return apellidoGendarme;
+    }
+
+    public void setApellidoGendarme(String apellidoGendarme) {
+        this.apellidoGendarme = apellidoGendarme;
+    }
+
+    public String getDniGendarme() {
+        return dniGendarme;
+    }
+
+    public void setDniGendarme(String dniGendarme) {
+        this.dniGendarme = dniGendarme;
+    }
+
+
+
+    public String getGendarmeInfo() {
+        return nombreGendarme + " " + apellidoGendarme + "\nDNI: " + dniGendarme + " ";
+    }
+
+    public void setNombreUnidad(String nombreUnidad) {
+        this.nombreUnidad = nombreUnidad;
+    }
+
+    public String getNombreUnidad() {
+        return nombreUnidad;
+    }
+
 
     public String getTipoVehiculo() {
         return tipoVehiculo;

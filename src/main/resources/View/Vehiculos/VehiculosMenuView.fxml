@@ -123,8 +123,8 @@
                 <TableView fx:id="tablaMenuVehiculo" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/VehiculoMenu.css" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="idVehiculoColum" prefWidth="75.0" text="ID-Vehiculo" />
-                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID-Unidad" />
-                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0" text="Id-Gendarme" />
+                        <TableColumn fx:id="nombreUnidadColum" prefWidth="75.0" text="ID-Unidad" />
+                        <TableColumn fx:id="gendarmeColum" prefWidth="75.0" text="Id-Gendarme" />
                         <TableColumn fx:id="tipoVehiculoColum" prefWidth="75.0" text="Tipo-Vehiculo" />
                         <TableColumn fx:id="marcaVehiculoColum" prefWidth="75.0" text="Marca-Vehiculo" />
                         <TableColumn fx:id="modeloVehiculoColum" prefWidth="75.0" text="Modelo" />

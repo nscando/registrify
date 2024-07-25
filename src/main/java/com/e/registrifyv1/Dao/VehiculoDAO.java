@@ -17,8 +17,7 @@ public class VehiculoDAO {
 
     public VehiculoDAO() { dbConnection = new DBConnection();   }
 
-    public ObservableList<VehiculosModel> buscarVehiculo(String valor)//
-    {
+    public ObservableList<VehiculosModel> buscarVehiculo(String valor) {
         ObservableList<VehiculosModel> vehiculos = FXCollections.observableArrayList();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -27,16 +26,25 @@ public class VehiculoDAO {
         try {
             connection = dbConnection.getConexion();
 
-            String query = "SELECT * FROM VEHICULO WHERE (LOWER(ID_VEHICULO) = LOWER(?) OR LOWER(MARCA_VEHICULO) LIKE LOWER(?) OR LOWER(MODELO) LIKE LOWER(?) OR LOWER(PATENTE) LIKE LOWER(?))";
+            // Consulta SQL con JOIN para obtener datos del gendarme y unidad
+            String query = "SELECT VEHICULO.ID_VEHICULO, VEHICULO.ID_UNIDAD, VEHICULO.ID_GENDARME, "
+                    + "VEHICULO.TIPO_VEHICULO, VEHICULO.MARCA_VEHICULO, VEHICULO.MODELO, VEHICULO.PATENTE, VEHICULO.KILOMETRAJE, "
+                    + "UNIDAD.NOMBRE_UNIDAD, "
+                    + "USUARIO.NOMBRE AS NOMBRE_GENDARME, USUARIO.APELLIDO AS APELLIDO_GENDARME, USUARIO.DNI AS DNI_GENDARME "
+                    + "FROM VEHICULO "
+                    + "LEFT JOIN UNIDAD ON VEHICULO.ID_UNIDAD = UNIDAD.ID_UNIDAD "
+                    + "LEFT JOIN USUARIO ON VEHICULO.ID_GENDARME = USUARIO.ID_GENDARME "
+                    + "WHERE (LOWER(VEHICULO.ID_VEHICULO) = LOWER(?) "
+                    + "OR LOWER(VEHICULO.MARCA_VEHICULO) LIKE LOWER(?) "
+                    + "OR LOWER(VEHICULO.MODELO) LIKE LOWER(?) "
+                    + "OR LOWER(VEHICULO.PATENTE) LIKE LOWER(?))";
 
             statement = connection.prepareStatement(query);
-            //habria que agregar todos los datos?
 
             statement.setString(1, valor);
             statement.setString(2, "%" + valor + "%");
             statement.setString(3, "%" + valor + "%");
             statement.setString(4, "%" + valor + "%");
-
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -48,8 +56,18 @@ public class VehiculoDAO {
                 String modelo = resultSet.getString("MODELO");
                 String patente = resultSet.getString("PATENTE");
                 String kilometraje = resultSet.getString("KILOMETRAJE");
+                String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
+                String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
+                String apellidoGendarme = resultSet.getString("APELLIDO_GENDARME");
+                String dniGendarme = resultSet.getString("DNI_GENDARME");
 
+                // Crear el objeto VehiculosModel con todos los datos
                 VehiculosModel vehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
+                vehiculo.setNombreUnidad(nombreUnidad);
+                vehiculo.setNombreGendarme(nombreGendarme);
+                vehiculo.setApellidoGendarme(apellidoGendarme);
+                vehiculo.setDniGendarme(dniGendarme);
+
                 vehiculos.add(vehiculo);
             }
 

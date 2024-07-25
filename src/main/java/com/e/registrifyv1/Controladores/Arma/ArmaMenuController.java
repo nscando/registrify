@@ -36,21 +36,6 @@ public class ArmaMenuController {
     private TableColumn<ArmaMenuModel, Integer> idArmaColum;
 
     @FXML
-    private TableColumn<ArmaMenuModel, Integer> idGendarmeColum;
-
-    @FXML
-    private TableColumn<ArmaMenuModel, Integer> idUnidadColum;
-
-    @FXML
-    private TableColumn<ArmaMenuModel, String> nombreGendarmeColum;
-
-    @FXML
-    private TableColumn<ArmaMenuModel, String> apellidoGendarmeColum;
-
-    @FXML
-    private TableColumn<ArmaMenuModel, String> dniGendarmeColum;
-
-    @FXML
     private TableColumn<ArmaMenuModel, String> nombreUnidadColum;
 
     @FXML
