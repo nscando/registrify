@@ -16,7 +16,7 @@ public class InventarioDAO {
 
     public ObservableList<InventarioModel> buscarInventario(String valor)//
     {
-        ObservableList<InventarioModel> inventarios = FXCollections.observableArrayList();
+        ObservableList<InventarioModel> inventario = FXCollections.observableArrayList();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -24,28 +24,44 @@ public class InventarioDAO {
         try {
             connection = dbConnection.getConexion();
 
-            String query = "SELECT * FROM ACCESORIO WHERE (LOWER(ID_ACCESORIO) = LOWER(?) OR LOWER(ID_UNIDAD) LIKE LOWER(?) OR LOWER(ID_GENDARME) LIKE LOWER(?) OR LOWER(NUMEROSERIE_ACCESORIO) LIKE LOWER(?)  OR LOWER(TIPO_ACCESORIO) LIKE LOWER(?))";
+            String query = "SELECT ACCESORIO.ID_ACCESORIO, ACCESORIO.NUMEROSERIE_ACCESORIO, ACCESORIO.TIPO_ACCESORIO, "
+                    + "USUARIO.NOMBRE AS NOMBRE_GENDARME, "
+                    + "USUARIO.APELLIDO AS APELLIDO_GENDARME, "
+                    + "USUARIO.DNI AS DNI_GENDARME, "
+                    + "UNIDAD.NOMBRE_UNIDAD AS NOMBRE_UNIDAD "
+                    + "FROM ACCESORIO "
+                    + "LEFT JOIN USUARIO ON ACCESORIO.ID_GENDARME = USUARIO.ID_GENDARME "
+                    + "LEFT JOIN UNIDAD ON ACCESORIO.ID_UNIDAD = UNIDAD.ID_UNIDAD "
+                    + "WHERE (LOWER(ACCESORIO.ID_ACCESORIO) = LOWER(?) "
+                    + "OR LOWER(USUARIO.NOMBRE) LIKE LOWER(?) "
+                    + "OR LOWER(USUARIO.APELLIDO) LIKE LOWER(?) "
+                    + "OR LOWER(USUARIO.DNI) LIKE LOWER(?) "
+                    + "OR LOWER(UNIDAD.NOMBRE_UNIDAD) LIKE LOWER(?) "
+                    + "OR LOWER(ACCESORIO.NUMEROSERIE_ACCESORIO) LIKE LOWER(?) "
+                    + "OR LOWER(ACCESORIO.TIPO_ACCESORIO) LIKE LOWER(?))";
 
             statement = connection.prepareStatement(query);
-            //habria que agregar todos los datos?
 
             statement.setString(1, valor);
             statement.setString(2, "%" + valor + "%");
             statement.setString(3, "%" + valor + "%");
             statement.setString(4, "%" + valor + "%");
             statement.setString(5, "%" + valor + "%");
-
+            statement.setString(6, "%" + valor + "%");
+            statement.setString(7, "%" + valor + "%");
 
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int idAccesorio = resultSet.getInt("ID_ACCESORIO");
-                int idUnidad = resultSet.getInt("ID_UNIDAD");
-                int idGendarme = resultSet.getInt("ID_GENDARME");
                 String nombreAccesorio = resultSet.getString("NUMEROSERIE_ACCESORIO");
                 String descrAccesorio = resultSet.getString("TIPO_ACCESORIO");
+                String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
+                String apellidoGendarme = resultSet.getString("APELLIDO_GENDARME");
+                String dniGendarme = resultSet.getString("DNI_GENDARME");
+                String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
 
-                InventarioModel inventario = new InventarioModel(idAccesorio, idUnidad, idGendarme, nombreAccesorio, descrAccesorio);
-                inventarios.add(inventario);
+                InventarioModel item = new InventarioModel(idAccesorio, nombreUnidad, nombreGendarme, apellidoGendarme, dniGendarme, nombreAccesorio, descrAccesorio);
+                inventario.add(item);
             }
 
         } catch (SQLException e) {
@@ -54,7 +70,7 @@ public class InventarioDAO {
             closeResources(connection, statement, resultSet);
         }
 
-        return inventarios;
+        return inventario;
     }
 
     public boolean insertarInventario(InventarioModel inventario) {

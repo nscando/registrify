@@ -85,6 +85,11 @@ public class ArmaMenuModel {
 
     public String getGendarmeInfo() {
         return nombreGendarme + " " + apellidoGendarme + "\nDNI: " + dniGendarme + " ";
+        /*Este getter sirve para poder mostrar todos los datos en una sola columna
+         * cuando configuramos las columnas en el controller.
+         * Y a la hora de hacer el reporte recordar que hay una columna del archivo .jrxml
+         * que debe de llamarse gendarmeInfo para poder mostrar los datos correctamente.
+         * */
     }
 
     public void setIdUnidad(int idUnidad) {

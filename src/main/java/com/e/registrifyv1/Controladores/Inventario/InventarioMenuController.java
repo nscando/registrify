@@ -4,8 +4,10 @@ package com.e.registrifyv1.Controladores.Inventario;
 import com.e.registrifyv1.Dao.InventarioDAO;
 
 
+import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,10 +52,10 @@ public class InventarioMenuController {
     private TableColumn<InventarioModel, Integer> idAccesorioColum;
 
     @FXML
-    private TableColumn<InventarioModel, Integer> idUnidadColum;
+    private TableColumn<InventarioModel, String> nombreUnidadColum;
 
     @FXML
-    private TableColumn<InventarioModel, Integer> idGendarmeColum;
+    private TableColumn<InventarioModel, String> gendarmeColum;
 
     @FXML
     private TableColumn<InventarioModel, String> nombreAccesorioColum;
@@ -74,6 +76,19 @@ public class InventarioMenuController {
     }
 
     private void configurarColumnas() {
+
+        idAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("idAccesorio"));
+
+        gendarmeColum.setCellValueFactory(cellData -> {
+            InventarioModel item = cellData.getValue();
+            String gendarmeInfo = item.getNombreGendarme() + " " + item.getApellidoGendarme() + " " + item.getDniGendarme();
+            return new SimpleStringProperty(gendarmeInfo);
+        });
+
+        nombreUnidadColum.setCellValueFactory(new PropertyValueFactory<>("nombreUnidad"));
+        nombreAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("nombreAccesorio"));
+        descrAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("descrAccesorio"));
+        /*
         idGendarmeColum.setCellFactory(tc -> {
             TableCell<InventarioModel, Integer> cell = new TableCell<InventarioModel, Integer>() {
                 @Override
@@ -82,14 +97,16 @@ public class InventarioMenuController {
                     setText(empty ? null : item != null ? item.toString() : "");
                 }
             };
-            /*cell.setOnMouseClicked(event -> {
+            cell.setOnMouseClicked(event -> {
                 if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     VehiculosModel rowData = cell.getTableView().getItems().get(cell.getIndex());
                     abrirFormularioModificarVehiculo(rowData);
                 }
-            });*/
+            });
             return cell;
         });
+
+             */
     }
 
     @FXML
@@ -103,15 +120,7 @@ public class InventarioMenuController {
     private void cargarInventariosEnTableView(ObservableList<InventarioModel> inventario) {
 
         if (inventario != null && !inventario.isEmpty()) {
-
             tablaMenuInventario.setItems(inventario);
-
-            idAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("idAccesorio"));
-            idGendarmeColum.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
-            idUnidadColum.setCellValueFactory(new PropertyValueFactory<>("idUnidad"));
-            nombreAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("nombreAccesorio"));
-            descrAccesorioColum.setCellValueFactory(new PropertyValueFactory<>("descrAccesorio"));
-
         } else {
             tablaMenuInventario.getItems().clear();
         }

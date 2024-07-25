@@ -123,8 +123,8 @@
                 <TableView fx:id="tablaMenuInventario" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 0 0 20 20;" stylesheets="@../../Styles/InventarioMenu.css" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="idAccesorioColum" prefWidth="75.0" text="ID-Accesorio" />
-                        <TableColumn fx:id="idUnidadColum" prefWidth="75.0" text="ID-Unidad" />
-                        <TableColumn fx:id="idGendarmeColum" prefWidth="75.0" text="Id-Gendarme" />
+                        <TableColumn fx:id="gendarmeColum" minWidth="4.0" prefWidth="75.0" text="Gendarme" />
+                        <TableColumn fx:id="nombreUnidadColum" minWidth="4.0" prefWidth="75.0" text="Nombre de Unidad" />
                         <TableColumn fx:id="nombreAccesorioColum" prefWidth="75.0" text="Nombre" />
                         <TableColumn fx:id="descrAccesorioColum" prefWidth="75.0" text="Descripcion" />
                         </columns>
