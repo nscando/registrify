@@ -1,7 +1,5 @@
 package com.e.registrifyv1.Modelos.EventoDiario;
 
-import java.util.Date;
-
 public class EventoDiarioModel {
     private int idEvento;
     private int idUnidad;

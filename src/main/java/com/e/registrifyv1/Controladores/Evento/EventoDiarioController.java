@@ -1,7 +1,9 @@
 package com.e.registrifyv1.Controladores.Evento;
 
 
-import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import com.e.registrifyv1.Controladores.Inventario.ModificarInventarioController;
+import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class EventoDiarioController {
     @FXML
@@ -43,13 +46,7 @@ public class EventoDiarioController {
     private TableColumn<EventoDiarioModel, String> gendarmeColum;
 
     @FXML
-    private TableColumn<EventoDiarioModel, Integer> idUnidadColum;
-
-    @FXML
     private TableColumn<EventoDiarioModel, String> nombreUnidadColum;
-
-    @FXML
-    private TableColumn<EventoDiarioModel, Integer> idGendarmeColum;
 
     @FXML
     private TableColumn<EventoDiarioModel, String> descrEventoColumn;
@@ -142,6 +139,100 @@ public class EventoDiarioController {
         } else {
             tablaMenuEvento.getItems().clear();
         }
+    }
+
+    @FXML
+    public void menuAgregarEvento(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EventoDiario/AgregarEventoView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Agregar Evento");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private EventoDiarioModel obtenerEventoSeleccionado() {
+        // Lógica para obtener el inventario seleccionado
+        return tablaMenuEvento.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    private void handleBtnBajaEvnt(ActionEvent event) {
+        EventoDiarioModel eventoSeleccionado = obtenerEventoSeleccionado();
+
+        if (eventoSeleccionado != null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText("¡Atención!");
+            alert.setContentText("Estás a punto de dar de eliminar ese objeto. ¿Estás seguro?");
+            alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+                try {
+                    boolean bajaExitosa = eventoDAO.bajaEvento(eventoSeleccionado.getIdEvento());
+
+                    if (bajaExitosa) {
+                        Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+                        alertConfirmacion.setTitle("Confirmación");
+                        alertConfirmacion.setHeaderText("¡Objeto eliminado del inventario correctamente!");
+                        alertConfirmacion.show();
+                        actualizarTableView();
+                        // Realiza acciones adicionales después de dar de baja si es necesario
+                    } else {
+                        Alert alertError = new Alert(Alert.AlertType.ERROR);
+                        alertError.setTitle("Error");
+                        alertError.setHeaderText("Error al dar de baja");
+                        alertError.setContentText("Hubo un problema al dar de baja el objeto.");
+                        alertError.show();
+                    }
+                } catch (Exception e) {
+                    // Imprime la excepción en la consola
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al dar de baja");
+            alertError.setContentText("Selecciona un objeto antes de dar de baja.");
+            alertError.show();
+        }
+    }
+
+    public void handleModificacionEvento(ActionEvent event) {
+        EventoDiarioModel eventoSeleccionado = tablaMenuEvento.getSelectionModel().getSelectedItem();
+        if (eventoSeleccionado != null) {
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EventoDiario/ModificarEventoView.fxml"));
+                Parent root = (Parent) loader.load();
+                ModificarEventoController controller = loader.getController();
+                controller.inicializarDatosModificacion(eventoSeleccionado);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alertError = new Alert(Alert.AlertType.ERROR);
+            alertError.setTitle("Error");
+            alertError.setHeaderText("Error al seleccionar");
+            alertError.setContentText("Selecciona un Objeto antes de modificar.");
+            alertError.show();
+        }
+    }
+
+    public void actualizarTableView() {
+        String valorBusqueda = txtFieldMenuEvento.getText();
+        ObservableList<EventoDiarioModel> evento = eventoDAO.buscarEvento(valorBusqueda);
+        cargarEventosEnTableView(evento);
     }
 
     public void handleGenerarReporte(ActionEvent event) {

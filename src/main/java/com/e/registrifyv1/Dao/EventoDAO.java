@@ -1,6 +1,7 @@
 package com.e.registrifyv1.Dao;
 
 import com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
+import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
@@ -83,6 +84,62 @@ public class EventoDAO {
         }
 
         return eventos;
+    }
+
+    public boolean insertarEvento(EventoDiarioModel evento) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+            String query = "INSERT INTO EVENTODIARIO (ID_EVENTO, ID_UNIDAD, ID_GENDARME, DESCRIPCION_EVENTO, FECHAEVENTO, ESTADO) VALUES (?, ?, ?, ?, ?, ?)";
+
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, evento.getIdEvento());
+            statement.setInt(2, evento.getIdUnidad());
+            statement.setInt(3, evento.getIdGendarme());
+            statement.setString(4, evento.getDescrEvento());
+            statement.setString(5, evento.getFechaEvento());
+            statement.setInt(6, evento.getEstado());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
+    }
+
+    public boolean bajaEvento(int idEvento) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+
+            // Verificar el valor de idAccesorio
+            System.out.println("ID del Evento a eliminar: " + idEvento);
+            connection = dbConnection.getConexion();
+            String query = "DELETE FROM EVENTODIARIO WHERE ID_EVENTO=?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, idEvento);
+
+            // Verificar la consulta generada
+            System.out.println("Consulta generada: " + statement.toString());
+
+            int rowsAffected = statement.executeUpdate();
+
+            // Verificar cuántas filas fueron afectadas
+            System.out.println("Filas afectadas: " + rowsAffected);
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
     }
 
 
