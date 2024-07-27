@@ -1,5 +1,7 @@
 package com.e.registrifyv1.Modelos.Usuarios;
 
+import java.sql.Timestamp;
+
 public class UsuarioModel {
 
    private int idGendarme;
@@ -7,15 +9,17 @@ public class UsuarioModel {
    private int idRol;
    private String nombre;
    private String apellido;
-   private int dni;
+   private String dni;
    private String username;
    private String rango;
    private String area;
    private byte[] password;
    private int estado;
    private String observaciones;
+   private Timestamp dateAdd;
 
-   public UsuarioModel( int idGendarme, int idUnidad, int idRol, String nombre,  String apellido, int dni, String username,   String rango, String area, byte[] password, int estado, String observaciones) {
+
+   public UsuarioModel(int idGendarme, int idUnidad, int idRol, String nombre, String apellido, String dni, String username, String rango, String area, byte[] password, int estado, String observaciones, Timestamp dateAdd) {
 
       this.idGendarme = idGendarme;
       this.idUnidad = idUnidad;
@@ -29,16 +33,22 @@ public class UsuarioModel {
       this.password = password;
       this.estado = estado;
       this.observaciones = observaciones;
+      this.dateAdd = dateAdd;
+
    }
 
-    public UsuarioModel(int idGendarme, String nombreGendarme, String apellidoGendarme, int dniGendarme) {
+    public UsuarioModel(int idGendarme, String nombreGendarme, String apellidoGendarme, String dniGendarme) {
       this.idGendarme = idGendarme;
       this.nombre = nombreGendarme;
       this.apellido = apellidoGendarme;
       this.dni = dniGendarme;
     }
 
-    // Getters y setters
+   public UsuarioModel() {
+
+   }
+
+   // Getters y setters
 
 
    public int getIdGendarme() {
@@ -81,11 +91,11 @@ public class UsuarioModel {
       this.apellido = apellido;
    }
 
-   public int getDni() {
+   public String getDni() {
       return dni;
    }
 
-   public void setDni(int dni) {
+   public void setDni(String dni) {
       this.dni = dni;
    }
 
@@ -136,4 +146,13 @@ public class UsuarioModel {
    public void setObservaciones(String observaciones) {
       this.observaciones = observaciones;
    }
+
+   public Timestamp getDateAdd() {
+      return dateAdd;
+   }
+
+   public void setDateAdd(Timestamp dateAdd) {
+      this.dateAdd = dateAdd;
+   }
+
 }

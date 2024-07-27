@@ -1,0 +1,42 @@
+.pane {
+    -fx-background-color: #EAF5FF;
+    -fx-background-radius: 0 0 20 20;
+}
+
+.h2 {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.button-cancelar, .button-confirmar {
+    -fx-background-color: #176ba9;
+    -fx-text-fill: #dddada;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-pref-width: 100;
+    -fx-pref-height: 30;
+}
+
+.button-cancelar:hover, .button-confirmar:hover {
+    -fx-background-color: #0d4a73;
+}
+
+.text-primary {
+    -fx-text-fill: #514f4f;
+    -fx-background-radius: 20;
+}
+
+.text-primary:focused {
+    -fx-background-color: #e0f1ff;
+    -fx-border-color: #176ba9;
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #514f4f;
+}
+
+.text-area {
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+}

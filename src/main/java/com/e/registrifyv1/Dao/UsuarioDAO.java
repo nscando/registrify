@@ -6,19 +6,42 @@ import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class UsuarioDAO {
 
    private DBConnection dbConnection;
+   private static final String LOGS_DIRECTORY = "LogsUsuarios";
+   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
    public UsuarioDAO() {
       dbConnection = new DBConnection();
+      createLogsDirectory();
+   }
+
+   private void createLogsDirectory() {
+      File directory = new File(LOGS_DIRECTORY);
+      if (!directory.exists()) {
+         directory.mkdirs();
+      }
+   }
+
+   private void logTransaction(String action, int userId, UsuarioModel usuario) {
+      String logFileName = LOGS_DIRECTORY + File.separator + "Log_" + DATE_FORMAT.format(new Date(System.currentTimeMillis())) + ".txt";
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFileName, true))) {
+         writer.write(String.format("[%s] Acción: %s, Usuario Modificador ID: %d, Usuario Afectado: %s%n",
+                 new Timestamp(System.currentTimeMillis()), action, userId, usuario.toString()));
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
    }
 
    public UsuarioModel getUsuarioByUsernameAndPassword(String username, String password) {
@@ -47,9 +70,10 @@ public class UsuarioDAO {
             String observaciones = resultSet.getString("OBSERVACIONES");
             byte[] passwordBytes = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
-            int dni = resultSet.getInt("DNI");
+            String dni = resultSet.getString("DNI");
+            Timestamp dateAdd = resultSet.getTimestamp("DATE_ADD");
 
-            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username1, rango, area, passwordBytes, estado, observaciones);
+            usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username1, rango, area, passwordBytes, estado, observaciones, dateAdd);
          }
 
       } catch (SQLException e) {
@@ -61,7 +85,7 @@ public class UsuarioDAO {
       return usuario;
    }
 
-   public ObservableList<UsuarioModel> buscarUsuarios(String valor, boolean incluirBaja) {
+   public ObservableList<UsuarioModel> buscarUsuarios(String valor, boolean incluirBaja, Date fechaDesde, Date fechaHasta) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;
@@ -69,33 +93,49 @@ public class UsuarioDAO {
 
       try {
          connection = dbConnection.getConexion();
-         String query = "SELECT * FROM USUARIO WHERE (LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?))";
+         StringBuilder query = new StringBuilder("SELECT * FROM USUARIO WHERE (LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?))");
 
          if (!incluirBaja) {
-            query += " AND ESTADO = 1";
+            query.append(" AND ESTADO = 1");
+         }
+         if (fechaDesde != null) {
+            query.append(" AND DATE_ADD >= ?");
+         }
+         if (fechaHasta != null) {
+            query.append(" AND DATE_ADD < ?");
          }
 
-         statement = connection.prepareStatement(query);
+         statement = connection.prepareStatement(query.toString());
          statement.setString(1, valor);
          statement.setString(2, "%" + valor + "%");
          statement.setString(3, "%" + valor + "%");
          statement.setString(4, valor);
+         int index = 5;
+         if (fechaDesde != null) {
+            statement.setTimestamp(index++, Timestamp.valueOf(fechaDesde.toLocalDate().atStartOfDay()));
+         }
+         if (fechaHasta != null) {
+            // Para incluir
+            statement.setTimestamp(index, Timestamp.valueOf(fechaHasta.toLocalDate().plusDays(1).atStartOfDay()));
+         }
          resultSet = statement.executeQuery();
+
          while (resultSet.next()) {
             int idGendarme = resultSet.getInt("ID_GENDARME");
             int idUnidad = resultSet.getInt("ID_UNIDAD");
             int idRol = resultSet.getInt("ID_ROL");
             String nombre = resultSet.getString("NOMBRE");
             String apellido = resultSet.getString("APELLIDO");
-            int dni = resultSet.getInt("DNI");
+            String dni = resultSet.getString("DNI");
             String username = resultSet.getString("USERNAME");
             String rango = resultSet.getString("RANGO");
             String area = resultSet.getString("AREA");
             byte[] password = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
             String observaciones = resultSet.getString("OBSERVACIONES");
+            Timestamp dateAdd = resultSet.getTimestamp("DATE_ADD");
 
-            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
+            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones, dateAdd);
             usuarios.add(usuario);
          }
 
@@ -108,15 +148,16 @@ public class UsuarioDAO {
       return usuarios;
    }
 
+
    public ObservableList<UsuarioModel> buscarUsuariosActivos(String valor) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;
-      ResultSet resultSet = null; //comentario de prueba para hacer commit
+      ResultSet resultSet = null;
 
       try {
          connection = dbConnection.getConexion();
-         String query = "SELECT * FROM USUARIO WHERE LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?) AND ESTADO = 1";
+         String query = "SELECT * FROM USUARIO WHERE (LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?)) AND ESTADO = 1";
          statement = connection.prepareStatement(query);
          statement.setString(1, valor);
          statement.setString(2, "%" + valor + "%");
@@ -130,15 +171,16 @@ public class UsuarioDAO {
             int idRol = resultSet.getInt("ID_ROL");
             String nombre = resultSet.getString("NOMBRE");
             String apellido = resultSet.getString("APELLIDO");
-            int dni = resultSet.getInt("DNI");
+            String dni = resultSet.getString("DNI");
             String username = resultSet.getString("USERNAME");
             String rango = resultSet.getString("RANGO");
             String area = resultSet.getString("AREA");
             byte[] password = resultSet.getBytes("PASSWORD");
             int estado = resultSet.getInt("ESTADO");
             String observaciones = resultSet.getString("OBSERVACIONES");
+            Timestamp dateAdd = resultSet.getTimestamp("DATE_ADD");
 
-            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones);
+            UsuarioModel usuario = new UsuarioModel(idGendarme, idUnidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones, dateAdd);
             usuarios.add(usuario);
          }
 
@@ -181,19 +223,19 @@ public class UsuarioDAO {
       return opcionesUnidad;
    }
 
-   public boolean insertarUsuario(UsuarioModel usuario) {
+   public boolean insertarUsuario(UsuarioModel usuario, int userId) {
       Connection connection = null;
       PreparedStatement statement = null;
 
       try {
          connection = dbConnection.getConexion();
-         String query = "INSERT INTO USUARIO ( ID_UNIDAD, ID_ROL, NOMBRE, APELLIDO, DNI, USERNAME, RANGO, AREA, PASSWORD, ESTADO, OBSERVACIONES) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+         String query = "INSERT INTO USUARIO (ID_UNIDAD, ID_ROL, NOMBRE, APELLIDO, DNI, USERNAME, RANGO, AREA, PASSWORD, ESTADO, OBSERVACIONES, DATE_ADD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
          statement = connection.prepareStatement(query);
          statement.setInt(1, usuario.getIdUnidad());
          statement.setInt(2, usuario.getIdRol());
          statement.setString(3, usuario.getNombre());
          statement.setString(4, usuario.getApellido());
-         statement.setInt(5, usuario.getDni());
+         statement.setString(5, usuario.getDni());
          statement.setString(6, usuario.getUsername());
          statement.setString(7, usuario.getRango());
          statement.setString(8, usuario.getArea());
@@ -202,6 +244,9 @@ public class UsuarioDAO {
          statement.setString(11, usuario.getObservaciones());
 
          int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Inserción", userId, usuario);
+         }
          return rowsAffected > 0;
       } catch (SQLException e) {
          e.printStackTrace();
@@ -211,7 +256,7 @@ public class UsuarioDAO {
       }
    }
 
-   public boolean actualizarUsuario(UsuarioModel usuario) {
+   public boolean actualizarUsuario(UsuarioModel usuario, int userId) {
       Connection connection = null;
       PreparedStatement statement = null;
 
@@ -223,7 +268,7 @@ public class UsuarioDAO {
          statement.setInt(2, usuario.getIdRol());
          statement.setString(3, usuario.getNombre());
          statement.setString(4, usuario.getApellido());
-         statement.setInt(5, usuario.getDni());
+         statement.setString(5, usuario.getDni());
          statement.setString(6, usuario.getUsername());
          statement.setString(7, usuario.getRango());
          statement.setString(8, usuario.getArea());
@@ -233,16 +278,19 @@ public class UsuarioDAO {
          statement.setInt(12, usuario.getIdGendarme());
 
          int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Actualización", userId, usuario);
+         }
          return rowsAffected > 0;
       } catch (SQLException e) {
          e.printStackTrace();
          return false;
       } finally {
          closeResources(connection, statement, null);
+      }
    }
-}
 
-   public boolean bajaUsuario(int idUsuario) {
+   public boolean bajaUsuario(int idUsuario, int userId) {
       Connection connection = null;
       PreparedStatement statement = null;
 
@@ -254,6 +302,9 @@ public class UsuarioDAO {
          statement.setInt(2, idUsuario);  // Utiliza el ID del usuario que deseas dar de baja
 
          int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Baja", userId, new UsuarioModel(idUsuario, 0, 0, "", "", "", "", "", "", null, 0, "", null));
+         }
          return rowsAffected > 0;
       } catch (SQLException e) {
          e.printStackTrace();
@@ -281,7 +332,6 @@ public class UsuarioDAO {
       }
    }
 
-
    public List<UsuarioModel> buscarUsuariosActivos() throws SQLException {
       List<UsuarioModel> opcionesUsuarios = new ArrayList<>();
 
@@ -299,9 +349,9 @@ public class UsuarioDAO {
             int idGendarme = resultSet.getInt("ID_GENDARME");
             String nombreGendarme = resultSet.getString("NOMBRE");
             String apellidoGendarme = resultSet.getString("APELLIDO");
-            int dniGendarme = resultSet.getInt("DNI");
+            String dniGendarme = resultSet.getString("DNI");
 
-            UsuarioModel usuario = new UsuarioModel(idGendarme, nombreGendarme, apellidoGendarme, dniGendarme );
+            UsuarioModel usuario = new UsuarioModel(idGendarme, nombreGendarme, apellidoGendarme, dniGendarme);
             opcionesUsuarios.add(usuario);
          }
       } catch (SQLException e) {

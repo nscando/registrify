@@ -13,6 +13,10 @@
       </list>
     </option>
   </component>
+  <component name="ProjectResources">
+    <resource url=" xmlns:fx=&quot;http://javafx.com/fxml/1&quot;" location="$PROJECT_DIR$" />
+    <resource url="xmlns=&quot;http://javafx.com/javafx/19&quot;" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_19" project-jdk-name="openjdk-20" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
