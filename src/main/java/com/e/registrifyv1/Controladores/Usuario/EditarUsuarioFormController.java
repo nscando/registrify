@@ -1,13 +1,19 @@
 package com.e.registrifyv1.Controladores.Usuario;
 
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.Session;
-import com.e.registrifyv1.Modelos.Rol.Rol;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.nio.charset.StandardCharsets;
 
 public class EditarUsuarioFormController {
-/*
+
    @FXML
    private TextField txtNombre;
    @FXML
@@ -15,157 +21,94 @@ public class EditarUsuarioFormController {
    @FXML
    private TextField txtDni;
    @FXML
-   private ComboBox<String> comboUnidad;
+   private TextField txtRango;
    @FXML
-   private ComboBox<String> comboArea;
-   @FXML
-   private ComboBox<String> comboRango;
-   @FXML
-   private RadioButton rbAdmin;
-   @FXML
-   private RadioButton rbSupervisor;
-   @FXML
-   private RadioButton rbUser;
-   @FXML
-   private RadioButton rbEstado;
-   @FXML
-   private TextArea txtAreaObservaciones;
-   @FXML
-   private PasswordField txtPasswordOld;
-   @FXML
-   private PasswordField txtPasswordNew;
-   @FXML
-   private PasswordField txtPasswordConfirm;
+   private TextField txtUnidad;
 
-   private UsuarioModel usuario;
+   @FXML
+   private PasswordField txtOldPassword;
+   @FXML
+   private PasswordField txtNewPassword;
+   @FXML
+   private PasswordField txtConfirmPassword;
+
+   private UsuarioModel usuarioActual;
+   private UsuarioDAO usuarioDAO;
 
    @FXML
    public void initialize() {
-      // Aquí se pueden agregar inicializaciones generales si se necesitan
+      // Cargar los datos del usuario logueado
+      usuarioActual = Session.getUsuarioLogueado();
+      usuarioDAO = new UsuarioDAO();
    }
 
-   public void setUsuario(UsuarioModel usuario) {
-      this.usuario = usuario;
-      inicializarDatos();
-   }
-
-   private void inicializarDatos() {
-      txtNombre.setText(usuario.getNombre());
-      txtApellido.setText(usuario.getApellido());
-      txtDni.setText(usuario.getDni());
-      comboUnidad.setValue(String.valueOf(usuario.getIdUnidad()));
-      comboArea.setValue(usuario.getArea());
-      comboRango.setValue(usuario.getRango());
-
-      switch (usuario.getIdRol()) {
-         case Rol.ADMINISTRADOR:
-            rbAdmin.setSelected(true);
-            break;
-         case Rol.SUPERVISOR:
-            rbSupervisor.setSelected(true);
-            break;
-         case Rol.USUARIO:
-            rbUser.setSelected(true);
-            break;
-      }
-
-      rbEstado.setSelected(usuario.getEstado() == 1);
-      txtAreaObservaciones.setText(usuario.getObservaciones());
-
-      // Configurar la editabilidad de los campos según el rol del usuario logueado
-      configurarCampos();
-   }
-
-   private void configurarCampos() {
-      int idRol = Session.getIdRol();
-      boolean isEditable = (idRol == Rol.ADMINISTRADOR);
-      boolean isSupervisor = (idRol == Rol.SUPERVISOR);
-
-      txtNombre.setDisable(!isEditable);
-      txtApellido.setDisable(!isEditable);
-      txtDni.setDisable(!isEditable);
-      comboUnidad.setDisable(!isEditable);
-      comboArea.setDisable(!isEditable);
-      comboRango.setDisable(!isEditable);
-      rbAdmin.setDisable(!isEditable);
-      rbSupervisor.setDisable(!isEditable);
-      rbUser.setDisable(!isEditable);
-      rbEstado.setDisable(!isEditable);
-      txtAreaObservaciones.setDisable(!isEditable && !isSupervisor);
-
-      // Los campos de contraseña siempre están habilitados
-      txtPasswordOld.setDisable(false);
-      txtPasswordNew.setDisable(false);
-      txtPasswordConfirm.setDisable(false);
+   public void setDatosUsuario(String nombre, String apellido, String dni, String rango, int unidad) {
+      txtNombre.setText(nombre);
+      txtApellido.setText(apellido);
+      txtDni.setText(dni);
+      txtRango.setText(rango);
+      txtUnidad.setText(String.valueOf(unidad));
    }
 
    @FXML
-   private void handleConfirmarButton() {
-      // Verificar y actualizar la información del usuario
-      if (verificarContraseña()) {
-         actualizarUsuario();
-         // Lógica para cerrar el formulario o mostrar confirmación
-      } else {
-         mostrarAlertaError("Error de Contraseña", "Las contraseñas no coinciden o la contraseña antigua es incorrecta.");
+   private void handleConfirmarAction(ActionEvent event) {
+      String oldPassword = txtOldPassword.getText();
+      String newPassword = txtNewPassword.getText();
+      String confirmPassword = txtConfirmPassword.getText();
+
+      if (validarEntradas(oldPassword, newPassword, confirmPassword)) {
+         // Verifica la contraseña antigua con la almacenada
+         if (usuarioDAO.verifyPassword(usuarioActual.getUsername(), oldPassword)) {
+            // Encripta la nueva contraseña antes de enviarla al DAO
+            String newPasswordHash = obtenerPasswordHash(newPassword);
+            boolean updateSuccess = usuarioDAO.updatePassword(usuarioActual.getIdGendarme(), newPasswordHash);
+
+            if (updateSuccess) {
+               mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Contraseña actualizada correctamente");
+               handleCancelarAction(event);  // Cierra la ventana
+            } else {
+               mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo actualizar la contraseña");
+            }
+         } else {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "La contraseña actual es incorrecta");
+         }
       }
    }
 
-   @FXML
-   private void handleCancelarButton() {
-      // Lógica para cerrar el formulario de edición sin realizar cambios
-   }
-
-   private boolean verificarContraseña() {
-      // Verifica si la contraseña antigua es correcta y si la nueva coincide con la confirmación
-      String passwordOld = txtPasswordOld.getText();
-      String passwordNew = txtPasswordNew.getText();
-      String passwordConfirm = txtPasswordConfirm.getText();
-
-      // Verificación básica (puede ser más robusta si se verifica contra la base de datos)
-      return usuario.getPassword().equals(passwordOld) && passwordNew.equals(passwordConfirm);
-   }
-
-   private void actualizarUsuario() {
-      // Actualiza la información del usuario con los datos del formulario
-      if (Session.getIdRol() == Rol.ADMINISTRADOR) {
-         usuario.setNombre(txtNombre.getText());
-         usuario.setApellido(txtApellido.getText());
-         usuario.setDni(txtDni.getText());
-         usuario.setIdUnidad(Integer.parseInt(comboUnidad.getValue()));
-         usuario.setArea(comboArea.getValue());
-         usuario.setRango(comboRango.getValue());
-         usuario.setIdRol(obtenerIdRolSeleccionado());
-         usuario.setEstado(rbEstado.isSelected() ? 1 : 0);
-         usuario.setObservaciones(txtAreaObservaciones.getText());
+   private boolean validarEntradas(String oldPassword, String newPassword, String confirmPassword) {
+      if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+         mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ningún campo puede estar vacío");
+         return false;
       }
-
-      // Actualizar la contraseña si se proporciona una nueva
-      if (!txtPasswordNew.getText().isEmpty()) {
-         usuario.setPassword(txtPasswordNew.getText().getBytes());
+      if (!newPassword.equals(confirmPassword)) {
+         mostrarAlerta(Alert.AlertType.ERROR, "Error", "Las contraseñas no coinciden");
+         return false;
       }
-
-      // Lógica para guardar el usuario en la base de datos o en la sesión
+      if (newPassword.length() < 6) {
+         mostrarAlerta(Alert.AlertType.ERROR, "Error", "La nueva contraseña debe tener al menos 6 caracteres");
+         return false;
+      }
+      return true;
    }
 
-   private int obtenerIdRolSeleccionado() {
-      if (rbAdmin.isSelected()) {
-         return Rol.ADMINISTRADOR;
-      } else if (rbSupervisor.isSelected()) {
-         return Rol.SUPERVISOR;
-      } else {
-         return Rol.USUARIO;
-      }
+   private String obtenerPasswordHash(String password) {
+      // Aquí deberías usar la misma lógica de hashing que en el DAO y la base de datos
+      // Si usas hashing, reemplaza esta implementación por la adecuada
+      return password; // O utiliza un método de hashing adecuado
    }
 
-   private void mostrarAlertaError(String titulo, String mensaje) {
-      Alert alerta = new Alert(Alert.AlertType.ERROR);
+   private void mostrarAlerta(Alert.AlertType alertType, String titulo, String mensaje) {
+      Alert alerta = new Alert(alertType);
       alerta.setTitle(titulo);
       alerta.setHeaderText(null);
       alerta.setContentText(mensaje);
       alerta.showAndWait();
-
    }
-*/
 
+   @FXML
+   private void handleCancelarAction(ActionEvent event) {
+      // Cerrar la ventana
+      Stage stage = (Stage) txtOldPassword.getScene().getWindow();
+      stage.close();
+   }
 }
-

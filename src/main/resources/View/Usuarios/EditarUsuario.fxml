@@ -1,248 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.e.registrifyv1.Controladores.Usuario.EditarUsuarioFormController">
+<AnchorPane minHeight="450.0" prefHeight="450.0" prefWidth="500.0" stylesheets="@../../Styles/EditarUsuarioForm.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Usuario.EditarUsuarioFormController">
     <children>
-        <Pane layoutY="-3.0" prefHeight="75.0" prefWidth="550.0" style="-fx-background-color: #176ba9;">
+        <Pane layoutY="-3.0" prefHeight="50.0" prefWidth="600.0" style="-fx-background-color: #176ba9;">
             <children>
-                <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" prefWidth="320.0" styleClass="h2" text="EDITAR USUARIO" textFill="#dddada">
+                <Label alignment="CENTER" layoutX="115.0" layoutY="15.0" prefWidth="370.0" styleClass="h2" text="Editar Usuario" textFill="#dddada">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
             </children>
         </Pane>
-        <VBox layoutY="71.0" prefHeight="292.0" prefWidth="250.0">
+        <VBox alignment="TOP_CENTER" layoutY="60.0" prefHeight="300.0" prefWidth="600.0" spacing="15">
             <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Nombre:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets top="8.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Label>
-                <TextField fx:id="txtNombre" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese el nombre..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <VBox.margin>
-                        <Insets left="8.0" top="2.0" />
-                    </VBox.margin>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </TextField>
-                <Label prefHeight="25.0" prefWidth="100.0" text="DNI:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <TextField fx:id="txtDni" prefHeight="30.0" prefWidth="242.0" promptText="Ingrese el DNI..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets left="8.0" />
-                    </VBox.margin>
-                </TextField>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Unidad:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <ComboBox fx:id="comboUnidad" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Unidad ---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/EditarUsuarioForm.css">
-                    <VBox.margin>
-                        <Insets left="8.0" />
-                    </VBox.margin>
-                </ComboBox>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Área:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <ComboBox fx:id="comboArea" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Área---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/EditarUsuarioForm.css">
-                    <VBox.margin>
-                        <Insets left="8.0" />
-                    </VBox.margin>
-                </ComboBox>
-            </children>
-        </VBox>
-        <VBox layoutX="286.0" layoutY="71.0" prefHeight="292.0" prefWidth="250.0">
-            <children>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Apellido:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="8.0" />
-                    </VBox.margin>
-                </Label>
-                <TextField fx:id="txtApellido" prefHeight="30.0" prefWidth="236.0" promptText="Ingrese el apellido..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <VBox.margin>
-                        <Insets left="8.0" top="2.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </TextField>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Rango:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <ComboBox fx:id="comboRango" opacity="0.9" prefHeight="30.0" prefWidth="235.0" promptText="---Seleccionar Rango ---" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../../Styles/EditarUsuarioForm.css">
-                </ComboBox>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Rol:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <HBox prefHeight="49.0" prefWidth="250.0">
+                <HBox alignment="CENTER_LEFT" spacing="12">
                     <children>
-                        <RadioButton fx:id="rbAdmin" mnemonicParsing="false" text="Admin">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="rol" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbSupervisor" mnemonicParsing="false" text="Supervisor" toggleGroup="$rol" />
-                        <RadioButton fx:id="rbUser" mnemonicParsing="false" text="Usuario" toggleGroup="$rol" />
+                        <Label prefWidth="120" styleClass="label" text="Nombre:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <TextField fx:id="txtNombre" editable="false" styleClass="input-field" />
                     </children>
                 </HBox>
-                <Label prefHeight="25.0" prefWidth="100.0" text="Estado:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <HBox prefHeight="42.0" prefWidth="250.0">
+                <HBox alignment="CENTER_LEFT" spacing="12">
                     <children>
-                        <RadioButton fx:id="rbEstado" mnemonicParsing="false" text="Activo">
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="estado" />
-                            </toggleGroup>
-                        </RadioButton>
+                        <Label prefWidth="120" styleClass="label" text="Apellido:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <TextField fx:id="txtApellido" editable="false" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="DNI:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <TextField fx:id="txtDni" editable="false" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="Rango:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <TextField fx:id="txtRango" editable="false" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="Unidad:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <TextField fx:id="txtUnidad" editable="false" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="Contraseña Actual:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <PasswordField fx:id="txtOldPassword" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="Nueva Contraseña:">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding></Label>
+                        <PasswordField fx:id="txtNewPassword" styleClass="input-field" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <children>
+                        <Label prefWidth="120" styleClass="label" text="Confirmar Contraseña:" />
+                        <PasswordField fx:id="txtConfirmPassword" styleClass="input-field" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <VBox layoutX="14.0" layoutY="372.0" prefHeight="124.0" prefWidth="520.0">
-            <children>
-                <Label prefHeight="25.0" prefWidth="118.0" text="Contraseña Actual:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Label>
-                <PasswordField fx:id="txtOldPassword" prefHeight="30.0" prefWidth="236.0" promptText="Ingrese la contraseña actual..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <VBox.margin>
-                        <Insets left="8.0" top="2.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </PasswordField>
-                <Label prefHeight="25.0" prefWidth="118.0" text="Nueva Contraseña:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <PasswordField fx:id="txtNewPassword" prefHeight="30.0" prefWidth="236.0" promptText="Ingrese nueva contraseña..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <VBox.margin>
-                        <Insets left="8.0" top="2.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </PasswordField>
-                <Label prefHeight="25.0" prefWidth="118.0" text="Confirmar Contraseña:" textFill="#514f4f">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets top="10.0" />
-                    </VBox.margin>
-                </Label>
-                <PasswordField fx:id="txtConfirmPassword" prefHeight="30.0" prefWidth="236.0" promptText="Confirme nueva contraseña..." style="-fx-background-radius: 20 20 20 20;" styleClass="text-primary">
-                    <VBox.margin>
-                        <Insets left="8.0" top="2.0" />
-                    </VBox.margin>
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </PasswordField>
-            </children>
-        </VBox>
-        <Pane layoutX="-1.0" layoutY="505.0" prefHeight="75.0" prefWidth="550.0">
-            <children>
-                <Button fx:id="btnCancelar"  layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
-                <Button fx:id="btnConfirmar"  layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
-            </children>
+        <Pane layoutY="350.0" prefHeight="50.0" prefWidth="600.0">
+         <padding>
+            <Insets left="5.0" />
+         </padding>
         </Pane>
+          <Button fx:id="btnCancelar" layoutX="215.0" layoutY="397.0" onAction="#handleCancelarAction" styleClass="button-cancelar" text="Cancelar" />
+          <Button fx:id="btnConfirmar" layoutX="318.0" layoutY="397.0" onAction="#handleConfirmarAction" styleClass="button-confirmar" text="Confirmar" />
     </children>
 </AnchorPane>

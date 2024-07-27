@@ -13,14 +13,13 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 public class UsuarioDAO {
 
-   private DBConnection dbConnection;
    private static final String LOGS_DIRECTORY = "LogsUsuarios";
    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+   private final DBConnection dbConnection;
 
    public UsuarioDAO() {
       dbConnection = new DBConnection();
@@ -361,5 +360,54 @@ public class UsuarioDAO {
       }
 
       return opcionesUsuarios;
+   }
+
+
+   public boolean verifyPassword(String username, String password) {
+      boolean passwordCorrect = false;
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT PASSWORD FROM USUARIO WHERE USERNAME = ?";
+         statement = connection.prepareStatement(query);
+         statement.setString(1, username);
+         resultSet = statement.executeQuery();
+
+         if (resultSet.next()) {
+            String storedPassword = resultSet.getString("PASSWORD");
+            passwordCorrect = storedPassword.equals(password); // Comparar directamente si no se usa hashing
+         }
+
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return passwordCorrect;
+   }
+
+   public boolean updatePassword(int userId, String newPassword) {
+      Connection connection = null;
+      PreparedStatement statement = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "UPDATE USUARIO SET PASSWORD = ? WHERE ID_GENDARME = ?";
+         statement = connection.prepareStatement(query);
+         statement.setString(1, newPassword);  // Se debería encriptar la contraseña si se usa hashing
+         statement.setInt(2, userId);
+
+         int rowsAffected = statement.executeUpdate();
+         return rowsAffected > 0;
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return false;
+      } finally {
+         closeResources(connection, statement, null);
+      }
    }
 }

@@ -4,6 +4,7 @@ import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -82,9 +84,16 @@ public class UsuariosMenuController {
       estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
       fechaAltaCol.setCellValueFactory(new PropertyValueFactory<>("dateAdd"));
 
-      tablaMenuUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-         if (newValue != null) {
-            abrirFormularioModificarUsuario(newValue);
+
+      tablaMenuUsuario.setOnMouseClicked(new EventHandler<MouseEvent>() {
+         @Override
+         public void handle(MouseEvent event) {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+               UsuarioModel selectedUser = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+               if (selectedUser != null) {
+                  abrirFormularioModificarUsuario(selectedUser);
+               }
+            }
          }
       });
    }
@@ -182,16 +191,11 @@ public class UsuariosMenuController {
          alert.setTitle("Advertencia");
          alert.setHeaderText("¡Atención!");
          alert.setContentText("Estás a punto de dar de baja a un usuario. ¿Estás seguro?");
-         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+         alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES);
 
-         Alert alert1 = new Alert(Alert.AlertType.WARNING);
-         alert1.setTitle("Advertencia");
-         alert1.setHeaderText("¡Atención!");
-         alert1.setContentText("¿Entiendes los riesgos de dar de baja a un usuario? ¿Estás seguro?");
-         alert1.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
 
          Optional<ButtonType> result1 = alert.showAndWait();
-         Optional<ButtonType> result2 = alert1.showAndWait();
 
          if (result1.isPresent() && result1.get() == ButtonType.YES) {
             boolean bajaExitosa = usuarioDAO.bajaUsuario(usuarioSeleccionado.getIdGendarme(), 1);

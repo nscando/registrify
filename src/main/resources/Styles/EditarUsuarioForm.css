@@ -1,42 +1,36 @@
-.pane {
-    -fx-background-color: #EAF5FF;
-    -fx-background-radius: 0 0 20 20;
+/* Estilos para el formulario de edición de usuario */
+
+
+
+/*.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #514f4f;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding:0,0,0,10px;
+}*/
+
+.input-field {
+    -fx-background-radius: 10;
+    -fx-background-color: #e0f7fa;
+    -fx-padding: 5px;
+    -fx-pref-width: 250px; /* Tamaño uniforme para todos los inputs */
 }
 
-.h2 {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
+.input-field:focused {
+    -fx-background-color: #b2ebf2;
 }
 
 .button-cancelar, .button-confirmar {
     -fx-background-color: #176ba9;
-    -fx-text-fill: #dddada;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20;
-    -fx-pref-width: 100;
-    -fx-pref-height: 30;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
 }
 
 .button-cancelar:hover, .button-confirmar:hover {
-    -fx-background-color: #0d4a73;
-}
-
-.text-primary {
-    -fx-text-fill: #514f4f;
-    -fx-background-radius: 20;
-}
-
-.text-primary:focused {
-    -fx-background-color: #e0f1ff;
-    -fx-border-color: #176ba9;
-}
-
-.label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #514f4f;
-}
-
-.text-area {
-    -fx-background-radius: 20;
-    -fx-padding: 10;
+    -fx-background-color: #0a4d73;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }

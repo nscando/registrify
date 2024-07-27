@@ -15,10 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MenuPrincipalController implements Initializable {
    @FXML private Button btnArmas;
@@ -107,16 +104,29 @@ public class MenuPrincipalController implements Initializable {
       alert.setContentText("No tienes los permisos necesarios para acceder a esta funcionalidad.");
       alert.showAndWait();
    }
-/*
    @FXML
    private void editarUsuario(ActionEvent event) {
       try {
+         // Cargar el archivo FXML del formulario de edición de usuario
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/EditarUsuario.fxml"));
          Parent root = loader.load();
 
+         // Obtener el controlador asociado con el FXML cargado
          EditarUsuarioFormController controller = loader.getController();
-         controller.setUsuario(Session.getUsuarioLogueado());
 
+         // Obtener el usuario logueado desde la sesión
+         UsuarioModel usuarioLogueado = Session.getUsuarioLogueado();
+
+         // Establecer los datos del usuario logueado en el controlador del formulario
+         controller.setDatosUsuario(
+                 usuarioLogueado.getNombre(),
+                 usuarioLogueado.getApellido(),
+                 usuarioLogueado.getDni(),
+                 usuarioLogueado.getRango(),
+              usuarioLogueado.getIdUnidad() // Suponiendo que `UsuarioModel` tiene este método
+         );
+
+         // Configurar y mostrar la ventana del formulario de edición de usuario
          Stage stage = new Stage();
          stage.setScene(new Scene(root));
          stage.setTitle("Editar Usuario");
@@ -125,7 +135,9 @@ public class MenuPrincipalController implements Initializable {
          e.printStackTrace();
       }
    }
-*/
+
+
+
    @FXML
    private void cerrarSesion(ActionEvent event) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
