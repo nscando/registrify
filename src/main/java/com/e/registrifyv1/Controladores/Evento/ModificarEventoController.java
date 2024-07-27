@@ -1,4 +1,4 @@
-package com.e.registrifyv1.Controladores.Evento;
+/*package com.e.registrifyv1.Controladores.Evento;
 import com.e.registrifyv1.Dao.EventoDAO;
 import  com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
 import javafx.event.ActionEvent;
@@ -143,3 +143,4 @@ public class ModificarEventoController {
 
 
 }
+*/
