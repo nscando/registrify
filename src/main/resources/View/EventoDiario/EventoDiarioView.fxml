@@ -54,7 +54,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnModificar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="MODIFICAR" textFill="#d9d9d9">
+                <Button fx:id="btnModificar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleModificacionEvento" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="MODIFICAR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0" />
                     </graphic>
