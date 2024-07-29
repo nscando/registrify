@@ -17,6 +17,9 @@ public class VehiculosModel {
     private String patente;
     private String kilometraje;
 
+
+
+
     public VehiculosModel(int idVehiculo, int idUnidad, int idGendarme, String tipoVehiculo, String marcaVehiculo, String modelo, String patente, String kilometraje) {
 
         this.idVehiculo = idVehiculo;
@@ -81,8 +84,6 @@ public class VehiculosModel {
         this.dniGendarme = dniGendarme;
     }
 
-
-
     public String getGendarmeInfo() {
         return nombreGendarme + " " + apellidoGendarme + "\nDNI: " + dniGendarme + " ";
     }
@@ -135,4 +136,5 @@ public class VehiculosModel {
     public void setKilometraje(String kilometraje) {
         this.kilometraje = kilometraje;
     }
+
 }

@@ -2,8 +2,10 @@ package com.e.registrifyv1.Controladores.Unidad;
 
 import com.e.registrifyv1.Dao.UnidadDAO;
 import com.e.registrifyv1.Dao.UsuarioDAO;
+import com.e.registrifyv1.Modelos.Rol.Rol;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import com.e.registrifyv1.Utiles.Session;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +32,30 @@ public class UnidadMenuController{
 
     @FXML
     private Button btnSalir;
+
+    @FXML
+    private Button btnBusqueda;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button nuevaUnidad;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnBuscarUnidadMenu;
+
+    @FXML
+    private Button btnConfiguracion;
+
+    @FXML
+    private Button btnGenerarReporte;
+
+    private int idRol = Session.getIdRol();
+
     @FXML
     private TextField txtFieldMenuUnidad;
     private UnidadDAO unidadDAO;
@@ -54,7 +80,48 @@ public class UnidadMenuController{
         usuarioDAO = new UsuarioDAO();
 
         configurarColumnas();
+        configurarAccesosPorRol(idRol);
 
+    }
+
+    private void configurarAccesosPorRol(int idRol) {
+
+        // Activar accesos basados en el rol
+        switch (idRol) {
+            case Rol.ADMINISTRADOR:
+                // El administrador tiene acceso a todo
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(false);
+                btnEliminar.setDisable(false);
+                nuevaUnidad.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarUnidadMenu.setDisable(false);
+                btnConfiguracion.setDisable(false);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.SUPERVISOR:
+                // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(true);
+                btnEliminar.setDisable(true);
+                nuevaUnidad.setDisable(true);
+                btnModificar.setDisable(false);
+                btnBuscarUnidadMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.USUARIO:
+                // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(true);
+                btnEliminar.setDisable(true);
+                nuevaUnidad.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarUnidadMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+        }
     }
 
 

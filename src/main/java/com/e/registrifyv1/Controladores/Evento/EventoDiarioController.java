@@ -4,6 +4,8 @@ package com.e.registrifyv1.Controladores.Evento;
 import com.e.registrifyv1.Controladores.Inventario.ModificarInventarioController;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 
+import com.e.registrifyv1.Modelos.Rol.Rol;
+import com.e.registrifyv1.Utiles.Session;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,9 +69,73 @@ public class EventoDiarioController {
     private Button btnSalir;
 
     @FXML
+    private Button btnBusqueda;
+
+    @FXML
+    private Button btnBajaEvnt;
+
+    @FXML
+    private Button agregarEvento;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnBuscarEventoMenu;
+
+    @FXML
+    private Button btnConfiguracion;
+
+    @FXML
+    private Button btnGenerarReporte;
+
+    private int idRol = Session.getIdRol();
+
+    @FXML
     private void initialize(){
         eventoDAO=new EventoDAO();
         configurarColumnas();
+        configurarAccesosPorRol(idRol);
+    }
+
+    private void configurarAccesosPorRol(int idRol) {
+
+        // Activar accesos basados en el rol
+        switch (idRol) {
+            case Rol.ADMINISTRADOR:
+                // El administrador tiene acceso a todo
+                btnSalir.setDisable(false);
+                btnBajaEvnt.setDisable(false);
+                agregarEvento.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarEventoMenu.setDisable(false);
+                btnConfiguracion.setDisable(false);
+                btnGenerarReporte.setDisable(false);
+                btnBusqueda.setDisable(false);
+                break;
+            case Rol.SUPERVISOR:
+                // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
+                btnBusqueda.setDisable(true);
+                btnSalir.setDisable(false);
+                btnBajaEvnt.setDisable(true);
+                agregarEvento.setDisable(true);
+                btnModificar.setDisable(false);
+                btnBuscarEventoMenu.setDisable(false);
+                btnConfiguracion.setDisable(false);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.USUARIO:
+                // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
+                btnBusqueda.setDisable(true);
+                btnSalir.setDisable(false);
+                btnBajaEvnt.setDisable(true);
+                agregarEvento.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarEventoMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+        }
     }
 
     private void configurarColumnas() {

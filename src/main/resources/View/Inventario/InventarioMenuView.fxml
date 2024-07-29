@@ -32,7 +32,7 @@
                         <FontAwesomeIconView fill="#c9ebf9" glyphName="BOOK" />
                     </graphic>
                 </Label>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="BUSQUEDA" textFill="#d9d9d9">
+                <Button fx:id="btnBusqueda" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="BUSQUEDA" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#fcfcfc" glyphName="SEARCH" size="18.0" />
                     </graphic>
@@ -43,7 +43,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="nuevoInventario" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="NUEVO" textFill="#d9d9d9">
+                <Button fx:id="btnAgregar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#f8f8fc" glyphName="PLUS" size="18.0" />
                     </graphic>
@@ -54,7 +54,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="modificarInventario" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleModificacionInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="MODIFICAR" textFill="#d9d9d9">
+                <Button fx:id="btnModificar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleModificacionInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="MODIFICAR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18.0" />
                     </graphic>
@@ -65,7 +65,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnBaja" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleBtnBajaInv" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="BAJA" textFill="#d9d9d9">
+                <Button fx:id="btnEliminar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleBtnBajaInv" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="BAJA" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
                     </graphic>
@@ -87,7 +87,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
+                <Button fx:id="btnConfiguracion" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
                     </graphic>

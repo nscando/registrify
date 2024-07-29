@@ -20,11 +20,15 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
+
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.sql.Date;
+
+
 
 public class UsuariosMenuController {
 
@@ -230,21 +234,38 @@ public class UsuariosMenuController {
    @FXML
    private void handleGenerarReporte(ActionEvent event) {
       try {
+         // Obtén la lista actual de usuarios en la TableView
          ObservableList<UsuarioModel> usuarios = tablaMenuUsuario.getItems();
-         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report.jrxml");
+
+         // Cargar el diseño del informe desde un archivo jrxml
+         // Cambia la ruta según la ubicación real de tu archivo de diseño
+         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_usuarios.jrxml");
          JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
+         // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
          JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(usuarios);
+
+         // Parámetros del informe (puedes agregar más según tus necesidades)
          Map<String, Object> parameters = new HashMap<>();
          parameters.put("UsuarioDataSource", dataSource);
 
+         // Compilar y llenar el informe con los datos
          JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-         String pdfFileName = "src/main/resources/ReportesGenerados/registrify_report.pdf";
+
+         // Obtén la marca de tiempo actual para el nombre único del archivo
+         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+         String timeStamp = dateFormat.format(new java.util.Date());
+
+         // Construye el nombre del archivo con la marca de tiempo
+         String pdfFileName = "src/main/resources/ReportesGenerados/ReportesUsuarios/registrify_report_usuarios_" + timeStamp + ".pdf";
+
          JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
 
+         // Muestra un mensaje de éxito
          mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
       } catch (JRException e) {
          e.printStackTrace();
+         // Muestra un mensaje de error
          mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
       }
    }

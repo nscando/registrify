@@ -4,7 +4,9 @@ import com.e.registrifyv1.Controladores.Arma.ModificarArmaController;
 import com.e.registrifyv1.Dao.VehiculoDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
+import com.e.registrifyv1.Modelos.Rol.Rol;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import com.e.registrifyv1.Utiles.Session;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,11 +67,69 @@ public class VehiculosMenuController {
     @FXML
     private Button btnSalir;
 
+    @FXML
+    private Button btnBajaVehiculo;
+
+    @FXML
+    private Button nuevoVehiculo;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnBuscarVehiculoMenu;
+
+    @FXML
+    private Button btnConfiguracion;
+
+    @FXML
+    private Button btnGenerarReporte;
+
+    private int idRol = Session.getIdRol();
+
 
     @FXML
     private void initialize(){
         vehiculoDAO=new VehiculoDAO();
         configurarColumnas();
+        configurarAccesosPorRol(idRol);
+    }
+
+    private void configurarAccesosPorRol(int idRol) {
+
+        // Activar accesos basados en el rol
+        switch (idRol) {
+            case Rol.ADMINISTRADOR:
+                // El administrador tiene acceso a todo
+                btnSalir.setDisable(false);
+                btnBajaVehiculo.setDisable(false);
+                nuevoVehiculo.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarVehiculoMenu.setDisable(false);
+                btnConfiguracion.setDisable(false);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.SUPERVISOR:
+                // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
+                btnSalir.setDisable(false);
+                btnBajaVehiculo.setDisable(true);
+                nuevoVehiculo.setDisable(true);
+                btnModificar.setDisable(false);
+                btnBuscarVehiculoMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.USUARIO:
+                // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
+                btnSalir.setDisable(false);
+                btnBajaVehiculo.setDisable(true);
+                nuevoVehiculo.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarVehiculoMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+        }
     }
 
     private void configurarColumnas() {
