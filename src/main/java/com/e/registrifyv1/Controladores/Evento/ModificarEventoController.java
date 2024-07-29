@@ -50,7 +50,6 @@ public class ModificarEventoController {
         txbDescripcionEvento.setText(evento.getDescrEvento());
         txbFechaEvento.setText(evento.getFechaEvento());
         txbEstadoEvento.setText(evento.getEstado());// todo ???
-
     }
 
     public void setTablaMenuInventario(TableView<EventoDiarioModel> tablaMenuEvento){
