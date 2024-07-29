@@ -12,6 +12,7 @@ module com.e.registrifyv1 {
    requires org.kordamp.ikonli.javafx;
    requires org.kordamp.bootstrapfx.core;
    requires jasperreports;
+   requires bcrypt;
 
    opens com.e.registrifyv1 to javafx.fxml;
    exports com.e.registrifyv1;

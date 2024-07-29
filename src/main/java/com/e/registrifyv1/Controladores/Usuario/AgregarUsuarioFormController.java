@@ -13,19 +13,23 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AgregarUsuarioFormController implements Initializable {
    @FXML
    private Button btnCancelar;
+
    @FXML
    private ComboBox<String> comboUnidad;
 
    @FXML
    private TextArea txtAreaObservaciones;
+
    @FXML
    private ComboBox<String> comboRango;
+
    @FXML
    private ComboBox<String> comboArea;
 
@@ -40,15 +44,17 @@ public class AgregarUsuarioFormController implements Initializable {
 
    @FXML
    private RadioButton rbAdmin;
+
    @FXML
    private RadioButton rbSupervisor;
+
    @FXML
    private RadioButton rbUser;
 
    @FXML
    private RadioButton rbEstado;
-   int idUnidad = 0;
 
+   int idUnidad = 0;
 
    @FXML
    private void handleConfirmarButton(ActionEvent event) {
@@ -56,7 +62,7 @@ public class AgregarUsuarioFormController implements Initializable {
 
       if (nuevoUsuario != null) {
          UsuarioDAO usuarioDAO = new UsuarioDAO();
-         boolean exito = usuarioDAO.insertarUsuario(nuevoUsuario);
+         boolean exito = usuarioDAO.insertarUsuario(nuevoUsuario, obtenerUsuarioModificadorId());
 
          if (exito) {
             mostrarAlerta("Usuario Insertado", "El usuario se ha insertado correctamente.");
@@ -72,16 +78,15 @@ public class AgregarUsuarioFormController implements Initializable {
       String apellido = txtApellido.getText();
       String username = nombre + apellido;
       byte[] password = "123456".getBytes();
-      String dniString = txtDni.getText();
+      String dni = txtDni.getText(); // Tratar dni como String
+
       int idGendarme = 0;
 
       // Validar que el DNI sea un número válido
-      if (!dniString.matches("\\d+")) {
+      if (!dni.matches("\\d+")) {
          mostrarAlerta("Error de Validación", "El valor del DNI no es un número válido.");
          return null;
       }
-
-      int dni = Integer.parseInt(dniString);
 
       String area = comboArea.getValue();
       String rango = comboRango.getValue();
@@ -90,21 +95,10 @@ public class AgregarUsuarioFormController implements Initializable {
       int estado = rbEstado.isSelected() ? 1 : 0;
       int idRol = obtenerIdRol();
 
-      UsuarioModel nuevoUsuario = new UsuarioModel(
-              idGendarme, unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones
-      );
+      // Incluir el Timestamp actual al crear un nuevo usuario
+      Timestamp dateAdd = new Timestamp(System.currentTimeMillis());
 
-      nuevoUsuario.setIdGendarme(idGendarme);
-      nuevoUsuario.setNombre(nombre);
-      nuevoUsuario.setApellido(apellido);
-      nuevoUsuario.setDni(dni);
-      nuevoUsuario.setArea(area);
-      nuevoUsuario.setRango(rango);
-      nuevoUsuario.setIdUnidad(Integer.parseInt(String.valueOf(unidad)));
-      nuevoUsuario.setObservaciones(observaciones);
-      nuevoUsuario.setEstado(estado);
-
-      return nuevoUsuario;
+      return new UsuarioModel(idGendarme, unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones, dateAdd);
    }
 
    private int obtenerIdRol() {
@@ -140,13 +134,11 @@ public class AgregarUsuarioFormController implements Initializable {
       rbEstado.setSelected(false);
    }
 
-
    @FXML
    private void handleCancelarButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnCancelar.getScene().getWindow();
       stage.close();
    }
-
 
    @Override
    public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -173,7 +165,8 @@ public class AgregarUsuarioFormController implements Initializable {
       }
    }
 
-
+   private int obtenerUsuarioModificadorId() {
+      // Aquí puedes implementar la lógica para obtener el ID del usuario que está realizando la modificación
+      return 1; // Suponiendo que el ID del usuario modificador es 1 para este ejemplo
+   }
 }
-
-

@@ -206,7 +206,7 @@ public class EventoDiarioController {
         }
     }
 
-    public void handleModificacionEvento(ActionEvent event) {
+   /* public void handleModificacionEvento(ActionEvent event) {
         EventoDiarioModel eventoSeleccionado = tablaMenuEvento.getSelectionModel().getSelectedItem();
         if (eventoSeleccionado != null) {
             try{
@@ -227,7 +227,7 @@ public class EventoDiarioController {
             alertError.setContentText("Selecciona un Objeto antes de modificar.");
             alertError.show();
         }
-    }
+    }*/
 
     public void actualizarTableView() {
         String valorBusqueda = txtFieldMenuEvento.getText();

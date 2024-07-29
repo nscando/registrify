@@ -33,7 +33,7 @@
                   <menus>
                       <Menu text="Opciones Usuario">
                           <items>
-                              <MenuItem text="Editar Usuario" />
+                              <MenuItem onAction="#editarUsuario" text="Editar Usuario" />
                               <MenuItem fx:id="menuItemCerrarSesion" onAction="#cerrarSesion" text="Cerrar Sesión" />
                           </items>
                       </Menu>

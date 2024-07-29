@@ -1,6 +1,8 @@
 package com.e.registrifyv1.Controladores;
 
+import com.e.registrifyv1.Controladores.Usuario.EditarUsuarioFormController;
 import com.e.registrifyv1.Modelos.Rol.Rol;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,16 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MenuPrincipalController implements Initializable {
    @FXML private Button btnArmas;
@@ -30,7 +27,6 @@ public class MenuPrincipalController implements Initializable {
    @FXML private Label userNameLabel;
    @FXML private Label userRolLabel;
    @FXML private MenuBar menuBar;
-
 
    private Map<Button, String[]> botonesVistas;
 
@@ -88,7 +84,6 @@ public class MenuPrincipalController implements Initializable {
       }
    }
 
-
    @FXML
    private void handleButtonClick(ActionEvent actionEvent) {
       Button botonPresionado = (Button) actionEvent.getSource();
@@ -109,42 +104,52 @@ public class MenuPrincipalController implements Initializable {
       alert.setContentText("No tienes los permisos necesarios para acceder a esta funcionalidad.");
       alert.showAndWait();
    }
+   @FXML
+   private void editarUsuario(ActionEvent event) {
+      try {
+         // Cargar el archivo FXML del formulario de edición de usuario
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/EditarUsuario.fxml"));
+         Parent root = loader.load();
 
+         // Obtener el controlador asociado con el FXML cargado
+         EditarUsuarioFormController controller = loader.getController();
 
-   private void handleFKey(KeyEvent event) {
-      if (event.getCode() == KeyCode.F1) {
-         loadStage("/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios");
-      } else if (event.getCode() == KeyCode.F2) {
-         loadStage("/View/Vehiculos/VehiculosMenuView.fxml", "Menu Vehiculos");
-      } else if (event.getCode() == KeyCode.F3) {
-         loadStage("/View/Unidad/UnidadMenuView.fxml", "Menu Unidad");
-      } else if (event.getCode() == KeyCode.F4) {
-         loadStage("/View/Arma/ArmaMenuView.fxml", "Menu Arma");
-      } else if (event.getCode() == KeyCode.F5) {
-         loadStage("/View/EventoDiario/EventoDiarioView.fxml", "Menu Evento");
-      } else if (event.getCode() == KeyCode.F6) {
+         // Obtener el usuario logueado desde la sesión
+         UsuarioModel usuarioLogueado = Session.getUsuarioLogueado();
+
+         // Establecer los datos del usuario logueado en el controlador del formulario
+         controller.setDatosUsuario(
+                 usuarioLogueado.getNombre(),
+                 usuarioLogueado.getApellido(),
+                 usuarioLogueado.getDni(),
+                 usuarioLogueado.getRango(),
+              usuarioLogueado.getIdUnidad() // Suponiendo que `UsuarioModel` tiene este método
+         );
+
+         // Configurar y mostrar la ventana del formulario de edición de usuario
+         Stage stage = new Stage();
+         stage.setScene(new Scene(root));
+         stage.setTitle("Editar Usuario");
+         stage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
       }
    }
 
+
+
    @FXML
    private void cerrarSesion(ActionEvent event) {
-      // Crear el alert de confirmación
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
       alert.setTitle("Cerrar sesión");
       alert.setHeaderText(null);
       alert.setContentText("¿Estás seguro de que deseas cerrar sesión?");
-
-      // Esperar la respuesta del usuario
       Optional<ButtonType> result = alert.showAndWait();
-      if (((Optional<?>) result).isPresent() && result.get() == ButtonType.OK) {
-         // El usuario presionó OK, cerrar sesión
+      if (result.isPresent() && result.get() == ButtonType.OK) {
          Session.cerrarSesion();
-
-         // Cierra la ventana del menú principal
          Stage stageActual = (Stage) menuBar.getScene().getWindow();
          stageActual.close();
 
-         // Abre la ventana de login
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
             Parent root = loader.load();
@@ -155,11 +160,8 @@ public class MenuPrincipalController implements Initializable {
          } catch (IOException e) {
             e.printStackTrace();
          }
-      } else {
-         // no se hace nada
       }
    }
-
 
    private void loadStage(String fxml, String title) {
       try {
@@ -172,7 +174,4 @@ public class MenuPrincipalController implements Initializable {
          e.printStackTrace();
       }
    }
-
 }
-
-

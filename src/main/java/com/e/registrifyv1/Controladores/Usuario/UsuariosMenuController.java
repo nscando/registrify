@@ -2,9 +2,9 @@ package com.e.registrifyv1.Controladores.Usuario;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
-import com.e.registrifyv1.Utiles.ReporteUtil;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -19,8 +20,8 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class UsuariosMenuController {
    @FXML
    private TableColumn<UsuarioModel, String> observacionesCol;
    @FXML
-   private TableColumn<UsuarioModel, Integer> dniCol;
+   private TableColumn<UsuarioModel, String> dniCol;
    @FXML
    private TableColumn<UsuarioModel, String> usernameCol;
    @FXML
@@ -55,7 +56,13 @@ public class UsuariosMenuController {
    @FXML
    private TableColumn<UsuarioModel, Integer> estadoCol;
    @FXML
+   private TableColumn<UsuarioModel, Timestamp> fechaAltaCol;
+   @FXML
    private TextField txtFieldMenuUsuario;
+   @FXML
+   private DatePicker fechaDesde;
+   @FXML
+   private DatePicker fechaHasta;
 
    private UsuarioDAO usuarioDAO;
 
@@ -66,26 +73,27 @@ public class UsuariosMenuController {
    }
 
    private void configurarColumnas() {
-      nombreCol.setCellFactory(tc -> {
-         TableCell<UsuarioModel, String> cell = new TableCell<UsuarioModel, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-               super.updateItem(item, empty);
-               setText(empty ? null : item);
-            }
-         };
-         cell.setOnMouseClicked(event -> {
-            if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-               UsuarioModel rowData = cell.getTableView().getItems().get(cell.getIndex());
-               abrirFormularioModificarUsuario(rowData);
-            }
-         });
-         return cell;
-      });
+      idCol.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
+      nombreCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+      apellidoCol.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+      dniCol.setCellValueFactory(new PropertyValueFactory<>("dni"));
+      observacionesCol.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+      rangoCol.setCellValueFactory(new PropertyValueFactory<>("rango"));
+      usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+      rolCol.setCellValueFactory(new PropertyValueFactory<>("idRol"));
+      estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
+      fechaAltaCol.setCellValueFactory(new PropertyValueFactory<>("dateAdd"));
 
-      tablaMenuUsuario.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-         if (newValue != null) {
-            abrirFormularioModificarUsuario(newValue);
+
+      tablaMenuUsuario.setOnMouseClicked(new EventHandler<MouseEvent>() {
+         @Override
+         public void handle(MouseEvent event) {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+               UsuarioModel selectedUser = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+               if (selectedUser != null) {
+                  abrirFormularioModificarUsuario(selectedUser);
+               }
+            }
          }
       });
    }
@@ -96,28 +104,28 @@ public class UsuariosMenuController {
       stage.close();
    }
 
-
    @FXML
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
       boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, null, null);
+      cargarUsuariosEnTableView(usuarios);
+   }
 
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja);
+   @FXML
+   private void btnFiltrarFechasAction(ActionEvent event) {
+      String valorBusqueda = txtFieldMenuUsuario.getText();
+      boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
+      Date datepickerDesde = fechaDesde.getValue() != null ? Date.valueOf(fechaDesde.getValue()) : null;
+      Date datepickerHasta = fechaHasta.getValue() != null ? Date.valueOf(fechaHasta.getValue()) : null;
+
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, datepickerDesde, datepickerHasta);
       cargarUsuariosEnTableView(usuarios);
    }
 
    private void cargarUsuariosEnTableView(ObservableList<UsuarioModel> usuarios) {
       if (usuarios != null && !usuarios.isEmpty()) {
          tablaMenuUsuario.setItems(usuarios);
-         idCol.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
-         nombreCol.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-         apellidoCol.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-         dniCol.setCellValueFactory(new PropertyValueFactory<>("dni"));
-         observacionesCol.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
-         rangoCol.setCellValueFactory(new PropertyValueFactory<>("rango"));
-         usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-         rolCol.setCellValueFactory(new PropertyValueFactory<>("idRol"));
-         estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
       } else {
          tablaMenuUsuario.getItems().clear();
       }
@@ -174,47 +182,31 @@ public class UsuariosMenuController {
       }
    }
 
-
    @FXML
    private void handleBtnBajaClick(ActionEvent event) {
-      // Obtén el usuario que se dará de baja (puedes obtenerlo de la tabla o de donde sea necesario)
       UsuarioModel usuarioSeleccionado = obtenerUsuarioSeleccionado();
 
-      // Verifica si el usuario seleccionado no es nulo
       if (usuarioSeleccionado != null) {
-         // Muestra el primer alert de advertencia
          Alert alert = new Alert(Alert.AlertType.WARNING);
          alert.setTitle("Advertencia");
          alert.setHeaderText("¡Atención!");
          alert.setContentText("Estás a punto de dar de baja a un usuario. ¿Estás seguro?");
-         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+         alert.getButtonTypes().setAll(ButtonType.NO, ButtonType.YES);
 
-         Alert alert1 = new Alert(Alert.AlertType.WARNING);
-         alert1.setTitle("Advertencia");
-         alert1.setHeaderText("¡Atención!");
-         alert1.setContentText("Entendes los riesgos de dar la BAJA de un USUARIO?. ¿Estás seguro?");
-         alert1.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
-         // Espera a la respuesta del primer alert
+
          Optional<ButtonType> result1 = alert.showAndWait();
-         Optional<ButtonType> result2 = alert1.showAndWait();
 
-         // Si se hace clic en "Sí" en el primer alert
          if (result1.isPresent() && result1.get() == ButtonType.YES) {
-            // Utiliza el método de bajaUsuario de UsuarioDAO
-            boolean bajaExitosa = usuarioDAO.bajaUsuario(usuarioSeleccionado.getIdGendarme());
+            boolean bajaExitosa = usuarioDAO.bajaUsuario(usuarioSeleccionado.getIdGendarme(), 1);
 
-            // Muestra el segundo alert de confirmación
             if (bajaExitosa) {
                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
                alert2.setTitle("Confirmación");
                alert2.setHeaderText("¡Usuario dado de baja correctamente!");
                alert2.show();
                actualizarTableView();
-               // Realiza acciones adicionales después de dar de baja si es necesario
-               // ...
             } else {
-               // Maneja el caso en que la baja no fue exitosa
                Alert alertError = new Alert(Alert.AlertType.ERROR);
                alertError.setTitle("Error");
                alertError.setHeaderText("Error al dar de baja");
@@ -223,7 +215,6 @@ public class UsuariosMenuController {
             }
          }
       } else {
-         // Maneja el caso en que no se ha seleccionado ningún usuario para dar de baja
          Alert alertError = new Alert(Alert.AlertType.ERROR);
          alertError.setTitle("Error");
          alertError.setHeaderText("Error al dar de baja");
@@ -232,47 +223,28 @@ public class UsuariosMenuController {
       }
    }
 
-   // Método para obtener el usuario seleccionado (ajústalo según tu lógica)
    private UsuarioModel obtenerUsuarioSeleccionado() {
-      // Lógica para obtener el usuario seleccionado
       return tablaMenuUsuario.getSelectionModel().getSelectedItem();
    }
 
    @FXML
    private void handleGenerarReporte(ActionEvent event) {
       try {
-         // Obtén la lista actual de usuarios en la TableView
          ObservableList<UsuarioModel> usuarios = tablaMenuUsuario.getItems();
-
-         // Cargar el diseño del informe desde un archivo jrxml
-         // Cambia la ruta según la ubicación real de tu archivo de diseño
-         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report_usuarios.jrxml");
+         InputStream inputStream = getClass().getResourceAsStream("/Reports/registrify_report.jrxml");
          JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
-         // Crear una fuente de datos para el informe utilizando JRBeanCollectionDataSource
          JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(usuarios);
-
-         // Parámetros del informe (puedes agregar más según tus necesidades)
          Map<String, Object> parameters = new HashMap<>();
          parameters.put("UsuarioDataSource", dataSource);
 
-         // Compilar y llenar el informe con los datos
          JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-
-         // Obtén la marca de tiempo actual para el nombre único del archivo
-         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-         String timeStamp = dateFormat.format(new Date());
-
-         // Construye el nombre del archivo con la marca de tiempo
-         String pdfFileName = "src/main/resources/ReportesGenerados/ReportesUsuarios/registrify_report_usuarios_" + timeStamp + ".pdf";
-
+         String pdfFileName = "src/main/resources/ReportesGenerados/registrify_report.pdf";
          JasperExportManager.exportReportToPdfFile(jasperPrint, pdfFileName);
 
-         // Muestra un mensaje de éxito
          mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Informe generado correctamente", "El informe se ha guardado en: " + pdfFileName);
       } catch (JRException e) {
          e.printStackTrace();
-         // Muestra un mensaje de error
          mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al generar el informe", e.getMessage());
       }
    }
@@ -288,7 +260,7 @@ public class UsuariosMenuController {
    public void actualizarTableView() {
       String valorBusqueda = txtFieldMenuUsuario.getText();
       boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja);
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, null, null);
       cargarUsuariosEnTableView(usuarios);
    }
 }

@@ -1,0 +1,36 @@
+/* Estilos para el formulario de edición de usuario */
+
+
+
+/*.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #514f4f;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding:0,0,0,10px;
+}*/
+
+.input-field {
+    -fx-background-radius: 10;
+    -fx-background-color: #e0f7fa;
+    -fx-padding: 5px;
+    -fx-pref-width: 250px; /* Tamaño uniforme para todos los inputs */
+}
+
+.input-field:focused {
+    -fx-background-color: #b2ebf2;
+}
+
+.button-cancelar, .button-confirmar {
+    -fx-background-color: #176ba9;
+    -fx-text-fill: #fff;
+    -fx-font-size: 14px;
+    -fx-background-radius: 5;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button-cancelar:hover, .button-confirmar:hover {
+    -fx-background-color: #0a4d73;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
