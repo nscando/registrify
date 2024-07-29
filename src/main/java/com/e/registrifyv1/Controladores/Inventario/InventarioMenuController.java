@@ -7,6 +7,8 @@ import com.e.registrifyv1.Dao.InventarioDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
 import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 
+import com.e.registrifyv1.Modelos.Rol.Rol;
+import com.e.registrifyv1.Utiles.Session;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,9 +72,76 @@ public class InventarioMenuController {
     private InventarioDAO inventarioDAO;
 
     @FXML
+    private Button btnSalir;
+
+    @FXML
+    private Button btnBusqueda;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnAgregar;
+
+    @FXML
+    private Button btnModificar;
+
+    @FXML
+    private Button btnBuscarInventarioMenu;
+
+    @FXML
+    private Button btnConfiguracion;
+
+    @FXML
+    private Button btnGenerarReporte;
+
+    private int idRol = Session.getIdRol();
+
+    @FXML
     private void initialize(){
         inventarioDAO=new InventarioDAO();
         configurarColumnas();
+        configurarAccesosPorRol(idRol);
+    }
+
+    private void configurarAccesosPorRol(int idRol) {
+
+        // Activar accesos basados en el rol
+        switch (idRol) {
+            case Rol.ADMINISTRADOR:
+                // El administrador tiene acceso a todo
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(false);
+                btnEliminar.setDisable(false);
+                btnAgregar.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarInventarioMenu.setDisable(false);
+                btnConfiguracion.setDisable(false);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.SUPERVISOR:
+                // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(true);
+                btnEliminar.setDisable(true);
+                btnAgregar.setDisable(true);
+                btnModificar.setDisable(false);
+                btnBuscarInventarioMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+            case Rol.USUARIO:
+                // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
+                btnSalir.setDisable(false);
+                btnBusqueda.setDisable(true);
+                btnEliminar.setDisable(true);
+                btnAgregar.setDisable(false);
+                btnModificar.setDisable(false);
+                btnBuscarInventarioMenu.setDisable(false);
+                btnConfiguracion.setDisable(true);
+                btnGenerarReporte.setDisable(false);
+                break;
+        }
     }
 
     private void configurarColumnas() {
@@ -221,8 +290,6 @@ public class InventarioMenuController {
         cargarInventariosEnTableView(inventario);
     }
 
-    @FXML
-    private Button btnSalir;
     @FXML
     private void handleSalirButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnSalir.getScene().getWindow();

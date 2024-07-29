@@ -37,7 +37,7 @@
                         <FontAwesomeIconView fill="#c9ebf9" glyphName="SHIELD"/>
                     </graphic>
                 </Label>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0"
+                <Button fx:id="btnBusqueda" alignment="BASELINE_LEFT" graphicTextGap="10.0"
                         mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0"
                         stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="BUSCAR" textFill="LAVENDER">
@@ -51,7 +51,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="nuevaArma" alignment="BASELINE_LEFT" graphicTextGap="10.0"
+                <Button fx:id="btnAgregar" alignment="BASELINE_LEFT" graphicTextGap="10.0"
                         mnemonicParsing="false" onAction="#menuAgregarArma" prefHeight="50.0"
                         prefWidth="200.0" stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="NUEVA" textFill="LAVENDER">
@@ -66,7 +66,10 @@
                     </font>
                 </Button>
 
-                <Button alignment="BASELINE_LEFT" onAction="#handleModificarUsuarioButtonAction" graphicTextGap="10.0"
+                <Button alignment="BASELINE_LEFT"
+                        onAction="#handleModificarUsuarioButtonAction"
+                        fx:id="btnModificar"
+                        graphicTextGap="10.0"
                         mnemonicParsing="false"
                         prefHeight="50.0" prefWidth="200.0"
                         stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
@@ -81,7 +84,10 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button alignment="BASELINE_LEFT" onAction="#handleBtnBajaClick" graphicTextGap="10.0" mnemonicParsing="false"
+                <Button alignment="BASELINE_LEFT"
+                        onAction="#handleBtnBajaClick"
+                        fx:id="btnEliminar"
+                        graphicTextGap="10.0" mnemonicParsing="false"
                         prefHeight="50.0" prefWidth="200.0"
                         stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="ELIMINAR" textFill="LAVENDER">
@@ -95,8 +101,13 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnGenerarReporte" onAction="#handleGenerarReporte" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0"
-                        prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/UsuarioMenu.css"
+                <Button fx:id="btnGenerarReporte"
+                        onAction="#handleGenerarReporte"
+                        alignment="BASELINE_LEFT"
+                        graphicTextGap="10.0"
+                        mnemonicParsing="false" prefHeight="50.0"
+                        prefWidth="200.0"
+                        stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="GENERAR REPORTE" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="FILE" size="18.0"/>
@@ -109,6 +120,7 @@
                     </font>
                 </Button>
                 <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false"
+                        fx:id="btnConfiguracion"
                         prefHeight="50.0" prefWidth="200.0"
                         stylesheets="@../../Styles/ArmaMenu.css" style="-fx-cursor: hand;"
                         text="CONFIGURACION" textFill="LAVENDER">

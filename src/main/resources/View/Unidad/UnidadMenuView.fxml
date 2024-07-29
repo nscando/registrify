@@ -39,7 +39,7 @@
                <FontAwesomeIconView fill="#c9ebf9" glyphName="FOLDER"/>
             </graphic>
          </Label>
-         <Button alignment="BASELINE_LEFT"  graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button fx:id="btnBusqueda" alignment="BASELINE_LEFT"  graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="BUSQUEDA" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0"/>
@@ -65,7 +65,7 @@
                <Font size="15.0"/>
             </font>
          </Button>
-         <Button alignment="BASELINE_LEFT" onAction="#handleModificarUnidadButtonAction" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button fx:id="btnModificar" alignment="BASELINE_LEFT" onAction="#handleModificarUnidadButtonAction" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="MODIFICAR" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0"/>
@@ -77,8 +77,8 @@
                <Font size="16.0"/>
             </font>
          </Button>
-         <Button alignment="BASELINE_LEFT" onAction="#handleBtnBajaClick" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
-                 stylesheets="@../../Styles/UnidadMenu.css" text="BAJA UNIDAD" textFill="LAVENDER">
+         <Button fx:id="btnEliminar" alignment="BASELINE_LEFT" onAction="#handleBtnBajaClick" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+                 stylesheets="@../../Styles/UnidadMenu.css" text="ELIMINAR UNIDAD" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0"/>
             </graphic>
@@ -104,7 +104,7 @@
                <Font size="15.0"/>
             </font>
          </Button>
-         <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
+         <Button fx:id="btnConfiguracion" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;"
                  stylesheets="@../../Styles/UnidadMenu.css" text="CONFIGURACION" textFill="LAVENDER">
             <graphic>
                <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0"/>
