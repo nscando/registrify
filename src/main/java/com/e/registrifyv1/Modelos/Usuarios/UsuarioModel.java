@@ -37,6 +37,23 @@ public class UsuarioModel {
 
    }
 
+   public String getRolDescripcion() {
+      switch (idRol) {
+         case 1:
+            return "Administrador";
+         case 2:
+            return "Supervisor";
+         case 3:
+            return "Usuario";
+         default:
+            return "Desconocido";
+      }
+   }
+
+   public String getEstadoDescripcion() {
+      return estado == 1 ? "ALTA" : "BAJA";
+   }
+
     public UsuarioModel(int idGendarme, String nombreGendarme, String apellidoGendarme, String dniGendarme) {
       this.idGendarme = idGendarme;
       this.nombre = nombreGendarme;

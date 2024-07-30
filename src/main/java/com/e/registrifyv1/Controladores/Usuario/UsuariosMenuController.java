@@ -4,7 +4,6 @@ import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +30,7 @@ import java.sql.Date;
 
 
 public class UsuariosMenuController {
+
 
    @FXML
    private Button btnSalir;
@@ -68,6 +68,7 @@ public class UsuariosMenuController {
    @FXML
    private DatePicker fechaHasta;
 
+
    private UsuarioDAO usuarioDAO;
 
    @FXML
@@ -75,6 +76,8 @@ public class UsuariosMenuController {
       usuarioDAO = new UsuarioDAO();
       configurarColumnas();
    }
+
+
 
    private void configurarColumnas() {
       idCol.setCellValueFactory(new PropertyValueFactory<>("idGendarme"));
@@ -84,10 +87,9 @@ public class UsuariosMenuController {
       observacionesCol.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
       rangoCol.setCellValueFactory(new PropertyValueFactory<>("rango"));
       usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-      rolCol.setCellValueFactory(new PropertyValueFactory<>("idRol"));
-      estadoCol.setCellValueFactory(new PropertyValueFactory<>("estado"));
+      rolCol.setCellValueFactory(new PropertyValueFactory<>("rolDescripcion"));
+      estadoCol.setCellValueFactory(new PropertyValueFactory<>("estadoDescripcion"));
       fechaAltaCol.setCellValueFactory(new PropertyValueFactory<>("dateAdd"));
-
 
       tablaMenuUsuario.setOnMouseClicked(event -> {
          if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
