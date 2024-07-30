@@ -36,7 +36,7 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txbEstadoEvento" alignment="CENTER" prefHeight="29.0" prefWidth="311.0" promptText="1" style="-fx-background-radius: 20;" />
+                <TextField fx:id="txbEstadoEvento" alignment="CENTER" prefHeight="29.0" prefWidth="311.0" promptText="1 Activo- 0 Inactivo" style="-fx-background-radius: 20;" />
             </children>
         </VBox>
         <Pane prefHeight="67.0" prefWidth="605.0" style="-fx-background-color: #136b6a;">
