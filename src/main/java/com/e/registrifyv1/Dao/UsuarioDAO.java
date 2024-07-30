@@ -410,4 +410,56 @@ public class UsuarioDAO {
          closeResources(connection, statement, null);
       }
    }
+
+
+
+   public List<String> obtenerTodasLasAreas() {
+      List<String> areas = new ArrayList<>();
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT DISTINCT AREA FROM USUARIO";
+         statement = connection.prepareStatement(query);
+         resultSet = statement.executeQuery();
+
+         while (resultSet.next()) {
+            areas.add(resultSet.getString("AREA"));
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return areas;
+   }
+
+   public List<String> obtenerTodosLosRangos() {
+      List<String> rangos = new ArrayList<>();
+      Connection connection = null;
+      PreparedStatement statement = null;
+      ResultSet resultSet = null;
+
+      try {
+         connection = dbConnection.getConexion();
+         String query = "SELECT DISTINCT RANGO FROM USUARIO";
+         statement = connection.prepareStatement(query);
+         resultSet = statement.executeQuery();
+
+         while (resultSet.next()) {
+            rangos.add(resultSet.getString("RANGO"));
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      } finally {
+         closeResources(connection, statement, resultSet);
+      }
+
+      return rangos;
+   }
+
+
 }

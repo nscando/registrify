@@ -16,11 +16,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -89,14 +89,11 @@ public class UsuariosMenuController {
       fechaAltaCol.setCellValueFactory(new PropertyValueFactory<>("dateAdd"));
 
 
-      tablaMenuUsuario.setOnMouseClicked(new EventHandler<MouseEvent>() {
-         @Override
-         public void handle(MouseEvent event) {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-               UsuarioModel selectedUser = tablaMenuUsuario.getSelectionModel().getSelectedItem();
-               if (selectedUser != null) {
-                  abrirFormularioModificarUsuario(selectedUser);
-               }
+      tablaMenuUsuario.setOnMouseClicked(event -> {
+         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+            UsuarioModel selectedUser = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+               abrirFormularioModificarUsuario(selectedUser);
             }
          }
       });
@@ -163,6 +160,8 @@ public class UsuariosMenuController {
          stage.show();
       } catch (IOException e) {
          e.printStackTrace();
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
       }
    }
 
@@ -172,7 +171,7 @@ public class UsuariosMenuController {
       if (usuarioSeleccionado != null) {
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
-            Parent root = (Parent) loader.load();
+            Parent root = loader.load();
             ModificarUsuarioFormController controller = loader.getController();
             controller.inicializarDatos(usuarioSeleccionado);
             Stage stage = new Stage();
@@ -180,6 +179,8 @@ public class UsuariosMenuController {
             stage.show();
          } catch (IOException e) {
             e.printStackTrace();
+         } catch (SQLException e) {
+            throw new RuntimeException(e);
          }
       } else {
          System.out.println("Por favor, seleccione un usuario para modificar.");
