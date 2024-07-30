@@ -34,9 +34,6 @@ public class UnidadMenuController{
     private Button btnSalir;
 
     @FXML
-    private Button btnBusqueda;
-
-    @FXML
     private Button btnEliminar;
 
     @FXML
@@ -48,8 +45,6 @@ public class UnidadMenuController{
     @FXML
     private Button btnBuscarUnidadMenu;
 
-    @FXML
-    private Button btnConfiguracion;
 
     @FXML
     private Button btnGenerarReporte;
@@ -91,34 +86,28 @@ public class UnidadMenuController{
             case Rol.ADMINISTRADOR:
                 // El administrador tiene acceso a todo
                 btnSalir.setDisable(false);
-                btnBusqueda.setDisable(false);
                 btnEliminar.setDisable(false);
                 nuevaUnidad.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarUnidadMenu.setDisable(false);
-                btnConfiguracion.setDisable(false);
                 btnGenerarReporte.setDisable(false);
                 break;
             case Rol.SUPERVISOR:
                 // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
                 btnSalir.setDisable(false);
-                btnBusqueda.setDisable(true);
                 btnEliminar.setDisable(true);
                 nuevaUnidad.setDisable(true);
                 btnModificar.setDisable(false);
                 btnBuscarUnidadMenu.setDisable(false);
-                btnConfiguracion.setDisable(true);
                 btnGenerarReporte.setDisable(false);
                 break;
             case Rol.USUARIO:
                 // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
                 btnSalir.setDisable(false);
-                btnBusqueda.setDisable(true);
                 btnEliminar.setDisable(true);
                 nuevaUnidad.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarUnidadMenu.setDisable(false);
-                btnConfiguracion.setDisable(true);
                 btnGenerarReporte.setDisable(false);
                 break;
         }
