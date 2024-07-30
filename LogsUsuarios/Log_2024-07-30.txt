@@ -1,0 +1,1 @@
+[2024-07-30 01:34:59.932] Acción: Actualización, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@36c83a5a

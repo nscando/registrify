@@ -80,7 +80,7 @@ public class ModificarEventoController {
                 boolean exito = eventoDAO.actualizarEventoDiario(updateEvento);
 
                 if (exito) {
-                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
+                    mostrarAlerta("Actualización Exitosa", "Los datos del evento han sido actualizados correctamente.");
                     limpiarCamposFormulario();
                 }
 
@@ -92,7 +92,7 @@ public class ModificarEventoController {
                 stage.close();
             }
             else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
+                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del evento.");
             }
         }
     }

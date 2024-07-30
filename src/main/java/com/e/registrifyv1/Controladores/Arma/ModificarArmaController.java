@@ -1,22 +1,32 @@
 package com.e.registrifyv1.Controladores.Arma;
 
 import com.e.registrifyv1.Dao.ArmaDAO;
+import com.e.registrifyv1.Dao.EventoDAO;
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
+import com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ModificarArmaController {
 
-    @FXML
+/*    @FXML
     private TextField txbIdGendarme;
 
     @FXML
-    private TextField txbIdUnidad;
+    private TextField txbIdUnidad;*/
 
     @FXML
     private TextField txbMarcaArma;
@@ -42,6 +52,17 @@ public class ModificarArmaController {
 
     private int idArmaSeleccionada;
 
+    @FXML
+    private ComboBox<String> comboUnidad;
+
+    @FXML
+    private ComboBox<String> comboGendarme;
+
+    private Map<String, Integer> unidadMap = new HashMap<>();
+    private Map<String, Integer> gendarmeMap = new HashMap<>();
+
+
+
     public void initialize () {
 
         // Aquí puedes hacer cualquier inicialización adicional
@@ -52,14 +73,43 @@ public class ModificarArmaController {
 
     public void inicializarDatosModificacion(ArmaMenuModel arma){
         this.arma = arma;
-        this.idArmaSeleccionada = arma.getIdGendarme();
+        this.idArmaSeleccionada = arma.getIdArma();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try {
+            List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+            ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
 
-        txbIdGendarme.setText(String.valueOf(arma.getIdGendarme()));
-        txbIdUnidad.setText(String.valueOf(arma.getIdUnidad()));
-        txbMarcaArma.setText(arma.getMarcaArma());
-        txbTipoArma.setText(arma.getTipoArma());
-        txbNumeroSerieArma.setText(arma.getNumeroSerieArma());
+            for (UnidadMenuModel unidad : unidades) {
+                unidadMap.put(unidad.getNombreUnidad(), unidad.getIdUnidad());
+                unidadesNombres.add(unidad.getNombreUnidad());
+            }
+
+            comboUnidad.setItems(unidadesNombres);
+            comboUnidad.setPromptText("----Seleccione Unidad----");
+
+
+
+            List<UsuarioModel> usuarios = usuarioDAO.buscarUsuariosActivos();
+            ObservableList<String> usuariosNombres = FXCollections.observableArrayList();
+
+            for (UsuarioModel usuario : usuarios) {
+                gendarmeMap.put(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni(), usuario.getIdGendarme());
+                usuariosNombres.add(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni());
+            }
+            comboGendarme.setItems(usuariosNombres);
+            comboGendarme.setPromptText("----Seleccione Gendarme----");
+
+            txbMarcaArma.setText(arma.getMarcaArma());
+            txbTipoArma.setText(arma.getTipoArma());
+            txbNumeroSerieArma.setText(arma.getNumeroSerieArma());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     public void setTablaMenuArma(TableView<ArmaMenuModel> tablaMenuArmas){
         this.tablaMenuArmas = tablaMenuArmas;
@@ -85,27 +135,31 @@ public class ModificarArmaController {
         if (result.isPresent() && result.get() == buttonTypeConfirmar){
             ArmaMenuModel updateArma = obtenerDatosFormulario();
 
-            if(updateArma != null){
+            if(updateArma != null) {
                 ArmaDAO armaDAO = new ArmaDAO();
 
                 boolean exito = armaDAO.actualizarArma(updateArma);
 
-                if(exito){
+                if (exito) {
                     mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
                     limpiarCamposFormulario();
+
                 }
 
-                if(armaMenuController != null){
+                if (armaMenuController != null) {
                     armaMenuController.actualizarTableView();
                 }
 
-                Stage stage = (Stage) txbIdGendarme.getScene().getWindow();
+                Stage stage = (Stage) txbTipoArma.getScene().getWindow(); //todo cambiar a idGendarme?
                 stage.close();
-            }else{
+            }
+            else{
                 mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
             }
         }
     }
+
+
 
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
@@ -114,8 +168,12 @@ public class ModificarArmaController {
     }
 
     private ArmaMenuModel obtenerDatosFormulario() {
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
-        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
+        String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
+        String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
+
+        int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
+        int idUnidad = unidadMap.get(unidadSeleccionada);
+
         String marcaArma = txbMarcaArma.getText();
         String tipoArma = txbTipoArma.getText();
         String numeroDeSerieArma = txbNumeroSerieArma.getText();
@@ -144,8 +202,10 @@ public class ModificarArmaController {
     }
 
     private void limpiarCamposFormulario() {
-        txbIdGendarme.clear();
-        txbIdUnidad.clear();
+        comboGendarme.getSelectionModel().clearSelection();
+        comboUnidad.getSelectionModel().clearSelection();
+/*        comboGendarme.setPromptText("----Seleccione Gendarme----");
+        comboUnidad.setPromptText("----Seleccione Unidad----");*/
         txbMarcaArma.clear();
         txbTipoArma.clear();
         txbNumeroSerieArma.clear();
