@@ -32,17 +32,6 @@
                         <FontAwesomeIconView fill="#c9ebf9" glyphName="BOOK" />
                     </graphic>
                 </Label>
-                <Button fx:id="btnBusqueda" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="BUSQUEDA" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#fcfcfc" glyphName="SEARCH" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
                 <Button fx:id="btnAgregar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarInventario" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#f8f8fc" glyphName="PLUS" size="18.0" />
@@ -79,17 +68,6 @@
                 <Button fx:id="btnGenerarReporte" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleGenerarReporte" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="GENERAR REPORTE" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="CLOSE" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnConfiguracion" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/InventarioMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
                     </graphic>
                     <padding>
                         <Insets left="30.0" />

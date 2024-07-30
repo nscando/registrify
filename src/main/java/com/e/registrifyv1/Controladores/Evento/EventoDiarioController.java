@@ -68,8 +68,6 @@ public class EventoDiarioController {
     @FXML
     private Button btnSalir;
 
-    @FXML
-    private Button btnBusqueda;
 
     @FXML
     private Button btnBajaEvnt;
@@ -83,8 +81,7 @@ public class EventoDiarioController {
     @FXML
     private Button btnBuscarEventoMenu;
 
-    @FXML
-    private Button btnConfiguracion;
+
 
     @FXML
     private Button btnGenerarReporte;
@@ -109,30 +106,24 @@ public class EventoDiarioController {
                 agregarEvento.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarEventoMenu.setDisable(false);
-                btnConfiguracion.setDisable(false);
                 btnGenerarReporte.setDisable(false);
-                btnBusqueda.setDisable(false);
                 break;
             case Rol.SUPERVISOR:
                 // El supervisor tiene acceso a todo menos a btnEliminar y btnAgregar
-                btnBusqueda.setDisable(true);
                 btnSalir.setDisable(false);
                 btnBajaEvnt.setDisable(true);
                 agregarEvento.setDisable(true);
                 btnModificar.setDisable(false);
                 btnBuscarEventoMenu.setDisable(false);
-                btnConfiguracion.setDisable(false);
                 btnGenerarReporte.setDisable(false);
                 break;
             case Rol.USUARIO:
                 // El usuario tiene acceso a todo menos a btnEliminar y btnConfiguracion
-                btnBusqueda.setDisable(true);
                 btnSalir.setDisable(false);
                 btnBajaEvnt.setDisable(true);
                 agregarEvento.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarEventoMenu.setDisable(false);
-                btnConfiguracion.setDisable(true);
                 btnGenerarReporte.setDisable(false);
                 break;
         }
@@ -272,7 +263,7 @@ public class EventoDiarioController {
         }
     }
 
-   /* public void handleModificacionEvento(ActionEvent event) {
+    public void handleModificacionEvento(ActionEvent event) {
         EventoDiarioModel eventoSeleccionado = tablaMenuEvento.getSelectionModel().getSelectedItem();
         if (eventoSeleccionado != null) {
             try{
@@ -293,7 +284,7 @@ public class EventoDiarioController {
             alertError.setContentText("Selecciona un Objeto antes de modificar.");
             alertError.show();
         }
-    }*/
+    }
 
     public void actualizarTableView() {
         String valorBusqueda = txtFieldMenuEvento.getText();

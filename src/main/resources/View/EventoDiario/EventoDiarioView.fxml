@@ -32,17 +32,6 @@
                         <FontAwesomeIconView fill="#c9ebf9" glyphName="CALENDAR" />
                     </graphic>
                 </Label>
-                <Button fx:id="btnBusqueda" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="BUSQUEDA" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
                 <Button fx:id="agregarEvento" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarEvento" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
@@ -54,7 +43,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnModificar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="MODIFICAR" textFill="#d9d9d9">
+                <Button fx:id="btnModificar" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleModificacionEvento" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="MODIFICAR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="EDIT" size="18.0" />
                     </graphic>
@@ -87,17 +76,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnConfiguracion" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="CONFIGURACION" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
+
                 <Button fx:id="btnSalir" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/EventoDiario.css" text="SALIR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />

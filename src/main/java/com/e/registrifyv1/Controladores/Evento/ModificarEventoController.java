@@ -1,8 +1,7 @@
-/*package com.e.registrifyv1.Controladores.Evento;
+package com.e.registrifyv1.Controladores.Evento;
 import com.e.registrifyv1.Dao.EventoDAO;
 import  com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -49,7 +48,7 @@ public class ModificarEventoController {
         txbIdUnidad.setText(String.valueOf(evento.getIdUnidad()));
         txbDescripcionEvento.setText(evento.getDescrEvento());
         txbFechaEvento.setText(evento.getFechaEvento());
-        txbEstadoEvento.setText(evento.getEstado());// todo ???
+        txbEstadoEvento.setText(String.valueOf(evento.getEstado()));// todo ???
     }
 
     public void setTablaMenuInventario(TableView<EventoDiarioModel> tablaMenuEvento){
@@ -81,19 +80,19 @@ public class ModificarEventoController {
                 boolean exito = eventoDAO.actualizarEventoDiario(updateEvento);
 
                 if (exito) {
-                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
+                    mostrarAlerta("Actualización Exitosa", "Los datos del evento han sido actualizados correctamente.");
                     limpiarCamposFormulario();
                 }
 
-                if (inventarioMenuController != null) {
-                    inventarioMenuController.actualizarTableView();
+                if (eventoDiarioController != null) {
+                    eventoDiarioController.actualizarTableView();
                 }
 
-                Stage stage = (Stage) txbNombre.getScene().getWindow(); //todo cambiar a idGendarme?
+                Stage stage = (Stage) txbDescripcionEvento.getScene().getWindow(); //todo cambiar a idGendarme?
                 stage.close();
             }
             else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
+                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del evento.");
             }
         }
     }
@@ -105,11 +104,12 @@ public class ModificarEventoController {
     }
 
 
-    private InventarioModel obtenerDatosFormulario() {
+    private EventoDiarioModel obtenerDatosFormulario() {
         int idUnidad = Integer.parseInt(txbIdUnidad.getText());
         int idGendarme = Integer.parseInt(txbIdGendarme.getText());
-        String  nombreAccesorio= txbNombre.getText();
-        String descrAccesorio = txbDescripcion.getText();
+        String  descrEvento= txbDescripcionEvento.getText();
+        String fechaEvento = txbFechaEvento.getText();
+        int estadoEvento = Integer.parseInt(txbEstadoEvento.getText());
 
         String idGen = String.valueOf(idGendarme);
         String idUni = String.valueOf(idUnidad);
@@ -122,7 +122,7 @@ public class ModificarEventoController {
             mostrarAlerta("Error de Validación", "El ID_UNIDAD no es un número válido.");
         }
 
-        return new InventarioModel(inventario.getIdAccesorio(), idUnidad, idUnidad, nombreAccesorio, descrAccesorio);
+        return new EventoDiarioModel(evento.getIdEvento(), idUnidad, idGendarme, descrEvento, fechaEvento, estadoEvento);
     }
 
     public void mostrarAlerta(String titulo, String mensaje) {
@@ -136,10 +136,10 @@ public class ModificarEventoController {
     private void limpiarCamposFormulario() {
         txbIdGendarme.clear();
         txbIdUnidad.clear();
-        txbNombre.clear();
-        txbDescripcion.clear();
+        txbEstadoEvento.clear();
+        txbDescripcionEvento.clear();
+        txbFechaEvento.clear();
     }
 
 
 }
-*/

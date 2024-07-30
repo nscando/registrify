@@ -161,6 +161,32 @@ public class EventoDAO {
         }
     }
 
+    public boolean actualizarEventoDiario(EventoDiarioModel evento) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = dbConnection.getConexion();
+
+            String query = "UPDATE EVENTODIARIO SET ID_UNIDAD=?, ID_GENDARME=?, DESCRIPCION_EVENTO=?, FECHAEVENTO=?, ESTADO=? WHERE ID_EVENTO=?";
+            statement = connection.prepareStatement(query);
+            statement.setInt(1, evento.getIdUnidad());
+            statement.setInt(2, evento.getIdGendarme());
+            statement.setString(3, evento.getDescrEvento());
+            statement.setString(4, evento.getFechaEvento());
+            statement.setInt(5, evento.getEstado());
+            statement.setInt(6, evento.getIdEvento());
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeResources(connection, statement, null);
+        }
+    }
 }
 
 
