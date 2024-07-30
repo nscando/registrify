@@ -80,9 +80,6 @@ public class VehiculosMenuController {
     private Button btnBuscarVehiculoMenu;
 
     @FXML
-    private Button btnConfiguracion;
-
-    @FXML
     private Button btnGenerarReporte;
 
     private int idRol = Session.getIdRol();
@@ -106,7 +103,6 @@ public class VehiculosMenuController {
                 nuevoVehiculo.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarVehiculoMenu.setDisable(false);
-                btnConfiguracion.setDisable(false);
                 btnGenerarReporte.setDisable(false);
                 break;
             case Rol.SUPERVISOR:
@@ -116,7 +112,6 @@ public class VehiculosMenuController {
                 nuevoVehiculo.setDisable(true);
                 btnModificar.setDisable(false);
                 btnBuscarVehiculoMenu.setDisable(false);
-                btnConfiguracion.setDisable(true);
                 btnGenerarReporte.setDisable(false);
                 break;
             case Rol.USUARIO:
@@ -126,7 +121,6 @@ public class VehiculosMenuController {
                 nuevoVehiculo.setDisable(false);
                 btnModificar.setDisable(false);
                 btnBuscarVehiculoMenu.setDisable(false);
-                btnConfiguracion.setDisable(true);
                 btnGenerarReporte.setDisable(false);
                 break;
         }

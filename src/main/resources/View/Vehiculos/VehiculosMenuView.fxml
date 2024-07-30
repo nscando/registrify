@@ -32,17 +32,7 @@
                         <FontAwesomeIconView fill="#c9ebf9" glyphName="CAR" />
                     </graphic>
                 </Label>
-                <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="BUSQUEDA" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="SEARCH" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
+
                 <Button fx:id="nuevoVehiculo" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuVehiculos" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
@@ -87,17 +77,7 @@
                         <Font size="15.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnConfiguracion" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="CONFIGURACION" textFill="#d9d9d9">
-                    <graphic>
-                        <FontAwesomeIconView fill="#b6dcef" glyphName="GEAR" size="18.0" />
-                    </graphic>
-                    <padding>
-                        <Insets left="30.0" />
-                    </padding>
-                    <font>
-                        <Font size="15.0" />
-                    </font>
-                </Button>
+
                 <Button fx:id="btnSalir" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSalirButtonAction" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="SALIR" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#d9d9d9" glyphName="CIRCLE" size="18.0" />
