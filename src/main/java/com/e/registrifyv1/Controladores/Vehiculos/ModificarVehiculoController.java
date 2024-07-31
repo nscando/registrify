@@ -23,8 +23,8 @@ public class ModificarVehiculoController {
     @FXML
     private Button btnCancelar;
 
-    //@FXML
-   // private TextField txbIdVehiculo;
+    @FXML
+   private TextField txbIdVehiculo;
     @FXML
     private TextField txbIdGendarme;
     @FXML
@@ -121,7 +121,7 @@ public class ModificarVehiculoController {
     private void handleConfirmarButtonAction(ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Modificación");
-        alert.setHeaderText("Está a punto de modificar los datos del armamento.");
+        alert.setHeaderText("Está a punto de modificar los datos del vehiculo.");
         alert.setContentText("¿Está seguro de que desea continuar?");
 
         ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
@@ -139,7 +139,7 @@ public class ModificarVehiculoController {
                 boolean exito = vehiculoDAO.actualizarVehiculo(updateVehiculo);
 
                 if (exito) {
-                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
+                    mostrarAlerta("Actualización Exitosa", "Los datos del vehiculo han sido actualizados correctamente.");
                     limpiarCamposFormulario();
                 }
 
@@ -151,7 +151,7 @@ public class ModificarVehiculoController {
                 stage.close();
             }
             else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
+                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del vehiculo.");
             }
         }
     }
@@ -188,7 +188,7 @@ public class ModificarVehiculoController {
         }
 
         if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El UNIDAD no es un número válido.");
+            mostrarAlerta("Error de Validación", "la UNIDAD no es válido.");
         }
 
         return new VehiculosModel(vehiculo.getIdVehiculo(), idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
