@@ -184,11 +184,11 @@ public class ModificarVehiculoController {
         String idUni = String.valueOf(idUnidad);
 
         if(!idGen.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El GENDARME no es un número válido.");
+            mostrarAlerta("Error de Validación", "El GENDARME no es válido.");
         }
 
         if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "la UNIDAD no es válido.");
+            mostrarAlerta("Error de Validación", "la UNIDAD no es válida.");
         }
 
         return new VehiculosModel(vehiculo.getIdVehiculo(), idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);

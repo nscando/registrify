@@ -1,13 +1,22 @@
 package com.e.registrifyv1.Controladores.Inventario;
 import com.e.registrifyv1.Dao.InventarioDAO;
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Dao.VehiculoDAO;
 import  com.e.registrifyv1.Modelos.Inventario.InventarioModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 public class ModificarInventarioController {
     @FXML
@@ -35,6 +44,15 @@ public class ModificarInventarioController {
     private InventarioMenuController inventarioMenuController;
     private int idInventarioSeleccionado;
 
+    @FXML
+    private ComboBox<String> comboUnidad;
+
+    @FXML
+    private ComboBox<String> comboGendarme;
+
+    private Map<String, Integer> unidadMap = new HashMap<>();
+    private Map<String, Integer> gendarmeMap = new HashMap<>();
+
     public void initialize () {
 
         // Aquí puedes hacer cualquier inicialización adicional
@@ -46,10 +64,41 @@ public class ModificarInventarioController {
     public void inicializarDatosModificacion(InventarioModel inventario){
         this.inventario = inventario;
         this.idInventarioSeleccionado = inventario.getIdAccesorio();//todo como funciona esto..?//antes estaba idGendarme
-        txbIdGendarme.setText(String.valueOf(inventario.getIdGendarme()));
-        txbIdUnidad.setText(String.valueOf(inventario.getIdUnidad()));
-        txbNombre.setText(inventario.getNombreAccesorio());
-        txbDescripcion.setText(inventario.getNombreAccesorio());
+/*        txbIdGendarme.setText(String.valueOf(inventario.getIdGendarme()));
+        txbIdUnidad.setText(String.valueOf(inventario.getIdUnidad()));*/
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try {
+            List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+            ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
+
+            for (UnidadMenuModel unidad : unidades) {
+                unidadMap.put(unidad.getNombreUnidad(), unidad.getIdUnidad());
+                unidadesNombres.add(unidad.getNombreUnidad());
+            }
+
+            comboUnidad.setItems(unidadesNombres);
+            comboUnidad.setPromptText("----Seleccione Unidad----");
+
+
+
+            List<UsuarioModel> usuarios = usuarioDAO.buscarUsuariosActivos();
+            ObservableList<String> usuariosNombres = FXCollections.observableArrayList();
+
+            for (UsuarioModel usuario : usuarios) {
+                gendarmeMap.put(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni(), usuario.getIdGendarme());
+                usuariosNombres.add(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni());
+            }
+            comboGendarme.setItems(usuariosNombres);
+            comboGendarme.setPromptText("----Seleccione Gendarme----");
+
+            txbNombre.setText(inventario.getNombreAccesorio());
+            txbDescripcion.setText(inventario.getNombreAccesorio());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void setTablaMenuInventario(TableView<InventarioModel> tablaMenuInventario){
@@ -63,7 +112,7 @@ public class ModificarInventarioController {
     private void handleConfirmarModificacion(ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Modificación");
-        alert.setHeaderText("Está a punto de modificar los datos del armamento.");
+        alert.setHeaderText("Está a punto de modificar los datos del inventario.");
         alert.setContentText("¿Está seguro de que desea continuar?");
 
         ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
@@ -81,7 +130,7 @@ public class ModificarInventarioController {
                 boolean exito = inventarioDAO.actualizarInventario(updateInventario);
 
                 if (exito) {
-                    mostrarAlerta("Actualización Exitosa", "Los datos del arma han sido actualizados correctamente.");
+                    mostrarAlerta("Actualización Exitosa", "Los datos del inventario han sido actualizados correctamente.");
                     limpiarCamposFormulario();
                 }
 
@@ -93,7 +142,7 @@ public class ModificarInventarioController {
                 stage.close();
             }
             else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
+                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del inventario.");
             }
         }
     }
@@ -106,8 +155,12 @@ public class ModificarInventarioController {
 
 
     private InventarioModel obtenerDatosFormulario() {
-        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
+        String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
+        String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
+
+        int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
+        int idUnidad = unidadMap.get(unidadSeleccionada);
+
         String  nombreAccesorio= txbNombre.getText();
         String descrAccesorio = txbDescripcion.getText();
 
@@ -115,11 +168,11 @@ public class ModificarInventarioController {
         String idUni = String.valueOf(idUnidad);
 
         if(!idGen.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_GENDARME no es un número válido.");
+            mostrarAlerta("Error de Validación", "El GENDARME no es un válido.");
         }
 
         if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_UNIDAD no es un número válido.");
+            mostrarAlerta("Error de Validación", "La UNIDAD no es válida.");
         }
 
         return new InventarioModel(inventario.getIdAccesorio(), idUnidad, idUnidad, nombreAccesorio, descrAccesorio);
@@ -134,8 +187,8 @@ public class ModificarInventarioController {
     }
 
     private void limpiarCamposFormulario() {
-        txbIdGendarme.clear();
-        txbIdUnidad.clear();
+        comboGendarme.getSelectionModel().clearSelection();
+        comboUnidad.getSelectionModel().clearSelection();
         txbNombre.clear();
         txbDescripcion.clear();
     }

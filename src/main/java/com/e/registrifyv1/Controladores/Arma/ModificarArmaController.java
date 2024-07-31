@@ -204,8 +204,6 @@ public class ModificarArmaController {
     private void limpiarCamposFormulario() {
         comboGendarme.getSelectionModel().clearSelection();
         comboUnidad.getSelectionModel().clearSelection();
-/*        comboGendarme.setPromptText("----Seleccione Gendarme----");
-        comboUnidad.setPromptText("----Seleccione Unidad----");*/
         txbMarcaArma.clear();
         txbTipoArma.clear();
         txbNumeroSerieArma.clear();
