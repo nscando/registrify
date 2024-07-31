@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="575.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Vehiculos.ModificarVehiculoController">
+<AnchorPane prefHeight="575.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.e.registrifyv1.Controladores.Vehiculos.ModificarVehiculoController">
     <children>
         <VBox layoutX="132.0" layoutY="86.0" prefHeight="367.0" prefWidth="311.0" style="-fx-background-color: #1c6603;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="ID Gendarme" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Gendarme" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
-                <TextField fx:id="txbIdGendarme" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Indetificador numerico." style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="ID Unidad" textAlignment="RIGHT" textFill="WHITE">
+                <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Unidad" textAlignment="RIGHT" textFill="#fffbfb">
                     <font>
                         <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="txbIdUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Indetificador numerico." style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" text="Tipo de Vehiculo" textAlignment="RIGHT" textFill="WHITE">
+                    </font></Label>
+                <ComboBox fx:id="comboUnidad" prefHeight="26.0" prefWidth="313.0" promptText="---Seleccionar Unidad---" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="Tipo de vehiculo" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -36,19 +40,19 @@
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txbKilometrajeVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ejemplo: 113000" style="-fx-background-radius: 20;" />
+                <TextField fx:id="txbKilometrajeVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="123456" style="-fx-background-radius: 20;" />
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="311.0" text="Patente del Vehiculo" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txbPatenteVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: NS133PG" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="311.0" text="Modelo Vehiculo" textAlignment="RIGHT" textFill="WHITE">
+                <TextField fx:id="txbPatenteVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="PAT123" style="-fx-background-radius: 20;" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="311.0" text="Modelo del Vehiculo" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <TextField fx:id="txbModeloVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: Hilux 2015 2ble cabina" style="-fx-background-radius: 20;" />
+                <TextField fx:id="txbModeloVehiculo" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: sw4" style="-fx-background-radius: 20;" />
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="311.0" textAlignment="RIGHT" textFill="#113b03">
                     <font>
                         <Font name="System Bold" size="14.0" />

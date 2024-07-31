@@ -1,11 +1,20 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import com.e.registrifyv1.Dao.VehiculoDAO;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import  com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ModificarVehiculoController {
@@ -40,6 +49,15 @@ public class ModificarVehiculoController {
     private VehiculosMenuController vehiculosMenuController;
     private int idVehiculoSeleccionado;
 
+    @FXML
+    private ComboBox<String> comboUnidad;
+
+    @FXML
+    private ComboBox<String> comboGendarme;
+
+    private Map<String, Integer> unidadMap = new HashMap<>();
+    private Map<String, Integer> gendarmeMap = new HashMap<>();
+
     public void initialize () {
 
         // Aquí puedes hacer cualquier inicialización adicional
@@ -53,14 +71,43 @@ public class ModificarVehiculoController {
         this.vehiculo = vehiculo;
         this.idVehiculoSeleccionado = vehiculo.getIdVehiculo();//todo como funciona esto..?//antes estaba idGendarme
 
-        //txbIdVehiculo.setText(String.valueOf(vehiculo.getIdVehiculo()));
-        txbIdGendarme.setText(String.valueOf(vehiculo.getIdGendarme()));
-        txbIdUnidad.setText(String.valueOf(vehiculo.getIdUnidad()));
-        txbTipoVehiculo.setText(vehiculo.getTipoVehiculo());
-        txbMarcaVehiculo.setText(vehiculo.getMarcaVehiculo());
-        txbModeloVehiculo.setText(vehiculo.getModelo());
-        txbKilometrajeVehiculo.setText(vehiculo.getKilometraje());
-        txbPatenteVehiculo.setText(vehiculo.getPatente());
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try {
+            List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+            ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
+
+            for (UnidadMenuModel unidad : unidades) {
+                unidadMap.put(unidad.getNombreUnidad(), unidad.getIdUnidad());
+                unidadesNombres.add(unidad.getNombreUnidad());
+            }
+
+            comboUnidad.setItems(unidadesNombres);
+            comboUnidad.setPromptText("----Seleccione Unidad----");
+
+
+
+            List<UsuarioModel> usuarios = usuarioDAO.buscarUsuariosActivos();
+            ObservableList<String> usuariosNombres = FXCollections.observableArrayList();
+
+            for (UsuarioModel usuario : usuarios) {
+                gendarmeMap.put(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni(), usuario.getIdGendarme());
+                usuariosNombres.add(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni());
+            }
+            comboGendarme.setItems(usuariosNombres);
+            comboGendarme.setPromptText("----Seleccione Gendarme----");
+
+            txbTipoVehiculo.setText(vehiculo.getTipoVehiculo());
+            txbMarcaVehiculo.setText(vehiculo.getMarcaVehiculo());
+            txbModeloVehiculo.setText(vehiculo.getModelo());
+            txbKilometrajeVehiculo.setText(vehiculo.getKilometraje());
+            txbPatenteVehiculo.setText(vehiculo.getPatente());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void setTablaMenuVehiculo(TableView<VehiculosModel> tablaMenuVehiculo){
@@ -118,8 +165,15 @@ public class ModificarVehiculoController {
 
     private VehiculosModel obtenerDatosFormulario() {
         //int idVehiculo = Integer.parseInt(txbIdVehiculo.getText());
-        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
+/*        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
+        int idGendarme = Integer.parseInt(txbIdGendarme.getText());*/
+
+        String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
+        String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
+
+        int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
+        int idUnidad = unidadMap.get(unidadSeleccionada);
+
         String tipoVehiculo = txbTipoVehiculo.getText();
         String marcaVehiculo = txbMarcaVehiculo.getText();
         String modelo = txbModeloVehiculo.getText();
@@ -130,14 +184,14 @@ public class ModificarVehiculoController {
         String idUni = String.valueOf(idUnidad);
 
         if(!idGen.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_GENDARME no es un número válido.");
+            mostrarAlerta("Error de Validación", "El GENDARME no es un número válido.");
         }
 
         if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_UNIDAD no es un número válido.");
+            mostrarAlerta("Error de Validación", "El UNIDAD no es un número válido.");
         }
 
-        return new VehiculosModel(vehiculo.getIdVehiculo(), idGendarme, idUnidad, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
+        return new VehiculosModel(vehiculo.getIdVehiculo(), idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
     }
 
     public void mostrarAlerta(String titulo, String mensaje) {
@@ -149,12 +203,11 @@ public class ModificarVehiculoController {
     }
 
     private void limpiarCamposFormulario() {
-        txbIdGendarme.clear();
-        txbIdUnidad.clear();
+        comboGendarme.getSelectionModel().clearSelection();
+        comboUnidad.getSelectionModel().clearSelection();
         txbPatenteVehiculo.clear();
         txbModeloVehiculo.clear();
         txbMarcaVehiculo.clear();
-        //txbIdVehiculo.clear();
         txbKilometrajeVehiculo.clear();
         txbTipoVehiculo.clear();
 

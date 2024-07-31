@@ -182,11 +182,11 @@ public class ModificarArmaController {
         String idUni = String.valueOf(idUnidad);
 
         if(!idGen.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_GENDARME no es un número válido.");
+            mostrarAlerta("Error de Validación", "El GENDARME no es un número válido.");
         }
 
         if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_UNIDAD no es un número válido.");
+            mostrarAlerta("Error de Validación", "El UNIDAD no es un número válido.");
         }
 
         return new ArmaMenuModel(arma.getIdArma(), idGendarme, idUnidad, marcaArma, tipoArma, numeroDeSerieArma);
