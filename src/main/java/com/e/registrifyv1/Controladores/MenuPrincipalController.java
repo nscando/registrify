@@ -4,7 +4,11 @@ import com.e.registrifyv1.Controladores.Usuario.EditarUsuarioFormController;
 import com.e.registrifyv1.Modelos.Rol.Rol;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import com.e.registrifyv1.Utiles.Session;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,10 +35,11 @@ public class MenuPrincipalController implements Initializable {
    @FXML private MenuBar menuBar;
 
    private Map<Button, String[]> botonesVistas;
+   private Timeline sessionTimeoutTimeline;
+   private boolean isSesionCerrada = false; // Bandera para controlar el estado de la sesión
 
    @Override
    public void initialize(URL url, ResourceBundle resourceBundle) {
-      // Mapa que relaciona cada botón con su vista y título correspondientes
       botonesVistas = new HashMap<>();
       botonesVistas.put(btnUsuarios, new String[]{"/View/Usuarios/UsuarioMenuView.fxml", "Menu Usuarios"});
       botonesVistas.put(btnVehiculos, new String[]{"/View/Vehiculos/VehiculosMenuView.fxml", "Menu Vehiculos"});
@@ -46,10 +53,11 @@ public class MenuPrincipalController implements Initializable {
          userRolLabel.setText(Rol.getDescripcionRol(Session.getIdRol()));
          configurarAccesosPorRol(Session.getIdRol());
       }
+
+      iniciarMonitoreoInactividad();
    }
 
    private void configurarAccesosPorRol(int idRol) {
-      // Por defecto, se desactivan todos los accesos
       btnUsuarios.setDisable(true);
       btnArmas.setDisable(true);
       btnEventosDiarios.setDisable(true);
@@ -57,10 +65,8 @@ public class MenuPrincipalController implements Initializable {
       btnInventario.setDisable(true);
       btnUnidad.setDisable(true);
 
-      // Activar accesos basados en el rol
       switch (idRol) {
          case Rol.ADMINISTRADOR:
-            // El administrador tiene acceso a todo
             btnUsuarios.setDisable(false);
             btnArmas.setDisable(false);
             btnEventosDiarios.setDisable(false);
@@ -69,7 +75,6 @@ public class MenuPrincipalController implements Initializable {
             btnUnidad.setDisable(false);
             break;
          case Rol.SUPERVISOR:
-            // El supervisor tiene acceso a todo menos al menú de usuarios
             btnArmas.setDisable(false);
             btnEventosDiarios.setDisable(false);
             btnVehiculos.setDisable(false);
@@ -77,7 +82,6 @@ public class MenuPrincipalController implements Initializable {
             btnUnidad.setDisable(false);
             break;
          case Rol.USUARIO:
-            // El usuario solo tiene acceso a Eventos Diarios y Vehículos
             btnEventosDiarios.setDisable(false);
             btnVehiculos.setDisable(false);
             break;
@@ -95,6 +99,8 @@ public class MenuPrincipalController implements Initializable {
             loadStage(vista[0], vista[1]);
          }
       }
+
+      reiniciarTemporizadorInactividad();
    }
 
    private void mostrarAlertaAccesoDenegado() {
@@ -104,29 +110,21 @@ public class MenuPrincipalController implements Initializable {
       alert.setContentText("No tienes los permisos necesarios para acceder a esta funcionalidad.");
       alert.showAndWait();
    }
+
    @FXML
    private void editarUsuario(ActionEvent event) {
       try {
-         // Cargar el archivo FXML del formulario de edición de usuario
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/EditarUsuario.fxml"));
          Parent root = loader.load();
-
-         // Obtener el controlador asociado con el FXML cargado
          EditarUsuarioFormController controller = loader.getController();
-
-         // Obtener el usuario logueado desde la sesión
          UsuarioModel usuarioLogueado = Session.getUsuarioLogueado();
-
-         // Establecer los datos del usuario logueado en el controlador del formulario
          controller.setDatosUsuario(
                  usuarioLogueado.getNombre(),
                  usuarioLogueado.getApellido(),
                  usuarioLogueado.getDni(),
                  usuarioLogueado.getRango(),
-              usuarioLogueado.getIdUnidad() // Suponiendo que `UsuarioModel` tiene este método
+                 usuarioLogueado.getIdUnidad()
          );
-
-         // Configurar y mostrar la ventana del formulario de edición de usuario
          Stage stage = new Stage();
          stage.setScene(new Scene(root));
          stage.setTitle("Editar Usuario");
@@ -136,8 +134,6 @@ public class MenuPrincipalController implements Initializable {
       }
    }
 
-
-
    @FXML
    private void cerrarSesion(ActionEvent event) {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -146,21 +142,73 @@ public class MenuPrincipalController implements Initializable {
       alert.setContentText("¿Estás seguro de que deseas cerrar sesión?");
       Optional<ButtonType> result = alert.showAndWait();
       if (result.isPresent() && result.get() == ButtonType.OK) {
-         Session.cerrarSesion();
-         Stage stageActual = (Stage) menuBar.getScene().getWindow();
-         stageActual.close();
+         realizarCierreSesion(false);
+      }
+   }
 
-         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Login");
-            stage.show();
-         } catch (IOException e) {
-            e.printStackTrace();
+   private void iniciarMonitoreoInactividad() {
+      sessionTimeoutTimeline = new Timeline(new KeyFrame(Duration.seconds(30), new EventHandler<ActionEvent>() {
+         @Override
+         public void handle(ActionEvent event) {
+            realizarCierreSesion(true);
+         }
+      }));
+      sessionTimeoutTimeline.setCycleCount(Timeline.INDEFINITE);
+      sessionTimeoutTimeline.play();
+   }
+
+   private void reiniciarTemporizadorInactividad() {
+      if (sessionTimeoutTimeline != null) {
+         sessionTimeoutTimeline.stop();
+         sessionTimeoutTimeline.play();
+      }
+   }
+
+   private void realizarCierreSesion(boolean porInactividad) {
+      if (!isSesionCerrada) {
+         isSesionCerrada = true; // Marcar la sesión como cerrada
+
+         if (porInactividad) {
+            Platform.runLater(() -> {
+               Alert inactividadAlert = new Alert(Alert.AlertType.INFORMATION);
+               inactividadAlert.setTitle("Sesión cerrada");
+               inactividadAlert.setHeaderText(null);
+               inactividadAlert.setContentText("La sesión se ha cerrado automáticamente debido a la inactividad.");
+               inactividadAlert.showAndWait();
+               cerrarVentanas();
+            });
+         } else {
+            cerrarVentanas();
          }
       }
+   }
+
+   private void cerrarVentanas() {
+      Session.cerrarSesion();
+      Stage primaryStage = (Stage) menuBar.getScene().getWindow();
+
+      List<Stage> stagesToClose = new ArrayList<>();
+      for (Window window : Stage.getWindows()) {
+         if (window instanceof Stage && window != primaryStage) {
+            stagesToClose.add((Stage) window);
+         }
+      }
+      for (Stage stage : stagesToClose) {
+         stage.close();
+      }
+
+      try {
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("/LoginView.fxml"));
+         Parent root = loader.load();
+         Stage loginStage = new Stage();
+         loginStage.setScene(new Scene(root));
+         loginStage.setTitle("Login");
+         loginStage.show();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+      primaryStage.close();
    }
 
    private void loadStage(String fxml, String title) {
