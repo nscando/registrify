@@ -5,14 +5,40 @@ import com.e.registrifyv1.Utiles.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EventoDAO {
-   private DBConnection dbConnection;
+
+   private static final String LOGS_DIRECTORY = "LogsEventos";
+   private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+   private final DBConnection dbConnection;
 
    public EventoDAO() {
       dbConnection = new DBConnection();
+      createLogsDirectory();
+   }
+
+   private void createLogsDirectory() {
+      File directory = new File(LOGS_DIRECTORY);
+      if (!directory.exists()) {
+         directory.mkdirs();
+      }
+   }
+
+   private void logTransaction(String action, int userId, EventoDiarioModel evento) {
+      String logFileName = LOGS_DIRECTORY + File.separator + "Log_" + DATE_FORMAT.format(new Date(System.currentTimeMillis())) + ".txt";
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFileName, true))) {
+         writer.write(String.format("[%s] Acción: %s, Usuario Modificador ID: %d, Evento Afectado: %s%n",
+                 new Timestamp(System.currentTimeMillis()), action, userId, evento.toString()));
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
    }
 
    public ObservableList<EventoDiarioModel> buscarEvento(String valor) {
@@ -133,10 +159,10 @@ public class EventoDAO {
 
          int index = 9;
          if (fechaDesde != null) {
-            statement.setDate(index++, (java.sql.Date) fechaDesde);
+            statement.setDate(index++, new java.sql.Date(fechaDesde.getTime()));
          }
          if (fechaHasta != null) {
-            statement.setDate(index, (java.sql.Date) fechaHasta);
+            statement.setDate(index, new java.sql.Date(fechaHasta.getTime()));
          }
 
          resultSet = statement.executeQuery();
@@ -186,6 +212,9 @@ public class EventoDAO {
          statement.setInt(6, evento.getEstado());
 
          int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Inserción", 0, evento); // Reemplaza 0 con el ID del usuario que realiza la acción
+         }
          return rowsAffected > 0;
 
       } catch (SQLException e) {
@@ -207,7 +236,40 @@ public class EventoDAO {
          statement.setInt(1, idEvento);
 
          int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Baja", 0, new EventoDiarioModel(idEvento, 0, 0, "", "", 0)); // Reemplaza 0 con el ID del usuario que realiza la acción
+         }
          return rowsAffected > 0;
+      } catch (SQLException e) {
+         e.printStackTrace();
+         return false;
+      } finally {
+         closeResources(connection, statement, null);
+      }
+   }
+
+   public boolean actualizarEventoDiario(EventoDiarioModel evento) {
+      Connection connection = null;
+      PreparedStatement statement = null;
+
+      try {
+         connection = dbConnection.getConexion();
+
+         String query = "UPDATE EVENTODIARIO SET ID_UNIDAD=?, ID_GENDARME=?, DESCRIPCION_EVENTO=?, FECHAEVENTO=?, ESTADO=? WHERE ID_EVENTO=?";
+         statement = connection.prepareStatement(query);
+         statement.setInt(1, evento.getIdUnidad());
+         statement.setInt(2, evento.getIdGendarme());
+         statement.setString(3, evento.getDescrEvento());
+         statement.setString(4, evento.getFechaEvento());
+         statement.setInt(5, evento.getEstado());
+         statement.setInt(6, evento.getIdEvento());
+
+         int rowsAffected = statement.executeUpdate();
+         if (rowsAffected > 0) {
+            logTransaction("Actualización", 0, evento); // Reemplaza 0 con el ID del usuario que realiza la acción
+         }
+         return rowsAffected > 0;
+
       } catch (SQLException e) {
          e.printStackTrace();
          return false;
@@ -231,33 +293,6 @@ public class EventoDAO {
          }
       } catch (SQLException e) {
          e.printStackTrace();
-      }
-   }
-
-   public boolean actualizarEventoDiario(EventoDiarioModel evento) {
-      Connection connection = null;
-      PreparedStatement statement = null;
-
-      try {
-         connection = dbConnection.getConexion();
-
-         String query = "UPDATE EVENTODIARIO SET ID_UNIDAD=?, ID_GENDARME=?, DESCRIPCION_EVENTO=?, FECHAEVENTO=?, ESTADO=? WHERE ID_EVENTO=?";
-         statement = connection.prepareStatement(query);
-         statement.setInt(1, evento.getIdUnidad());
-         statement.setInt(2, evento.getIdGendarme());
-         statement.setString(3, evento.getDescrEvento());
-         statement.setString(4, evento.getFechaEvento());
-         statement.setInt(5, evento.getEstado());
-         statement.setInt(6, evento.getIdEvento());
-
-         int rowsAffected = statement.executeUpdate();
-         return rowsAffected > 0;
-
-      } catch (SQLException e) {
-         e.printStackTrace();
-         return false;
-      } finally {
-         closeResources(connection, statement, null);
       }
    }
 }

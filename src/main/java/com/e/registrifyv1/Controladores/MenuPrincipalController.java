@@ -147,7 +147,7 @@ public class MenuPrincipalController implements Initializable {
    }
 
    private void iniciarMonitoreoInactividad() {
-      sessionTimeoutTimeline = new Timeline(new KeyFrame(Duration.seconds(120), new EventHandler<ActionEvent>() {
+      sessionTimeoutTimeline = new Timeline(new KeyFrame(Duration.seconds(500), new EventHandler<ActionEvent>() {
          @Override
          public void handle(ActionEvent event) {
             realizarCierreSesion(true);

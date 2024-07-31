@@ -1,7 +1,8 @@
 package com.e.registrifyv1.Controladores.Evento;
+
 import com.e.registrifyv1.Dao.EventoDAO;
 import com.e.registrifyv1.Dao.UsuarioDAO;
-import  com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
+import com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
 import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
 import javafx.collections.FXCollections;
@@ -16,16 +17,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 public class ModificarEventoController {
+
     @FXML
     private Button btnConfirmar;
     @FXML
     private Button btnCancelar;
 
-    @FXML
-    private TextField txbIdGendarme;
-    @FXML
-    private TextField txbIdUnidad;
     @FXML
     private TextField txbDescripcionEvento;
     @FXML
@@ -33,53 +32,40 @@ public class ModificarEventoController {
     @FXML
     private TextField txbEstadoEvento;
 
-    private EventoDiarioModel evento;
-
-    //creacion de la tabla
-    @FXML
-    private TableView<EventoDiarioModel> tablaMenuEvento;
-
-    private EventoDiarioController eventoDiarioController;
-    private int idEventoSeleccionado;
-
     @FXML
     private ComboBox<String> comboUnidad;
-
     @FXML
     private ComboBox<String> comboGendarme;
 
+    private EventoDiarioModel evento;
     private Map<String, Integer> unidadMap = new HashMap<>();
     private Map<String, Integer> gendarmeMap = new HashMap<>();
+    private EventoDiarioController eventoDiarioController;
+    private EventoDAO eventoDAO;
 
-    public void initialize () {
+    @FXML
+    private TableView<EventoDiarioModel> tablaMenuEvento;
 
-        // Aquí puedes hacer cualquier inicialización adicional
-        // Por ejemplo, llenar los ComboBox con opciones, etc.
-        // hacer los dropdown list con nombres de gendarmes y de unidad
-
+    public void initialize() {
+        // Método vacío: aquí se puede agregar inicialización adicional si es necesario
     }
 
-    public void inicializarDatosModificacion(EventoDiarioModel evento){
+    public void inicializarDatosModificacion(EventoDiarioModel evento) {
         this.evento = evento;
-        this.idEventoSeleccionado = evento.getIdEvento();
+
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         try {
             List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
             ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
-
             for (UnidadMenuModel unidad : unidades) {
                 unidadMap.put(unidad.getNombreUnidad(), unidad.getIdUnidad());
                 unidadesNombres.add(unidad.getNombreUnidad());
             }
-
             comboUnidad.setItems(unidadesNombres);
             comboUnidad.setPromptText("----Seleccione Unidad----");
 
-
-
             List<UsuarioModel> usuarios = usuarioDAO.buscarUsuariosActivos();
             ObservableList<String> usuariosNombres = FXCollections.observableArrayList();
-
             for (UsuarioModel usuario : usuarios) {
                 gendarmeMap.put(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni(), usuario.getIdGendarme());
                 usuariosNombres.add(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni());
@@ -89,90 +75,79 @@ public class ModificarEventoController {
 
             txbDescripcionEvento.setText(evento.getDescrEvento());
             txbFechaEvento.setText(evento.getFechaEvento());
-            txbEstadoEvento.setText(String.valueOf(evento.getEstado()));// todo ???
-
+            txbEstadoEvento.setText(String.valueOf(evento.getEstado()));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
-    }
-
-    public void setTablaMenuInventario(TableView<EventoDiarioModel> tablaMenuEvento){
-        this.tablaMenuEvento = tablaMenuEvento;
-    }
-    public void setEventoDiarioController (EventoDiarioController eventoDiarioController){
-        this.eventoDiarioController = eventoDiarioController;
     }
 
     @FXML
-    private void handleConfirmarModificacion(ActionEvent event){
+    private void handleConfirmarModificacion(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Modificación");
         alert.setHeaderText("Está a punto de modificar los datos del evento.");
         alert.setContentText("¿Está seguro de que desea continuar?");
-
-        ButtonType buttonTypeConfirmar = new ButtonType("Confirmar");
-        ButtonType buttonTypeCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getButtonTypes().setAll(buttonTypeConfirmar, buttonTypeCancelar);
+        alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
 
         Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == buttonTypeConfirmar){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             EventoDiarioModel updateEvento = obtenerDatosFormulario();
 
-            if(updateEvento != null) {
+            if (updateEvento != null) {
                 EventoDAO eventoDAO = new EventoDAO();
-
                 boolean exito = eventoDAO.actualizarEventoDiario(updateEvento);
-
                 if (exito) {
                     mostrarAlerta("Actualización Exitosa", "Los datos del evento han sido actualizados correctamente.");
                     limpiarCamposFormulario();
-                }
 
-                if (eventoDiarioController != null) {
-                    eventoDiarioController.actualizarTableView();
-                }
+                    // Llamada para actualizar el TableView en el controlador de evento diario
+                    if (eventoDiarioController != null) {
+                        eventoDiarioController.actualizarTableView();
+                    }
 
-                Stage stage = (Stage) txbDescripcionEvento.getScene().getWindow(); //todo cambiar a idGendarme?
-                stage.close();
-            }
-            else{
-                mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del evento.");
+                    Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+                    stage.close();
+                } else {
+                    mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del evento.");
+                }
+            } else {
+                mostrarAlerta("Error de Validación", "Por favor, complete todos los campos correctamente.");
             }
         }
     }
 
-    @FXML
-    private void handleCancelarButtonAction(ActionEvent event) {
-        Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+    public void actualizarTableView() {
+        ObservableList<EventoDiarioModel> eventos = eventoDAO.buscarEvento(""); // Realiza una búsqueda con un criterio vacío para obtener todos los eventos
+        tablaMenuEvento.setItems(eventos);
     }
-
 
     private EventoDiarioModel obtenerDatosFormulario() {
         String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
         String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
 
-        int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
-        int idUnidad = unidadMap.get(unidadSeleccionada);
-
-        String  descrEvento= txbDescripcionEvento.getText();
-        String fechaEvento = txbFechaEvento.getText();
-        int estadoEvento = Integer.parseInt(txbEstadoEvento.getText());
-
-        String idGen = String.valueOf(idGendarme);
-        String idUni = String.valueOf(idUnidad);
-
-        if(!idGen.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_GENDARME no es un número válido.");
+        if (gendarmeSeleccionado == null || unidadSeleccionada == null) {
+            mostrarAlerta("Error de Validación", "Debe seleccionar un gendarme y una unidad.");
+            return null;
         }
 
-        if(!idUni.matches("\\d+")){
-            mostrarAlerta("Error de Validación", "El ID_UNIDAD no es un número válido.");
+        int idGendarme = gendarmeMap.getOrDefault(gendarmeSeleccionado, -1);
+        int idUnidad = unidadMap.getOrDefault(unidadSeleccionada, -1);
+
+        if (idGendarme == -1 || idUnidad == -1) {
+            mostrarAlerta("Error de Validación", "ID de gendarme o unidad no válido.");
+            return null;
+        }
+
+        String descrEvento = txbDescripcionEvento.getText().trim();
+        String fechaEvento = txbFechaEvento.getText().trim();
+        int estadoEvento;
+
+        try {
+            estadoEvento = Integer.parseInt(txbEstadoEvento.getText().trim());
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error de Validación", "El estado del evento debe ser un número entero.");
+            return null;
         }
 
         return new EventoDiarioModel(evento.getIdEvento(), idUnidad, idGendarme, descrEvento, fechaEvento, estadoEvento);
@@ -194,5 +169,13 @@ public class ModificarEventoController {
         txbFechaEvento.clear();
     }
 
+    @FXML
+    private void handleCancelarButtonAction(ActionEvent event) {
+        Stage stage = (Stage) btnCancelar.getScene().getWindow();
+        stage.close();
+    }
 
+    public void setEventoDiarioController(EventoDiarioController eventoDiarioController) {
+        this.eventoDiarioController = eventoDiarioController;
+    }
 }
