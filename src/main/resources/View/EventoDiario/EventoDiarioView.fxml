@@ -156,8 +156,8 @@
                 </Label>
             </children>
         </Pane>
-      <DatePicker layoutX="326.0" layoutY="90.0" />
-      <DatePicker layoutX="617.0" layoutY="91.0" />
+      <DatePicker fx:id="datePickerDesde" layoutX="326.0" layoutY="90.0" />
+      <DatePicker fx:id="datePickerHasta" layoutX="617.0" layoutY="91.0" />
       <Label layoutX="544.0" layoutY="96.0" text="Hasta:" />
       <Label layoutX="237.0" layoutY="96.0" text="FIltrar desde:" />
             <Button fx:id="btnBuscarEventoMenu" layoutX="823.0" layoutY="87.0" mnemonicParsing="false" onAction="#btnBuscarEventoAction" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: #136b6a; -fx-background-radius: 20 20 20 20; -fx-cursor: hand;" text="Filtrar" textFill="#d9d9d9">
