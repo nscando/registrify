@@ -142,26 +142,20 @@ public class EventoDiarioController {
         fechaEventoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaEvento"));
         estadoEventoColumn.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
-   /*
-        idGendarmeColum.setCellFactory(tc -> {
-            TableCell<EventoDiarioModel, Integer> cell = new TableCell<EventoDiarioModel, Integer>() {
-                @Override
-                protected void updateItem(Integer item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setText(empty ? null : item != null ? item.toString() : "");
+        estadoEventoColumn.setCellFactory(column -> new TableCell<EventoDiarioModel, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item == 1 ? "Activo" : "Inactivo");
                 }
-            };
-
-            //todo  doble click para modificar
-            //cell.setOnMouseClicked(event -> {
-              //  if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                //    EventoDiarioModel rowData = cell.getTableView().getItems().get(cell.getIndex());
-              //    abrirFormularioModificarVehiculo(rowData);
-               // }
-           // });
-            return cell;
+            }
         });
-*/
+
+
+
     }
     @FXML
     private void handleSalirButtonAction(ActionEvent event) {
