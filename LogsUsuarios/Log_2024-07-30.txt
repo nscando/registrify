@@ -1,4 +1,1 @@
-[2024-07-30 01:12:41.274] Acción: Baja, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@505a74a7
-[2024-07-30 01:12:46.768] Acción: Baja, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@2133b7e2
-[2024-07-30 01:12:51.23] Acción: Baja, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@29fca1cd
-[2024-07-30 01:12:54.073] Acción: Baja, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@50f7307f
+[2024-07-30 01:34:59.932] Acción: Actualización, Usuario Modificador ID: 1, Usuario Afectado: com.e.registrifyv1.Modelos.Usuarios.UsuarioModel@36c83a5a

@@ -29,6 +29,8 @@ public class ArmaDAO {
             connection = dbConnection.getConexion();
 
             String query = "SELECT ARMA.ID_ARMA, ARMA.MARCA_ARMA, ARMA.TIPO_ARMA, ARMA.NUMSERIE_ARMA, "
+                    + "ARMA.ID_GENDARME, " // Añadido ID_GENDARME
+                    + "ARMA.ID_UNIDAD, "   // Añadido ID_UNIDAD
                     + "USUARIO.NOMBRE AS NOMBRE_GENDARME, "
                     + "USUARIO.APELLIDO AS APELLIDO_GENDARME, "
                     + "USUARIO.DNI AS DNI_GENDARME, "

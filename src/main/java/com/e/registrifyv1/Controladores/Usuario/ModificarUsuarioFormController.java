@@ -1,11 +1,17 @@
 package com.e.registrifyv1.Controladores.Usuario;
 
 import com.e.registrifyv1.Dao.UsuarioDAO;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
 import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class ModificarUsuarioFormController {
 
@@ -25,6 +31,9 @@ public class ModificarUsuarioFormController {
    private ComboBox<String> comboRango;
 
    @FXML
+   private ComboBox<String> comboUnidad;
+
+   @FXML
    private TextArea txtAreaObservaciones;
 
    @FXML
@@ -39,11 +48,10 @@ public class ModificarUsuarioFormController {
    @FXML
    private RadioButton rbEstado;
 
-   private TableView<UsuarioModel> tablaMenuUsuario;
-
-   private UsuariosMenuController usuariosMenuController;
-
    private UsuarioModel usuario;
+   private TableView<UsuarioModel> tablaMenuUsuario;
+   private UsuariosMenuController usuariosMenuController;
+   private UsuarioDAO usuarioDAO;
 
    public void setTablaMenuUsuario(TableView<UsuarioModel> tablaMenuUsuario) {
       this.tablaMenuUsuario = tablaMenuUsuario;
@@ -53,37 +61,73 @@ public class ModificarUsuarioFormController {
       this.usuariosMenuController = usuariosMenuController;
    }
 
-   public void inicializarDatos(UsuarioModel usuario) {
+   @FXML
+   public void initialize() throws SQLException {
+      usuarioDAO = new UsuarioDAO();
+      cargarOpcionesArea();
+      cargarOpcionesRango();
+      cargarOpcionesUnidad();
+   }
+
+   private void cargarOpcionesArea() {
+      List<String> areas = usuarioDAO.obtenerTodasLasAreas();
+      comboArea.getItems().addAll(areas);
+   }
+
+   private void cargarOpcionesRango() {
+      List<String> rangos = usuarioDAO.obtenerTodosLosRangos();
+      comboRango.getItems().addAll(rangos);
+   }
+
+   private void cargarOpcionesUnidad() throws SQLException {
+      List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+      ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
+      for (UnidadMenuModel unidad : unidades) {
+         unidadesNombres.add(unidad.getNombreUnidad());
+      }
+      comboUnidad.setItems(unidadesNombres);
+   }
+
+   public void inicializarDatos(UsuarioModel usuario) throws SQLException {
       this.usuario = usuario;
       txtNombre.setText(usuario.getNombre());
       txtApellido.setText(usuario.getApellido());
       txtDni.setText(usuario.getDni());
       comboArea.setValue(usuario.getArea());
       comboRango.setValue(usuario.getRango());
+      comboUnidad.setValue(obtenerNombreUnidad(usuario.getIdUnidad()));
       txtAreaObservaciones.setText(usuario.getObservaciones());
       rbEstado.setSelected(usuario.getEstado() == 1);
 
-      switch (usuario.getIdRol()) {
-         case 1:
-            rbAdmin.setSelected(true);
-            break;
-         case 2:
-            rbSupervisor.setSelected(true);
-            break;
-         case 3:
-            rbUser.setSelected(true);
-            break;
+      ToggleGroup rolGroup = new ToggleGroup();
+      rbAdmin.setToggleGroup(rolGroup);
+      rbSupervisor.setToggleGroup(rolGroup);
+      rbUser.setToggleGroup(rolGroup);
+
+      if (usuario.getIdRol() == 1) {
+         rbAdmin.setSelected(true);
+      } else if (usuario.getIdRol() == 2) {
+         rbSupervisor.setSelected(true);
+      } else if (usuario.getIdRol() == 3) {
+         rbUser.setSelected(true);
       }
    }
 
+   private String obtenerNombreUnidad(int idUnidad) throws SQLException {
+      List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+      for (UnidadMenuModel unidad : unidades) {
+         if (unidad.getIdUnidad() == idUnidad) {
+            return unidad.getNombreUnidad();
+         }
+      }
+      return null;
+   }
+
    @FXML
-   private void handleConfirmarButtonAction(ActionEvent event) {
+   private void handleConfirmarButtonAction(ActionEvent event) throws SQLException {
       UsuarioModel usuarioActualizado = obtenerDatosFormulario();
-
       if (usuarioActualizado != null) {
-         UsuarioDAO usuarioDAO = new UsuarioDAO();
          boolean exito = usuarioDAO.actualizarUsuario(usuarioActualizado, obtenerUsuarioModificadorId());
-
          if (exito) {
             mostrarAlerta("Usuario Modificado", "El usuario se ha modificado correctamente.");
             if (usuariosMenuController != null) {
@@ -97,13 +141,12 @@ public class ModificarUsuarioFormController {
       }
    }
 
-   private UsuarioModel obtenerDatosFormulario() {
+   private UsuarioModel obtenerDatosFormulario() throws SQLException {
       String nombre = txtNombre.getText();
       String apellido = txtApellido.getText();
       String username = nombre + apellido;
-      String dni = txtDni.getText(); // Tratar dni como String
+      String dni = txtDni.getText();
 
-      // Validar que el DNI sea un número válido
       if (!dni.matches("\\d+")) {
          mostrarAlerta("Error de Validación", "El valor del DNI no es un número válido.");
          return null;
@@ -111,12 +154,23 @@ public class ModificarUsuarioFormController {
 
       String area = comboArea.getValue();
       String rango = comboRango.getValue();
+      String unidad = comboUnidad.getValue(); // Obtener la unidad seleccionada
       String observaciones = txtAreaObservaciones.getText();
       int estado = rbEstado.isSelected() ? 1 : 0;
       int idRol = obtenerIdRol();
 
       return new UsuarioModel(
-              usuario.getIdGendarme(), usuario.getIdUnidad(), idRol, nombre, apellido, dni, username, rango, area, usuario.getPassword(), estado, observaciones, usuario.getDateAdd());
+              usuario.getIdGendarme(), obtenerIdUnidadPorNombre(unidad), idRol, nombre, apellido, dni, username, rango, area, usuario.getPassword(), estado, observaciones, usuario.getDateAdd());
+   }
+
+   private int obtenerIdUnidadPorNombre(String nombreUnidad) throws SQLException {
+      List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+      for (UnidadMenuModel unidad : unidades) {
+         if (unidad.getNombreUnidad().equals(nombreUnidad)) {
+            return unidad.getIdUnidad();
+         }
+      }
+      return 0; // O manejar de otra manera si no se encuentra
    }
 
    private int obtenerIdRol() {
@@ -127,15 +181,13 @@ public class ModificarUsuarioFormController {
       } else if (rbUser.isSelected()) {
          return 3;
       }
-      return 0; // Puedes manejar esto según tus necesidades
+      return 0;
    }
 
    private void mostrarAlerta(String titulo, String mensaje) {
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle(titulo);
       alert.setHeaderText(mensaje);
-      ButtonType okButton = new ButtonType("OK");
-      alert.getButtonTypes().setAll(okButton);
       alert.showAndWait();
    }
 
@@ -146,7 +198,7 @@ public class ModificarUsuarioFormController {
    }
 
    private int obtenerUsuarioModificadorId() {
-      // Aquí puedes implementar la lógica para obtener el ID del usuario que está realizando la modificación
-      return 1; // Suponiendo que el ID del usuario modificador es 1 para este ejemplo
+      // Implementa la lógica para obtener el ID del usuario que realiza la modificación
+      return 1; // Cambia esto según la lógica de tu aplicación
    }
 }
