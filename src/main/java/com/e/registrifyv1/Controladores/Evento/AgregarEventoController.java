@@ -85,21 +85,37 @@ public class  AgregarEventoController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
+        // Validación de campos vacíos
+        if (comboGendarme.getSelectionModel().getSelectedItem() == null) {
+            mostrarMensaje(false, "Por favor seleccione un gendarme.");
+            return;
+        }
+        if (comboUnidad.getSelectionModel().getSelectedItem() == null) {
+            mostrarMensaje(false, "Por favor seleccione una unidad.");
+            return;
+        }
+        if (txbDescripcionEvento.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Descripción no puede estar vacío.");
+            return;
+        }
+        if (txbFechaEvento.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Fecha no puede estar vacío.");
+            return;
+        }
+        if (txbEstadoEvento.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Estado no puede estar vacío.");
+            return;
+        }
+
         int idEvento = 0;
         String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
         String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
 
-        if (gendarmeSeleccionado == null || unidadSeleccionada == null) {
-            mostrarMensaje(false, "Por favor seleccione un gendarme y una unidad.");
-            return;
-        }
-
         int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
         int idUnidad = unidadMap.get(unidadSeleccionada);
-
-        String descripcion = txbDescripcionEvento.getText();
-        String fecha = txbFechaEvento.getText();
-        int estado = Integer.parseInt(txbEstadoEvento.getText());
+        String descripcion = txbDescripcionEvento.getText().trim();
+        String fecha = txbFechaEvento.getText().trim();
+        int estado = Integer.parseInt(txbEstadoEvento.getText().trim());
 
         EventoDiarioModel nuevoEvento = new EventoDiarioModel(idEvento, idUnidad, idGendarme, descripcion, fecha, estado);
 
@@ -109,8 +125,6 @@ public class  AgregarEventoController implements Initializable {
         nuevoEvento.setDescrEvento(descripcion);
         nuevoEvento.setFechaEvento(fecha);
         nuevoEvento.setEstado(estado);
-
-
 
         EventoDAO eventoDAO1 = new EventoDAO();
         boolean carga = eventoDAO1.insertarEvento(nuevoEvento);

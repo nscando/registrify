@@ -74,13 +74,41 @@ public class AgregarUsuarioFormController implements Initializable {
    }
 
    private UsuarioModel obtenerDatosFormulario() {
-      String nombre = txtNombre.getText();
-      String apellido = txtApellido.getText();
-      String username = nombre + apellido;
+      // Obtener datos del formulario
+      String nombre = txtNombre.getText().trim();
+      String apellido = txtApellido.getText().trim();
+      String dni = txtDni.getText().trim(); // Tratar dni como String
+      String area = comboArea.getValue();
+      String rango = comboRango.getValue();
+      String observaciones = txtAreaObservaciones.getText().trim();
       byte[] password = "123456".getBytes();
-      String dni = txtDni.getText(); // Tratar dni como String
-
       int idGendarme = 0;
+      int unidad = idUnidad;
+      int estado = rbEstado.isSelected() ? 1 : 0;
+      int idRol = obtenerIdRol();
+      String username = nombre + apellido;
+
+      // Validar que los campos no estén vacíos
+      if (nombre.isEmpty()) {
+         mostrarAlerta("Error de Validación", "El campo Nombre no puede estar vacío.");
+         return null;
+      }
+      if (apellido.isEmpty()) {
+         mostrarAlerta("Error de Validación", "El campo Apellido no puede estar vacío.");
+         return null;
+      }
+      if (dni.isEmpty()) {
+         mostrarAlerta("Error de Validación", "El campo DNI no puede estar vacío.");
+         return null;
+      }
+      if (area == null || area.isEmpty()) {
+         mostrarAlerta("Error de Validación", "Debe seleccionar un Área.");
+         return null;
+      }
+      if (rango == null || rango.isEmpty()) {
+         mostrarAlerta("Error de Validación", "Debe seleccionar un Rango.");
+         return null;
+      }
 
       // Validar que el DNI sea un número válido
       if (!dni.matches("\\d+")) {
@@ -88,16 +116,10 @@ public class AgregarUsuarioFormController implements Initializable {
          return null;
       }
 
-      String area = comboArea.getValue();
-      String rango = comboRango.getValue();
-      int unidad = idUnidad;
-      String observaciones = txtAreaObservaciones.getText();
-      int estado = rbEstado.isSelected() ? 1 : 0;
-      int idRol = obtenerIdRol();
-
       // Incluir el Timestamp actual al crear un nuevo usuario
       Timestamp dateAdd = new Timestamp(System.currentTimeMillis());
 
+      // Crear y devolver el modelo de usuario con los datos validados
       return new UsuarioModel(idGendarme, unidad, idRol, nombre, apellido, dni, username, rango, area, password, estado, observaciones, dateAdd);
    }
 

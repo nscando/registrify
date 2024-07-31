@@ -83,19 +83,32 @@ public class  AgregarInventarioController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
+        // Validación de campos vacíos
+        if (comboGendarme.getSelectionModel().getSelectedItem() == null) {
+            mostrarMensaje(false, "Por favor seleccione un gendarme.");
+            return;
+        }
+        if (comboUnidad.getSelectionModel().getSelectedItem() == null) {
+            mostrarMensaje(false, "Por favor seleccione una unidad.");
+            return;
+        }
+        if (txbNombre.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Nombre no puede estar vacío.");
+            return;
+        }
+        if (txbDescripcion.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Descripción no puede estar vacío.");
+            return;
+        }
+
         int idAccesorio = 0;
         String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
         String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
 
-        if (gendarmeSeleccionado == null || unidadSeleccionada == null) {
-            mostrarMensaje(false, "Por favor seleccione un gendarme y una unidad.");
-            return;
-        }
-
         int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
         int idUnidad = unidadMap.get(unidadSeleccionada);
-        String nombre = txbNombre.getText();
-        String descripcion = txbDescripcion.getText();
+        String nombre = txbNombre.getText().trim();
+        String descripcion = txbDescripcion.getText().trim();
 
         InventarioModel nuevoInventario = new InventarioModel(idAccesorio, idUnidad, idGendarme, nombre, descripcion);
 
@@ -104,7 +117,6 @@ public class  AgregarInventarioController implements Initializable {
         nuevoInventario.setIdGendarme(idGendarme);
         nuevoInventario.setNombreAccesorio(nombre);
         nuevoInventario.setDescrAccesorio(descripcion);
-
 
         InventarioDAO inventarioDAO1 = new InventarioDAO();
         boolean carga = inventarioDAO1.insertarInventario(nuevoInventario);

@@ -88,20 +88,33 @@ public class AgregarArmaController implements Initializable {
 
     @FXML
     private void handleConfirmarButton(ActionEvent event) {
+        // Validación de selección de gendarme y unidad
         String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
         String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
-
         if (gendarmeSeleccionado == null || unidadSeleccionada == null) {
             mostrarMensaje(false, "Por favor seleccione un gendarme y una unidad.");
             return;
         }
 
+        // Validación de campos de texto vacíos
+        String marcaArma = txbMarcaArma.getText().trim();
+        String tipoArma = txbTipoArma.getText().trim();
+        String numeroSerieArma = txbNumeroSerieArma.getText().trim();
+        if (marcaArma.isEmpty()) {
+            mostrarMensaje(false, "El campo Marca no puede estar vacío.");
+            return;
+        }
+        if (tipoArma.isEmpty()) {
+            mostrarMensaje(false, "El campo Tipo no puede estar vacío.");
+            return;
+        }
+        if (numeroSerieArma.isEmpty()) {
+            mostrarMensaje(false, "El campo Número de Serie no puede estar vacío.");
+            return;
+        }
+
         int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
         int idUnidad = unidadMap.get(unidadSeleccionada);
-
-        String marcaArma = txbMarcaArma.getText();
-        String tipoArma = txbTipoArma.getText();
-        String numeroSerieArma = txbNumeroSerieArma.getText();
 
         ArmaMenuModel nuevaArma = new ArmaMenuModel(0, idGendarme, idUnidad, marcaArma, tipoArma, numeroSerieArma);
 

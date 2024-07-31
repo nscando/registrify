@@ -64,12 +64,18 @@ public class LoginController {
       }
    }
    public void loginBtnAction(ActionEvent e) {
-      String usuario = usuarioTxtField.getText();
-      String password = passwordTxtField.getText();
+      String usuario = usuarioTxtField.getText().trim();
+      String password = passwordTxtField.getText().trim();
 
-      // Verifica si alguno de los campos está vacío o contiene espacios en blanco
-      if (usuario.trim().isEmpty() || password.trim().isEmpty() || usuario.contains(" ") || password.contains(" ")) {
-         loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
+      // Expresiones regulares para validar que no haya caracteres especiales
+      String validUsernamePattern = "^[a-zA-Z0-9_]+$";  // Permite solo letras, números y guiones bajos
+      String validPasswordPattern = "^[a-zA-Z0-9_!@#$%^&*()]+$";  // Permite letras, números, guiones bajos y caracteres especiales comunes
+
+      // Verifica si alguno de los campos está vacío, contiene espacios en blanco, o caracteres no permitidos
+      if (usuario.isEmpty() || password.isEmpty() ||
+              !usuario.matches(validUsernamePattern) ||
+              !password.matches(validPasswordPattern)) {
+         loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos o contienen caracteres no permitidos!");
       } else {
          validarLogin();
       }
@@ -82,8 +88,16 @@ public class LoginController {
    }
 
    public void validarLogin() {
-      String username = usuarioTxtField.getText();
-      String password = passwordTxtField.getText();
+      String username = usuarioTxtField.getText().trim();
+      String password = passwordTxtField.getText().trim();
+
+      // Validación de usuario y contraseña
+      if (username.isEmpty() || password.isEmpty()) {
+         loginMensajeLabel.setText("Usuario y Contraseña no pueden estar vacíos.");
+         return;
+      }
+
+      // Validación en la base de datos
       UsuarioModel usuario = usuarioDAO.getUsuarioByUsernameAndPassword(username, password);
 
       if (usuario != null) {
@@ -103,10 +117,10 @@ public class LoginController {
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal");
 
-
             stage.show();
          } catch (Exception e) {
             e.printStackTrace();
+            loginMensajeLabel.setText("Error al abrir la ventana del menú principal.");
          }
       } else {
          loginMensajeLabel.setText("Usuario y/o Contraseña incorrectos!");
