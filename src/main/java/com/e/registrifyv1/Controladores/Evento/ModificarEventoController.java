@@ -1,11 +1,20 @@
 package com.e.registrifyv1.Controladores.Evento;
 import com.e.registrifyv1.Dao.EventoDAO;
+import com.e.registrifyv1.Dao.UsuarioDAO;
 import  com.e.registrifyv1.Modelos.EventoDiario.EventoDiarioModel;
+import com.e.registrifyv1.Modelos.Unidad.UnidadMenuModel;
+import com.e.registrifyv1.Modelos.Usuarios.UsuarioModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 public class ModificarEventoController {
     @FXML
@@ -33,6 +42,15 @@ public class ModificarEventoController {
     private EventoDiarioController eventoDiarioController;
     private int idEventoSeleccionado;
 
+    @FXML
+    private ComboBox<String> comboUnidad;
+
+    @FXML
+    private ComboBox<String> comboGendarme;
+
+    private Map<String, Integer> unidadMap = new HashMap<>();
+    private Map<String, Integer> gendarmeMap = new HashMap<>();
+
     public void initialize () {
 
         // Aquí puedes hacer cualquier inicialización adicional
@@ -44,11 +62,45 @@ public class ModificarEventoController {
     public void inicializarDatosModificacion(EventoDiarioModel evento){
         this.evento = evento;
         this.idEventoSeleccionado = evento.getIdEvento();
-        txbIdGendarme.setText(String.valueOf(evento.getIdGendarme()));
-        txbIdUnidad.setText(String.valueOf(evento.getIdUnidad()));
-        txbDescripcionEvento.setText(evento.getDescrEvento());
-        txbFechaEvento.setText(evento.getFechaEvento());
-        txbEstadoEvento.setText(String.valueOf(evento.getEstado()));// todo ???
+/*        txbIdGendarme.setText(String.valueOf(evento.getIdGendarme()));
+        txbIdUnidad.setText(String.valueOf(evento.getIdUnidad()));*/
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        try {
+            List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
+            ObservableList<String> unidadesNombres = FXCollections.observableArrayList();
+
+            for (UnidadMenuModel unidad : unidades) {
+                unidadMap.put(unidad.getNombreUnidad(), unidad.getIdUnidad());
+                unidadesNombres.add(unidad.getNombreUnidad());
+            }
+
+            comboUnidad.setItems(unidadesNombres);
+            comboUnidad.setPromptText("----Seleccione Unidad----");
+
+
+
+            List<UsuarioModel> usuarios = usuarioDAO.buscarUsuariosActivos();
+            ObservableList<String> usuariosNombres = FXCollections.observableArrayList();
+
+            for (UsuarioModel usuario : usuarios) {
+                gendarmeMap.put(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni(), usuario.getIdGendarme());
+                usuariosNombres.add(usuario.getNombre() + " " + usuario.getApellido() + " " + usuario.getDni());
+            }
+            comboGendarme.setItems(usuariosNombres);
+            comboGendarme.setPromptText("----Seleccione Gendarme----");
+
+            txbDescripcionEvento.setText(evento.getDescrEvento());
+            txbFechaEvento.setText(evento.getFechaEvento());
+            txbEstadoEvento.setText(String.valueOf(evento.getEstado()));// todo ???
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
     public void setTablaMenuInventario(TableView<EventoDiarioModel> tablaMenuEvento){
@@ -105,8 +157,14 @@ public class ModificarEventoController {
 
 
     private EventoDiarioModel obtenerDatosFormulario() {
-        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());
+/*        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
+        int idGendarme = Integer.parseInt(txbIdGendarme.getText());*/
+        String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
+        String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
+
+        int idGendarme = gendarmeMap.get(gendarmeSeleccionado);
+        int idUnidad = unidadMap.get(unidadSeleccionada);
+
         String  descrEvento= txbDescripcionEvento.getText();
         String fechaEvento = txbFechaEvento.getText();
         int estadoEvento = Integer.parseInt(txbEstadoEvento.getText());
@@ -134,8 +192,8 @@ public class ModificarEventoController {
     }
 
     private void limpiarCamposFormulario() {
-        txbIdGendarme.clear();
-        txbIdUnidad.clear();
+        comboGendarme.getSelectionModel().clearSelection();
+        comboUnidad.getSelectionModel().clearSelection();
         txbEstadoEvento.clear();
         txbDescripcionEvento.clear();
         txbFechaEvento.clear();

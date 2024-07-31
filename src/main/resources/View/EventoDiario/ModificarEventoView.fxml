@@ -8,18 +8,17 @@
     <children>
         <VBox layoutX="147.0" layoutY="133.0" prefHeight="269.0" prefWidth="311.0" style="-fx-background-color: #136b6a;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" style="-fx-background-color: #136b6a;" text="ID Gendarme" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" style="-fx-background-color: #136b6a;" text="Gendarme" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
-                <TextField fx:id="txbIdGendarme" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" style="-fx-background-color: #136b6a;" text="ID Unidad" textAlignment="RIGHT" textFill="WHITE">
+                <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Unidad" textAlignment="RIGHT" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="txbIdUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" style="-fx-background-color: #136b6a;" text="Descripcion del Evento" textAlignment="RIGHT" textFill="WHITE">
+                    </font></Label>
+                <ComboBox fx:id="comboUnidad" prefHeight="26.0" prefWidth="313.0" promptText="---Seleccionar Unidad---" />
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="Descripcion del Evento" textAlignment="RIGHT" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
