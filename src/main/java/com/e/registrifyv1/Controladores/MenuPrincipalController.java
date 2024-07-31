@@ -147,20 +147,20 @@ public class MenuPrincipalController implements Initializable {
    }
 
    private void iniciarMonitoreoInactividad() {
-      sessionTimeoutTimeline = new Timeline(new KeyFrame(Duration.seconds(30), new EventHandler<ActionEvent>() {
+      sessionTimeoutTimeline = new Timeline(new KeyFrame(Duration.seconds(120), new EventHandler<ActionEvent>() {
          @Override
          public void handle(ActionEvent event) {
             realizarCierreSesion(true);
          }
       }));
-      sessionTimeoutTimeline.setCycleCount(Timeline.INDEFINITE);
+      sessionTimeoutTimeline.setCycleCount(1); // Se establece en 1 para que se ejecute solo una vez después de 30 segundos
       sessionTimeoutTimeline.play();
    }
 
    private void reiniciarTemporizadorInactividad() {
       if (sessionTimeoutTimeline != null) {
          sessionTimeoutTimeline.stop();
-         sessionTimeoutTimeline.play();
+         sessionTimeoutTimeline.playFromStart(); // Reinicia el temporizador desde el inicio
       }
    }
 
