@@ -38,3 +38,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/LogsUsuarios/Log_2024-07-25.txt
+/.idea/codestream.xml
+/.idea/git_toolbox_blame.xml
+/LogsUsuarios/Log_2024-07-23.txt
+/LogsUsuarios/Log_2024-07-24.txt
+/LogsUsuarios/Log_2024-07-27.txt
+/src/main/resources/ReportesGenerados/registrify_report.pdf
