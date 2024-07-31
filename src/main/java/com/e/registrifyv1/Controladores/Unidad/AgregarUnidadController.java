@@ -39,11 +39,16 @@ public class AgregarUnidadController implements Initializable {
         stage.close();
     }
 
-    @FXML
     public void handleConfirmarButton(ActionEvent event) {
         int idUnidad = 0;
-        String nombreUnidad = txtNombreUnidad.getText();
-        String ubicacionUnidad = txtUbicacionUnidad.getText();
+        String nombreUnidad = txtNombreUnidad.getText().trim();
+        String ubicacionUnidad = txtUbicacionUnidad.getText().trim();
+
+        // Validación para evitar caracteres vacíos
+        if (nombreUnidad.isEmpty() || ubicacionUnidad.isEmpty()) {
+            mostrarAdvertencia("Los campos Nombre de Unidad y Ubicación de Unidad no pueden estar vacíos.");
+            return;
+        }
 
         UnidadMenuModel nuevaUnidad = new UnidadMenuModel(idUnidad, nombreUnidad, ubicacionUnidad);
 
@@ -51,11 +56,19 @@ public class AgregarUnidadController implements Initializable {
         nuevaUnidad.setNombreUnidad(nombreUnidad);
         nuevaUnidad.setUbicacionUnidad(ubicacionUnidad);
 
-        // Llamar al método insertarUsuario en UsuarioDAO
+        // Llamar al método insertarUnidad en UnidadDAO
         UnidadDAO unidadDAO1 = new UnidadDAO();
         boolean exito = unidadDAO1.insertarUnidad(nuevaUnidad);
 
         mostrarMensaje(exito);
+    }
+
+    private void mostrarAdvertencia(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Advertencia - Los campos son obligatorios");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     private void mostrarMensaje(boolean exito) {

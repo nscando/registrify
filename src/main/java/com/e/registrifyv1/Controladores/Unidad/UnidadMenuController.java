@@ -233,7 +233,7 @@ public class UnidadMenuController{
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
             alert.setHeaderText("¡Atención!");
-            alert.setContentText("Estás a punto de dar de baja la unodad. ¿Estás seguro?");
+            alert.setContentText("Estás a punto de dar de baja la unidad. ¿Estás seguro?");
             alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
             Optional<ButtonType> result = alert.showAndWait();
@@ -245,7 +245,7 @@ public class UnidadMenuController{
                     if (bajaExitosa) {
                         Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
                         alertConfirmacion.setTitle("Confirmación");
-                        alertConfirmacion.setHeaderText("¡Unidad dada de baja correctamente!");
+                        alertConfirmacion.setHeaderText("¡Unidad eliminada correctamente!");
                         alertConfirmacion.show();
                         actualizarTableView();
                         // Realiza acciones adicionales después de dar de baja si es necesario
@@ -253,7 +253,7 @@ public class UnidadMenuController{
                         Alert alertError = new Alert(Alert.AlertType.ERROR);
                         alertError.setTitle("Error");
                         alertError.setHeaderText("Error al dar de baja");
-                        alertError.setContentText("Hubo un problema al dar de baja la unidad.");
+                        alertError.setContentText("Hubo un problema al eliminar la unidad.");
                         alertError.show();
                     }
                 } catch (Exception e) {
