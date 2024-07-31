@@ -143,14 +143,14 @@ public class  AgregarEventoController implements Initializable {
         alert.setHeaderText(null);
 
         if (carga) {
-            alert.setContentText("El Objeto se insertó correctamente.");
+            alert.setContentText("El Evento se insertó correctamente.");
             txbDescripcionEvento.clear();
             txbFechaEvento.clear();
             txbEstadoEvento.clear();
 
 
         } else {
-            alert.setContentText("No se pudo insertar el Objeto.");
+            alert.setContentText("No se pudo insertar el Evento.");
         }
 
         // Configurar el cuadro de diálogo para que sea siempre visible

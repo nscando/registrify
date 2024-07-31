@@ -8,30 +8,30 @@
     <children>
         <VBox layoutX="147.0" layoutY="133.0" prefHeight="269.0" prefWidth="311.0" style="-fx-background-color: #136b6a;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" style="-fx-background-color: #136b6a;" text="ID Gendarme(int)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" style="-fx-background-color: #136b6a;" text="ID Gendarme" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
                 <TextField fx:id="txbIdGendarme" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" style="-fx-background-color: #136b6a;" text="ID Unidad(int)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" style="-fx-background-color: #136b6a;" text="ID Unidad" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="txbIdUnidad" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ingrese Identificador numerico" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" style="-fx-background-color: #136b6a;" text="Descripcion del Evento(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" style="-fx-background-color: #136b6a;" text="Descripcion del Evento" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="txbDescripcionEvento" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: Pick Up" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" style="-fx-background-color: #136b6a;" text="Fecha del Evento(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" style="-fx-background-color: #136b6a;" text="Fecha del Evento" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="txbFechaEvento" alignment="CENTER" prefHeight="30.0" prefWidth="323.0" promptText="Ej: 13/12/2024" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="311.0" style="-fx-background-color: #136b6a;" text="Estado del Evento(int)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="311.0" style="-fx-background-color: #136b6a;" text="Estado del Evento" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>

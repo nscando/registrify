@@ -226,7 +226,7 @@ public class EventoDiarioController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
             alert.setHeaderText("¡Atención!");
-            alert.setContentText("Estás a punto de dar de eliminar ese objeto. ¿Estás seguro?");
+            alert.setContentText("Estás a punto de dar de eliminar este Evento. ¿Estás seguro?");
             alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
             Optional<ButtonType> result = alert.showAndWait();
@@ -238,7 +238,7 @@ public class EventoDiarioController {
                     if (bajaExitosa) {
                         Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
                         alertConfirmacion.setTitle("Confirmación");
-                        alertConfirmacion.setHeaderText("¡Objeto eliminado del inventario correctamente!");
+                        alertConfirmacion.setHeaderText("¡Evento eliminado del inventario correctamente!");
                         alertConfirmacion.show();
                         actualizarTableView();
                         // Realiza acciones adicionales después de dar de baja si es necesario
@@ -246,7 +246,7 @@ public class EventoDiarioController {
                         Alert alertError = new Alert(Alert.AlertType.ERROR);
                         alertError.setTitle("Error");
                         alertError.setHeaderText("Error al dar de baja");
-                        alertError.setContentText("Hubo un problema al dar de baja el objeto.");
+                        alertError.setContentText("Hubo un problema al dar de baja el Evento.");
                         alertError.show();
                     }
                 } catch (Exception e) {
@@ -258,7 +258,7 @@ public class EventoDiarioController {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setHeaderText("Error al dar de baja");
-            alertError.setContentText("Selecciona un objeto antes de dar de baja.");
+            alertError.setContentText("Selecciona un Evento antes de dar de baja.");
             alertError.show();
         }
     }
@@ -281,7 +281,7 @@ public class EventoDiarioController {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setHeaderText("Error al seleccionar");
-            alertError.setContentText("Selecciona un Objeto antes de modificar.");
+            alertError.setContentText("Selecciona un Evento antes de modificar.");
             alertError.show();
         }
     }

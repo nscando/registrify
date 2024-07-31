@@ -8,12 +8,12 @@
     <children>
         <VBox layoutX="132.0" layoutY="86.0" prefHeight="239.0" prefWidth="311.0" style="-fx-background-color: pink;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Id Gendarme" textAlignment="CENTER" textFill="RED">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Gendarme" textAlignment="CENTER" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
             <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Id Unidad" textAlignment="RIGHT" textFill="RED">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Unidad" textAlignment="RIGHT" textFill="RED">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>

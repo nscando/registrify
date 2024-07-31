@@ -8,23 +8,23 @@
     <children>
         <VBox layoutX="132.0" layoutY="86.0" prefHeight="217.0" prefWidth="311.0" style="-fx-background-color:  #473ba1;">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Id Unidad" textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text=" Unidad" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
                 <ComboBox fx:id="comboUnidad" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Id Gendarme" textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text=" Gendarme" textAlignment="CENTER" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>
                 <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" text="Nombre(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="550.0" text="Nombre" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
                 <TextField fx:id="txbNombre" alignment="CENTER" prefHeight="30.0" prefWidth="354.0" promptText="Ej: PT92" style="-fx-background-radius: 20;" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Descripcion(varchar)" textAlignment="RIGHT" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="552.0" text="Descripcion" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
