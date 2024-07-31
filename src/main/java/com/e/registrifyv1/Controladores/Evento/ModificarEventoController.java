@@ -62,9 +62,6 @@ public class ModificarEventoController {
     public void inicializarDatosModificacion(EventoDiarioModel evento){
         this.evento = evento;
         this.idEventoSeleccionado = evento.getIdEvento();
-/*        txbIdGendarme.setText(String.valueOf(evento.getIdGendarme()));
-        txbIdUnidad.setText(String.valueOf(evento.getIdUnidad()));*/
-
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         try {
             List<UnidadMenuModel> unidades = usuarioDAO.obtenerOpcionesUnidad();
@@ -157,8 +154,6 @@ public class ModificarEventoController {
 
 
     private EventoDiarioModel obtenerDatosFormulario() {
-/*        int idUnidad = Integer.parseInt(txbIdUnidad.getText());
-        int idGendarme = Integer.parseInt(txbIdGendarme.getText());*/
         String gendarmeSeleccionado = comboGendarme.getSelectionModel().getSelectedItem();
         String unidadSeleccionada = comboUnidad.getSelectionModel().getSelectedItem();
 
