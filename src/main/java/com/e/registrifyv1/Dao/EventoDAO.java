@@ -231,13 +231,13 @@ public class EventoDAO {
 
       try {
          connection = dbConnection.getConexion();
-         String query = "DELETE FROM EVENTODIARIO WHERE ID_EVENTO=?";
+         String query = "UPDATE EVENTODIARIO SET ESTADO = 0 WHERE ID_EVENTO = ?";
          statement = connection.prepareStatement(query);
          statement.setInt(1, idEvento);
 
          int rowsAffected = statement.executeUpdate();
          if (rowsAffected > 0) {
-            logTransaction("Baja", 0, new EventoDiarioModel(idEvento, 0, 0, "", "", 0)); // Reemplaza 0 con el ID del usuario que realiza la acción
+            logTransaction("Baja", 0, new EventoDiarioModel(idEvento, 0, 0, "", "", 0));
          }
          return rowsAffected > 0;
       } catch (SQLException e) {

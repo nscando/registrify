@@ -1,9 +1,6 @@
 package com.e.registrifyv1.Controladores.Vehiculos;
 
-import com.e.registrifyv1.Controladores.Arma.ModificarArmaController;
 import com.e.registrifyv1.Dao.VehiculoDAO;
-import com.e.registrifyv1.Modelos.Arma.ArmaMenuModel;
-import com.e.registrifyv1.Modelos.Inventario.InventarioModel;
 import com.e.registrifyv1.Modelos.Rol.Rol;
 import com.e.registrifyv1.Modelos.Vehiculos.VehiculosModel;
 import com.e.registrifyv1.Utiles.Session;
@@ -198,7 +195,8 @@ public class VehiculosMenuController {
         }
     }
 
-    @FXML
+    @FXML //ABRIR FORMULARIO PARA AGREGAR Vehiculo-Es necesario???
+    // porque tengo creo que lo abre igual sin esto y si es asi, porque
     public void menuAgregarVehiculo(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/AgregarVehiculoForm.fxml"));
@@ -214,7 +212,7 @@ public class VehiculosMenuController {
     }
 
 
-
+    //todo creo que esto no hace un pingo, probar de borrarlo.
     private void abrirFormularioModificarVehiculo(VehiculosModel vehiculo) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoView.fxml"));
@@ -267,7 +265,7 @@ public class VehiculosMenuController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
             alert.setHeaderText("¡Atención!");
-            alert.setContentText("Estás a punto de dar de eliminar ese vehiculo. ¿Estás seguro?");
+            alert.setContentText("Estás a punto de dar de eliminar ese objeto. ¿Estás seguro?");
             alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
             Optional<ButtonType> result = alert.showAndWait();
@@ -279,7 +277,7 @@ public class VehiculosMenuController {
                     if (bajaExitosa) {
                         Alert alertConfirmacion = new Alert(Alert.AlertType.CONFIRMATION);
                         alertConfirmacion.setTitle("Confirmación");
-                        alertConfirmacion.setHeaderText("¡Objeto eliminado el vehiculo correctamente!");
+                        alertConfirmacion.setHeaderText("¡Objeto eliminado del inventario correctamente!");
                         alertConfirmacion.show();
                         actualizarTableView();
                         // Realiza acciones adicionales después de dar de baja si es necesario
@@ -287,7 +285,7 @@ public class VehiculosMenuController {
                         Alert alertError = new Alert(Alert.AlertType.ERROR);
                         alertError.setTitle("Error");
                         alertError.setHeaderText("Error al dar de baja");
-                        alertError.setContentText("Hubo un problema al dar intentar eliminar el vehiculo.");
+                        alertError.setContentText("Hubo un problema al dar de baja el objeto.");
                         alertError.show();
                     }
                 } catch (Exception e) {
@@ -299,7 +297,7 @@ public class VehiculosMenuController {
             Alert alertError = new Alert(Alert.AlertType.ERROR);
             alertError.setTitle("Error");
             alertError.setHeaderText("Error al dar de baja");
-            alertError.setContentText("Selecciona un vehiculo antes de dar de baja.");
+            alertError.setContentText("Selecciona un objeto antes de dar de baja.");
             alertError.show();
         }
     }
