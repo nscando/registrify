@@ -111,7 +111,7 @@ public class EventoDAO {
       return eventos;
    }
 
-   public ObservableList<EventoDiarioModel> buscarEventoConFecha(String valor, Date fechaDesde, Date fechaHasta) {
+   public ObservableList<EventoDiarioModel> buscarEventoConFecha(String valor, boolean incluirBaja, Date fechaDesde, Date fechaHasta) {
       ObservableList<EventoDiarioModel> eventos = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;

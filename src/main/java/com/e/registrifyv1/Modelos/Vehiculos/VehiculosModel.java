@@ -17,10 +17,11 @@ public class VehiculosModel {
     private String patente;
     private String kilometraje;
 
+    private int kmEntrada;
+    private int kmSalida;
+    private int kmRecorridos;
 
-
-
-    public VehiculosModel(int idVehiculo, int idUnidad, int idGendarme, String tipoVehiculo, String marcaVehiculo, String modelo, String patente, String kilometraje) {
+    public VehiculosModel(int idVehiculo, int idUnidad, int idGendarme, String tipoVehiculo, String marcaVehiculo, String modelo, String patente, String kilometraje, int kmEntrada, int kmSalida) {
 
         this.idVehiculo = idVehiculo;
         this.idUnidad = idUnidad;
@@ -30,7 +31,9 @@ public class VehiculosModel {
         this.modelo = modelo;
         this.patente = patente;
         this.kilometraje = kilometraje;
-
+        this.kmEntrada = kmEntrada;
+        this.kmSalida = kmSalida;
+        this.kmRecorridos = kmSalida - kmEntrada;
     }
 
     // Getters y setters
@@ -60,7 +63,6 @@ public class VehiculosModel {
     }
 
     public String getNombreGendarme() {
-
         return nombreGendarme;
     }
 
@@ -95,7 +97,6 @@ public class VehiculosModel {
     public String getNombreUnidad() {
         return nombreUnidad;
     }
-
 
     public String getTipoVehiculo() {
         return tipoVehiculo;
@@ -137,4 +138,29 @@ public class VehiculosModel {
         this.kilometraje = kilometraje;
     }
 
+    public int getKmEntrada() {
+        return kmEntrada;
+    }
+
+    public void setKmEntrada(int kmEntrada) {
+        this.kmEntrada = kmEntrada;
+        actualizarKmRecorridos();
+    }
+
+    public int getKmSalida() {
+        return kmSalida;
+    }
+
+    public void setKmSalida(int kmSalida) {
+        this.kmSalida = kmSalida;
+        actualizarKmRecorridos();
+    }
+
+    public int getKmRecorridos() {
+        return kmRecorridos;
+    }
+
+    private void actualizarKmRecorridos() {
+        this.kmRecorridos = this.kmSalida - this.kmEntrada;
+    }
 }

@@ -56,6 +56,15 @@ public class VehiculosMenuController {
     private TableColumn<VehiculosModel, Integer> kilometrajeColum;
 
     @FXML
+    private TableColumn<VehiculosModel, Integer> kmEntradaColum;
+
+    @FXML
+    private TableColumn<VehiculosModel, Integer> kmSalidaColum;
+
+    @FXML
+    private TableColumn<VehiculosModel, Integer> kmRecorridosColum;
+
+    @FXML
     private TextField txtFieldMenuVehiculo;
 
     @FXML
@@ -189,9 +198,18 @@ public class VehiculosMenuController {
             modeloVehiculoColum.setCellValueFactory(new PropertyValueFactory<>("modelo"));
             patenteColum.setCellValueFactory(new PropertyValueFactory<>("patente"));
             kilometrajeColum.setCellValueFactory(new PropertyValueFactory<>("kilometraje"));
+            kmEntradaColum.setCellValueFactory(new PropertyValueFactory<>("kmEntrada"));
+            kmSalidaColum.setCellValueFactory(new PropertyValueFactory<>("kmSalida"));
+            kmRecorridosColum.setCellValueFactory(new PropertyValueFactory<>("kmRecorridos"));
 
         } else {
             tablaMenuVehiculo.getItems().clear();
+        }
+        if (kmRecorridosColum != null) {
+            kmRecorridosColum.setCellValueFactory(new PropertyValueFactory<>("kmRecorridos"));
+        } else {
+            // Manejo de error o mensaje de depuración
+            System.out.println("kmRecrorridosColum es null");
         }
     }
 

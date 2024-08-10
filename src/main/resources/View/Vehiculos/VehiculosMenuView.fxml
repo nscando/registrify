@@ -110,6 +110,10 @@
                         <TableColumn fx:id="modeloVehiculoColum" prefWidth="75.0" text="Modelo" />
                         <TableColumn fx:id="patenteColum" prefWidth="75.0" text="Patente" />
                         <TableColumn fx:id="kilometrajeColum" prefWidth="75.0" text="Kilometraje" />
+                        <!-- Nuevas columnas agregadas -->
+                        <TableColumn fx:id="kmEntradaColum" prefWidth="75.0" text="Km Entrada" />
+                        <TableColumn fx:id="kmSalidaColum" prefWidth="75.0" text="Km Salida" />
+                        <TableColumn fx:id="kmRecorridosColum" prefWidth="75.0" text="Km Recorridos" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -26,9 +26,10 @@ public class VehiculoDAO {
         try {
             connection = dbConnection.getConexion();
 
-            // Consulta SQL con JOIN para obtener datos del gendarme y unidad
+            // Consulta SQL con JOIN para obtener datos del gendarme, unidad y los nuevos campos
             String query = "SELECT VEHICULO.ID_VEHICULO, VEHICULO.ID_UNIDAD, VEHICULO.ID_GENDARME, "
                     + "VEHICULO.TIPO_VEHICULO, VEHICULO.MARCA_VEHICULO, VEHICULO.MODELO, VEHICULO.PATENTE, VEHICULO.KILOMETRAJE, "
+                    + "VEHICULO.KMENTRADA, VEHICULO.KMSALIDA, "
                     + "UNIDAD.NOMBRE_UNIDAD, "
                     + "USUARIO.NOMBRE AS NOMBRE_GENDARME, USUARIO.APELLIDO AS APELLIDO_GENDARME, USUARIO.DNI AS DNI_GENDARME "
                     + "FROM VEHICULO "
@@ -56,13 +57,16 @@ public class VehiculoDAO {
                 String modelo = resultSet.getString("MODELO");
                 String patente = resultSet.getString("PATENTE");
                 String kilometraje = resultSet.getString("KILOMETRAJE");
+                int kmEntrada = resultSet.getInt("KMENTRADA");
+                int kmSalida = resultSet.getInt("KMSALIDA");
+                int kmRecorridos = kmSalida - kmEntrada;
+
                 String nombreUnidad = resultSet.getString("NOMBRE_UNIDAD");
                 String nombreGendarme = resultSet.getString("NOMBRE_GENDARME");
                 String apellidoGendarme = resultSet.getString("APELLIDO_GENDARME");
                 String dniGendarme = resultSet.getString("DNI_GENDARME");
 
-                // Crear el objeto VehiculosModel con todos los datos
-                VehiculosModel vehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
+                VehiculosModel vehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje, kmEntrada, kmSalida);
                 vehiculo.setNombreUnidad(nombreUnidad);
                 vehiculo.setNombreGendarme(nombreGendarme);
                 vehiculo.setApellidoGendarme(apellidoGendarme);
@@ -80,16 +84,20 @@ public class VehiculoDAO {
         return vehiculos;
     }
 
+
     public boolean insertarVehiculo(VehiculosModel vehiculo) {
         Connection connection = null;
         PreparedStatement statement = null;
 
         try {
             connection = dbConnection.getConexion();
-            String query = "INSERT INTO VEHICULO (ID_VEHICULO, ID_UNIDAD, ID_GENDARME, TIPO_VEHICULO, MARCA_VEHICULO, MODELO, PATENTE, KILOMETRAJE) VALUES (?,?,?,?,?,?,?,?)";
+            // Incluye las nuevas columnas KmEntrada y KmSalida en la consulta SQL
+            String query = "INSERT INTO VEHICULO (ID_VEHICULO, ID_UNIDAD, ID_GENDARME, TIPO_VEHICULO, MARCA_VEHICULO, MODELO, PATENTE, KILOMETRAJE, KMENTRADA, KMSALIDA) "
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
             statement = connection.prepareStatement(query);
 
+            // Asigna los valores a los parámetros de la consulta
             statement.setInt(1, vehiculo.getIdVehiculo());
             statement.setInt(2, vehiculo.getIdUnidad());
             statement.setInt(3, vehiculo.getIdGendarme());
@@ -98,7 +106,10 @@ public class VehiculoDAO {
             statement.setString(6, vehiculo.getModelo());
             statement.setString(7, vehiculo.getPatente());
             statement.setString(8, vehiculo.getKilometraje());
-            //cambie el tipo de dato a STRING, antes era INT
+            statement.setInt(9, vehiculo.getKmEntrada());
+            statement.setInt(10, vehiculo.getKmSalida());
+
+            // Ejecuta la consulta
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -108,7 +119,6 @@ public class VehiculoDAO {
         } finally {
             closeResources(connection, statement, null);
         }
-
     }
 
 
@@ -131,7 +141,7 @@ public class VehiculoDAO {
     }
 
 
-    //esto lo vamos a usar en el controlador del modificador de vehiculo (el cual hay que crear).
+    //esto lo vamos a usar en el controlador del modificador de vehiculo
     public boolean actualizarVehiculo(VehiculosModel vehiculo) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -139,8 +149,11 @@ public class VehiculoDAO {
         try {
             connection = dbConnection.getConexion();
 
-            String query = "UPDATE VEHICULO SET ID_UNIDAD=?, ID_GENDARME=?, TIPO_VEHICULO=?, MARCA_VEHICULO=?, MODELO=?, PATENTE=?,KILOMETRAJE=? WHERE ID_VEHICULO=?";
+            // Se agregan las columnas KmEntrada y KmSalida en la consulta SQL de actualización
+            String query = "UPDATE VEHICULO SET ID_UNIDAD=?, ID_GENDARME=?, TIPO_VEHICULO=?, MARCA_VEHICULO=?, MODELO=?, PATENTE=?, KILOMETRAJE=?, KMENTRADA=?, KMSALIDA=? WHERE ID_VEHICULO=?";
             statement = connection.prepareStatement(query);
+
+            // Asignación de valores a los parámetros de la consulta
             statement.setInt(1, vehiculo.getIdUnidad());
             statement.setInt(2, vehiculo.getIdGendarme());
             statement.setString(3, vehiculo.getTipoVehiculo());
@@ -148,9 +161,13 @@ public class VehiculoDAO {
             statement.setString(5, vehiculo.getModelo());
             statement.setString(6, vehiculo.getPatente());
             statement.setString(7, vehiculo.getKilometraje());
-            statement.setInt(8, vehiculo.getIdVehiculo());
+            statement.setInt(8, vehiculo.getKmEntrada());
+            statement.setInt(9, vehiculo.getKmSalida());
 
+            // ID del vehículo para identificar cuál actualizar
+            statement.setInt(10, vehiculo.getIdVehiculo());
 
+            // Ejecuta la consulta de actualización
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
 
@@ -160,8 +177,8 @@ public class VehiculoDAO {
         } finally {
             closeResources(connection, statement, null);
         }
-
     }
+
     //esto va a ser utilizado en el controlador "VehiculosMenuController"
     public boolean bajaVehiculo(int idVehiculo) {
         Connection connection = null;

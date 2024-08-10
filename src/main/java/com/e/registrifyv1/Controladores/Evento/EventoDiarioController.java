@@ -38,6 +38,9 @@ public class EventoDiarioController {
     private DatePicker datePickerHasta;
 
     @FXML
+    private CheckBox cBoxIncluirUsuariosBaja;
+
+    @FXML
     private TableColumn<EventoDiarioModel, Integer> idEventoColumn;
 
     @FXML
@@ -151,13 +154,14 @@ public class EventoDiarioController {
     @FXML
     private void btnBuscarEventoAction(ActionEvent event) {
         String valorBusqueda = txtFieldMenuEvento.getText();
+        boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
         LocalDate localDateDesde = datePickerDesde.getValue();
         LocalDate localDateHasta = datePickerHasta.getValue();
 
         Date fechaDesde = (localDateDesde != null) ? Date.valueOf(localDateDesde) : null;
         Date fechaHasta = (localDateHasta != null) ? Date.valueOf(localDateHasta) : null;
 
-        ObservableList<EventoDiarioModel> eventos = eventoDAO.buscarEventoConFecha(valorBusqueda, fechaDesde, fechaHasta);
+        ObservableList<EventoDiarioModel> eventos = eventoDAO.buscarEventoConFecha(valorBusqueda, incluirBaja,   fechaDesde, fechaHasta);
         cargarEventosEnTableView(eventos);
     }
 

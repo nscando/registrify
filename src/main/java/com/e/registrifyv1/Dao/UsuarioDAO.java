@@ -84,7 +84,7 @@ public class UsuarioDAO {
       return usuario;
    }
 
-   public ObservableList<UsuarioModel> buscarUsuarios(String valor, boolean incluirBaja, Date fechaDesde, Date fechaHasta) {
+   public ObservableList<UsuarioModel> buscarUsuarios(String valor, Date fechaDesde, Date fechaHasta) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;
@@ -94,9 +94,6 @@ public class UsuarioDAO {
          connection = dbConnection.getConexion();
          StringBuilder query = new StringBuilder("SELECT * FROM USUARIO WHERE (LOWER(ID_GENDARME) = LOWER(?) OR LOWER(NOMBRE) LIKE LOWER(?) OR LOWER(APELLIDO) LIKE LOWER(?) OR LOWER(DNI) = LOWER(?))");
 
-         if (!incluirBaja) {
-            query.append(" AND ESTADO = 1");
-         }
          if (fechaDesde != null) {
             query.append(" AND DATE_ADD >= ?");
          }

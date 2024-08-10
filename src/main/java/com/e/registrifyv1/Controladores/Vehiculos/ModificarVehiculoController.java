@@ -36,6 +36,10 @@ public class ModificarVehiculoController {
     @FXML
     private TextField txbKilometrajeVehiculo;
     @FXML
+    private TextField txbKilometrajeEntrada;
+    @FXML
+    private TextField txbKilometrajeSalida;
+    @FXML
     private TextField txbPatenteVehiculo;
     @FXML
     private TextField txbModeloVehiculo;
@@ -101,6 +105,8 @@ public class ModificarVehiculoController {
             txbModeloVehiculo.setText(vehiculo.getModelo());
             txbKilometrajeVehiculo.setText(vehiculo.getKilometraje());
             txbPatenteVehiculo.setText(vehiculo.getPatente());
+            txbKilometrajeEntrada.setText(String.valueOf(vehiculo.getKmEntrada()));
+            txbKilometrajeSalida.setText(String.valueOf(vehiculo.getKmSalida()));
 
 
         } catch (SQLException e) {
@@ -179,6 +185,10 @@ public class ModificarVehiculoController {
         String modelo = txbModeloVehiculo.getText();
         String patente = txbPatenteVehiculo.getText();
         String kilometraje = txbKilometrajeVehiculo.getText();
+        int kmEntrada = Integer.parseInt(txbKilometrajeEntrada.getText());
+        int kmSalida = Integer.parseInt(txbKilometrajeSalida.getText());
+
+
 
         String idGen = String.valueOf(idGendarme);
         String idUni = String.valueOf(idUnidad);
@@ -191,7 +201,7 @@ public class ModificarVehiculoController {
             mostrarAlerta("Error de Validación", "la UNIDAD no es válida.");
         }
 
-        return new VehiculosModel(vehiculo.getIdVehiculo(), idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje);
+        return new VehiculosModel(vehiculo.getIdVehiculo(), idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modelo, patente, kilometraje, kmEntrada,  kmSalida );
     }
 
     public void mostrarAlerta(String titulo, String mensaje) {
@@ -210,11 +220,13 @@ public class ModificarVehiculoController {
         txbMarcaVehiculo.clear();
         txbKilometrajeVehiculo.clear();
         txbTipoVehiculo.clear();
+        txbKilometrajeEntrada.clear();
+        txbKilometrajeSalida.clear();
 
     }
 
 
-// 1/07/24
+// 8/10/24
 }
 
 

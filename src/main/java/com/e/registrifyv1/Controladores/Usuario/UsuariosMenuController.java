@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -111,18 +110,17 @@ public class UsuariosMenuController {
    private void btBuscarAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
       boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, null, null);
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, null, null);
       cargarUsuariosEnTableView(usuarios);
    }
 
    @FXML
    private void btnFiltrarFechasAction(ActionEvent event) {
       String valorBusqueda = txtFieldMenuUsuario.getText();
-      boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
       Date datepickerDesde = fechaDesde.getValue() != null ? Date.valueOf(fechaDesde.getValue()) : null;
       Date datepickerHasta = fechaHasta.getValue() != null ? Date.valueOf(fechaHasta.getValue()) : null;
 
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, datepickerDesde, datepickerHasta);
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, datepickerDesde, datepickerHasta);
       cargarUsuariosEnTableView(usuarios);
    }
 
@@ -284,7 +282,7 @@ public class UsuariosMenuController {
    public void actualizarTableView() {
       String valorBusqueda = txtFieldMenuUsuario.getText();
       boolean incluirBaja = cBoxIncluirUsuariosBaja.isSelected();
-      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, incluirBaja, null, null);
+      ObservableList<UsuarioModel> usuarios = usuarioDAO.buscarUsuarios(valorBusqueda, null, null);
       cargarUsuariosEnTableView(usuarios);
    }
 }

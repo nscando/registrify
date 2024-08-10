@@ -38,6 +38,10 @@ public class  AgregarVehiculoController implements Initializable {
     @FXML
     private TextField txbKilometrajeVehiculo;
     @FXML
+    private TextField txbKilometrajeEntrada;
+    @FXML
+    private TextField txbKilometrajeSalida;
+    @FXML
     private TextField txbPatenteVehiculo;
     @FXML
     private TextField txbModeloVehiculo;
@@ -119,7 +123,15 @@ public class  AgregarVehiculoController implements Initializable {
             return;
         }
         if (txbKilometrajeVehiculo.getText().trim().isEmpty()) {
-            mostrarMensaje(false, "El campo Kilometraje de Vehículo no puede estar vacío.");
+            mostrarMensaje(false, "El campo Kilometraje del Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbKilometrajeEntrada.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Kilometraje de Entrada del Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbKilometrajeSalida.getText().trim().isEmpty()) {
+            mostrarMensaje(false, "El campo Kilometraje de Salida del Vehículo no puede estar vacío.");
             return;
         }
 
@@ -134,8 +146,10 @@ public class  AgregarVehiculoController implements Initializable {
         String modeloVehiculo = txbModeloVehiculo.getText().trim();
         String patenteVehiculo = txbPatenteVehiculo.getText().trim();
         String kmVehiculo = txbKilometrajeVehiculo.getText().trim();
+        int kmEntrada = Integer.parseInt(txbKilometrajeEntrada.getText().trim());
+        int kmSalida = Integer.parseInt(txbKilometrajeEntrada.getText().trim());
 
-        VehiculosModel nuevoVehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modeloVehiculo, patenteVehiculo, kmVehiculo);
+        VehiculosModel nuevoVehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modeloVehiculo, patenteVehiculo, kmVehiculo, kmEntrada,  kmSalida );
 
         nuevoVehiculo.setIdVehiculo(idVehiculo);
         nuevoVehiculo.setIdUnidad(idUnidad);
@@ -145,6 +159,9 @@ public class  AgregarVehiculoController implements Initializable {
         nuevoVehiculo.setModelo(modeloVehiculo);
         nuevoVehiculo.setPatente(patenteVehiculo);
         nuevoVehiculo.setKilometraje(kmVehiculo);
+        nuevoVehiculo.setKmEntrada(kmEntrada);
+        nuevoVehiculo.setKmSalida(kmSalida);
+
 
         VehiculoDAO vehiculoDAO1 = new VehiculoDAO();
         boolean carga = vehiculoDAO1.insertarVehiculo(nuevoVehiculo);
@@ -163,6 +180,8 @@ public class  AgregarVehiculoController implements Initializable {
             txbModeloVehiculo.clear();
             txbPatenteVehiculo.clear();
             txbKilometrajeVehiculo.clear();
+            txbKilometrajeEntrada.clear();
+            txbKilometrajeSalida.clear();
         } else {
             alert.setContentText("No se pudo insertar el Vehiculo.");
         }
