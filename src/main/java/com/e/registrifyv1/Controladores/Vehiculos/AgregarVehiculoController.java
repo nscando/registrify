@@ -147,7 +147,7 @@ public class  AgregarVehiculoController implements Initializable {
         String patenteVehiculo = txbPatenteVehiculo.getText().trim();
         String kmVehiculo = txbKilometrajeVehiculo.getText().trim();
         int kmEntrada = Integer.parseInt(txbKilometrajeEntrada.getText().trim());
-        int kmSalida = Integer.parseInt(txbKilometrajeEntrada.getText().trim());
+        int kmSalida = Integer.parseInt(txbKilometrajeSalida.getText().trim());
 
         VehiculosModel nuevoVehiculo = new VehiculosModel(idVehiculo, idUnidad, idGendarme, tipoVehiculo, marcaVehiculo, modeloVehiculo, patenteVehiculo, kmVehiculo, kmEntrada,  kmSalida );
 

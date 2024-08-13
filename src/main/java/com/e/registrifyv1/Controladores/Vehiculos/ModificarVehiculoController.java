@@ -125,6 +125,46 @@ public class ModificarVehiculoController {
 
     @FXML
     private void handleConfirmarButtonAction(ActionEvent event){
+
+        // Validación de campos vacíos
+        if (comboGendarme.getSelectionModel().getSelectedItem() == null) {
+            mostrarAlerta(String.valueOf(false), "Por favor seleccione un gendarme.");
+            return;
+        }
+        if (comboUnidad.getSelectionModel().getSelectedItem() == null) {
+            mostrarAlerta(String.valueOf(false), "Por favor seleccione una unidad.");
+            return;
+        }
+        if (txbTipoVehiculo.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Tipo de Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbMarcaVehiculo.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Marca de Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbModeloVehiculo.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Modelo de Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbPatenteVehiculo.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Patente de Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbKilometrajeVehiculo.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Kilometraje del Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbKilometrajeEntrada.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Kilometraje de Entrada del Vehículo no puede estar vacío.");
+            return;
+        }
+        if (txbKilometrajeSalida.getText().trim().isEmpty()) {
+            mostrarAlerta(String.valueOf(false), "El campo Kilometraje de Salida del Vehículo no puede estar vacío.");
+            return;
+        }
+
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Modificación");
         alert.setHeaderText("Está a punto de modificar los datos del vehiculo.");
@@ -153,7 +193,7 @@ public class ModificarVehiculoController {
                     vehiculosMenuController.actualizarTableView();
                 }
 
-                Stage stage = (Stage) txbPatenteVehiculo.getScene().getWindow(); //todo cambiar a idGendarme?
+                Stage stage = (Stage) txbPatenteVehiculo.getScene().getWindow();
                 stage.close();
             }
             else{

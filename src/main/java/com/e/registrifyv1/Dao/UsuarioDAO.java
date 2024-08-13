@@ -84,7 +84,7 @@ public class UsuarioDAO {
       return usuario;
    }
 
-   public ObservableList<UsuarioModel> buscarUsuarios(String valor, Date fechaDesde, Date fechaHasta) {
+   public ObservableList<UsuarioModel> buscarUsuarios(String valor, boolean incluirBaja, Date fechaDesde, Date fechaHasta) {
       ObservableList<UsuarioModel> usuarios = FXCollections.observableArrayList();
       Connection connection = null;
       PreparedStatement statement = null;
