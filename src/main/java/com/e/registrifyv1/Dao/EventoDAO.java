@@ -137,8 +137,16 @@ public class EventoDAO {
                  + "OR LOWER(g.APELLIDO) LIKE LOWER(?) "
                  + "OR LOWER(g.DNI) LIKE LOWER(?) "
                  + "OR LOWER(e.DESCRIPCION_EVENTO) LIKE LOWER(?) "
-                 + "OR LOWER(e.FECHAEVENTO) LIKE LOWER(?) "
-                 + "OR LOWER(e.ESTADO) LIKE LOWER(?))");
+                 + "OR LOWER(e.FECHAEVENTO) LIKE LOWER(?) )");
+
+         // Filtrar por estado si no se incluye baja
+         //Condición de Estado: Si incluirBaja es false, se agrega una
+         // condición para filtrar solo los eventos activos (e.ESTADO = 1).
+
+
+         if (!incluirBaja) {
+            query.append(" AND e.ESTADO = 1");
+         }
 
          if (fechaDesde != null) {
             query.append(" AND e.FECHAEVENTO >= ?");
@@ -155,9 +163,8 @@ public class EventoDAO {
          statement.setString(5, "%" + valor + "%");
          statement.setString(6, "%" + valor + "%");
          statement.setString(7, "%" + valor + "%");
-         statement.setString(8, "%" + valor + "%");
 
-         int index = 9;
+         int index = 8;
          if (fechaDesde != null) {
             statement.setDate(index++, new java.sql.Date(fechaDesde.getTime()));
          }
@@ -194,6 +201,7 @@ public class EventoDAO {
 
       return eventos;
    }
+
 
    public boolean insertarEvento(EventoDiarioModel evento) {
       Connection connection = null;
