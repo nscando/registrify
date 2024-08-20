@@ -33,7 +33,7 @@
                     </graphic>
                 </Label>
 
-                <Button fx:id="nuevoVehiculo" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuVehiculos" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="NUEVO" textFill="#d9d9d9">
+                <Button fx:id="nuevoVehiculo" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#menuAgregarVehiculos" prefHeight="50.0" prefWidth="200.0" style="-fx-cursor: hand;" stylesheets="@../../Styles/VehiculoMenu.css" text="NUEVO" textFill="#d9d9d9">
                     <graphic>
                         <FontAwesomeIconView fill="#b6dcef" glyphName="PLUS" size="18.0" />
                     </graphic>

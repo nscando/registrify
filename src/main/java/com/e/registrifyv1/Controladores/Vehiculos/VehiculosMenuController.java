@@ -90,6 +90,8 @@ public class VehiculosMenuController {
 
     private int idRol = Session.getIdRol();
 
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
 
     @FXML
     private void initialize(){
@@ -141,25 +143,39 @@ public class VehiculosMenuController {
                 setText(empty ? null : item != null ? item.toString() : "");
             }
         };
-        cell.setOnMouseClicked(event -> {
-            if (!cell.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                VehiculosModel rowData = cell.getTableView().getItems().get(cell.getIndex());
-                abrirFormularioModificarVehiculo(rowData);
-            }
-        });
+
         return cell;
     });
     }
 // todo> creo que este metodo es redundante.
     @FXML
-    public void menuVehiculos(ActionEvent event){
+    public void menuAgregarVehiculos(ActionEvent event){
+        String menuKey = "AgregarVehiculosMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú de Vehículos ya está abierto.");
+            alert.show();
+            return;
+        }
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/AgregarVehiculoForm.fxml")); //corregir.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/AgregarVehiculoForm.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
             stage.setTitle("Agregar Vehiculos");
             stage.setScene(new Scene(root));
+
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -213,52 +229,43 @@ public class VehiculosMenuController {
         }
     }
 
-    @FXML //ABRIR FORMULARIO PARA AGREGAR Vehiculo-Es necesario???
-    // porque tengo creo que lo abre igual sin esto y si es asi, porque
-    public void menuAgregarVehiculo(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/AgregarVehiculoForm.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = new Stage();
-            stage.setTitle("Agregar Vehiculo");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    //todo creo que esto no hace un pingo, probar de borrarlo.
-    private void abrirFormularioModificarVehiculo(VehiculosModel vehiculo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoView.fxml"));
-            Parent root = loader.load();
-            ModificarVehiculoController controller = loader.getController();
-            controller.setTablaMenuVehiculo(tablaMenuVehiculo);
-            controller.setVehiculosMenuController(this);
-            controller.inicializarDatosModificacion(vehiculo);
-            Stage stage = new Stage();
-            stage.setTitle("Modificar Vehiculo");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
+
     public void handleModificacionButtonAction(ActionEvent event) {
         VehiculosModel vehiculoSeleccionado = tablaMenuVehiculo.getSelectionModel().getSelectedItem();
+
         if (vehiculoSeleccionado != null) {
-            try{
+            String menuKey = "ModificarVehiculoMenu"; // Identificador único para el vehículo a modificar
+
+            if (ventanasAbiertas.containsKey(menuKey)) {
+                // Si la ventana ya está abierta, no permitir abrir otra
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información");
+                alert.setHeaderText(null);
+                alert.setContentText("La ventana de modificación de este vehículo ya está abierta.");
+                alert.show();
+                return;
+            }
+
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Vehiculos/ModificarVehiculoForm.fxml"));
-                Parent root = (Parent) loader.load();
+                Parent root = loader.load();
                 ModificarVehiculoController controller = loader.getController();
                 controller.inicializarDatosModificacion(vehiculoSeleccionado);
+
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+
+                // Almacenar la ventana abierta en el Map
+                ventanasAbiertas.put(menuKey, stage);
+
+                // Agregar un listener para removerla cuando se cierre
+                stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
+
                 stage.show();
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
@@ -269,6 +276,7 @@ public class VehiculosMenuController {
             alertError.show();
         }
     }
+
 
     private VehiculosModel obtenerVehiculoSeleccionado() {
         // Lógica para obtener el inventario seleccionado
