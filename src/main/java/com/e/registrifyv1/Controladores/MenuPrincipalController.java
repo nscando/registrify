@@ -35,6 +35,7 @@ public class MenuPrincipalController implements Initializable {
    @FXML private MenuBar menuBar;
 
    private Map<Button, String[]> botonesVistas;
+   private Map<String, Stage> ventanasAbiertas = new HashMap<>();
    private Timeline sessionTimeoutTimeline;
    private boolean isSesionCerrada = false; // Bandera para controlar el estado de la sesión
 
@@ -91,12 +92,38 @@ public class MenuPrincipalController implements Initializable {
    @FXML
    private void handleButtonClick(ActionEvent actionEvent) {
       Button botonPresionado = (Button) actionEvent.getSource();
+      String[] vista = botonesVistas.get(botonPresionado);
+
+      if (vista == null) {
+         return;
+      }
+
+      String fxmlPath = vista[0]; // Usar el path del FXML como clave única
+
+      if (ventanasAbiertas.containsKey(fxmlPath)) {
+         // Si la ventana ya está abierta, no permitir abrir otra
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+         alert.setTitle("Información");
+         alert.setHeaderText(null);
+         alert.setContentText("El menú ya está abierto.");
+         alert.show();
+         return;
+      }
+
       if (botonPresionado.isDisabled()) {
          mostrarAlertaAccesoDenegado();
       } else {
-         String[] vista = botonesVistas.get(botonPresionado);
-         if (vista != null) {
-            loadStage(vista[0], vista[1]);
+         Stage stage = loadStage(fxmlPath, vista[1]);
+
+         if (stage != null) {
+            // Almacenar la ventana abierta en el Map antes de mostrarla
+            ventanasAbiertas.put(fxmlPath, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(fxmlPath));
+
+            // Mostrar la ventana después de haberla almacenado y configurado
+            stage.show();
          }
       }
 
@@ -211,15 +238,18 @@ public class MenuPrincipalController implements Initializable {
       primaryStage.close();
    }
 
-   private void loadStage(String fxml, String title) {
+   private Stage loadStage(String fxml, String title) {
+      Stage stage = null;
       try {
          Parent root = FXMLLoader.load(getClass().getResource(fxml));
-         Stage stage = new Stage();
+         stage = new Stage();
          stage.setScene(new Scene(root));
          stage.setTitle(title);
          stage.show();
       } catch (IOException e) {
          e.printStackTrace();
       }
+      return stage;
    }
+
 }

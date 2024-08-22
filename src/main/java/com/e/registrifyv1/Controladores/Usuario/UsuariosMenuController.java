@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -68,6 +69,8 @@ public class UsuariosMenuController {
    @FXML
    private DatePicker fechaHasta;
 
+   private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
 
    private UsuarioDAO usuarioDAO;
 
@@ -104,7 +107,7 @@ public class UsuariosMenuController {
    @FXML
    private void handleSalirButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnSalir.getScene().getWindow();
-      stage.close();
+      stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
    }
 
    @FXML
@@ -136,39 +139,76 @@ public class UsuariosMenuController {
 
    @FXML
    private void abrirFormularioAgregarUsuario(ActionEvent event) {
+      String menuKey = "AgregarUsuariosMenu"; // Identificador único para el menú
+      if (ventanasAbiertas.containsKey(menuKey)) {
+         // Si la ventana ya está abierta, no permitir abrir otra
+         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+         alert.setTitle("Información");
+         alert.setHeaderText(null);
+         alert.setContentText("El menú de agregar Usuarios ya está abierto.");
+         alert.show();
+         return;
+      }
+
       try {
          FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/AgregarUsuarioForm.fxml"));
          Parent root = loader.load();
          Stage stage = new Stage();
          stage.setTitle("Agregar Usuario");
          stage.setScene(new Scene(root));
+         // Almacenar la ventana abierta en el Map
+         ventanasAbiertas.put(menuKey, stage);
+
+         // Agregar un listener para removerla cuando se cierre
+         stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
          stage.show();
+
       } catch (IOException e) {
          e.printStackTrace();
       }
    }
 
    private void abrirFormularioModificarUsuario(UsuarioModel usuario) {
-      try {
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
-         Parent root = loader.load();
-         ModificarUsuarioFormController controller = loader.getController();
-         controller.setTablaMenuUsuario(tablaMenuUsuario);
-         controller.setUsuariosMenuController(this);
-         controller.inicializarDatos(usuario);
-         Stage stage = new Stage();
-         stage.setTitle("Modificar Usuario");
-         stage.setScene(new Scene(root));
-         stage.show();
-      } catch (IOException e) {
-         e.printStackTrace();
-      } catch (SQLException e) {
-         throw new RuntimeException(e);
+      UsuarioModel usuarioSeleccionado = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+      if (usuarioSeleccionado != null) {
+         String menuKey = "ModificarUsuarioMenu"; // Identificador único para el vehículo a modificar
+
+         if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("La ventana de modificación de este Usuario ya está abierta.");
+            alert.show();
+            return;
+         }
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
+            Parent root = loader.load();
+            ModificarUsuarioFormController controller = loader.getController();
+            controller.setTablaMenuUsuario(tablaMenuUsuario);
+            controller.setUsuariosMenuController(this);
+            controller.inicializarDatos(usuario);
+            Stage stage = new Stage();
+            stage.setTitle("Modificar Usuario");
+            stage.setScene(new Scene(root));
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
+            stage.show();
+         } catch (IOException e) {
+            e.printStackTrace();
+         } catch (SQLException e) {
+            throw new RuntimeException(e);
+         }
       }
    }
 
    @FXML
    private void handleModificarUsuarioButtonAction(ActionEvent event) {
+
       UsuarioModel usuarioSeleccionado = tablaMenuUsuario.getSelectionModel().getSelectedItem();
       if (usuarioSeleccionado != null) {
          try {

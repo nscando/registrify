@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -159,7 +160,8 @@ public class AgregarUsuarioFormController implements Initializable {
    @FXML
    private void handleCancelarButtonAction(ActionEvent event) {
       Stage stage = (Stage) btnCancelar.getScene().getWindow();
-      stage.close();
+      stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+
    }
 
    @Override

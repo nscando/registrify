@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -88,7 +89,7 @@ public class  AgregarVehiculoController implements Initializable {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void handleConfirmarButton(ActionEvent event) {
