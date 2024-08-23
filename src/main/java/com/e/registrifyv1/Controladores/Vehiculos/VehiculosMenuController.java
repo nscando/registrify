@@ -148,7 +148,8 @@ public class VehiculosMenuController {
         return cell;
     });
     }
-// todo> creo que este metodo es redundante.
+
+
     @FXML
     public void menuAgregarVehiculos(ActionEvent event){
         String menuKey = "AgregarVehiculosMenu"; // Identificador único para el menú de vehículos

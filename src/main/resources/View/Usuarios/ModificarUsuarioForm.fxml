@@ -214,8 +214,8 @@
         </VBox>
         <Pane layoutX="-1.0" layoutY="505.0" prefHeight="75.0" prefWidth="550.0">
             <children>
-                <Button fx:id="btnCancelar" onAction="#handleCancelarButtonAction"  layoutX="297.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-cancelar" text="Cancelar" />
-                <Button fx:id="btnConfirmar" onAction="#handleConfirmarButtonAction" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" styleClass="button-confirmar" text="Confirmar" />
+                <Button fx:id="btnCancelar" layoutX="424.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleCancelarButtonAction" styleClass="button-cancelar" text="Cancelar" />
+                <Button fx:id="btnConfirmar" layoutX="290.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleConfirmarButtonAction" styleClass="button-confirmar" text="Confirmar" />
 
             </children>
         </Pane>

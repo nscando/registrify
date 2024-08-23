@@ -70,6 +70,9 @@ public class UnidadMenuController{
     @FXML
     private TableColumn<UnidadMenuModel, String> ubicacionUnidadColum;
 
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
+
     @FXML
     private void initialize() {
         unidadDAO = new UnidadDAO();
@@ -164,6 +167,17 @@ public class UnidadMenuController{
 
     @FXML //ABRIR FORMULARIO PARA AGREGAR UNIDAD
     public void menuAgregarUnidad(ActionEvent event) {
+        String menuKey = "AgregarUnidadMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú ya está abierto.");
+            alert.show();
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Unidad/AgregarUnidadView.fxml"));
             Parent root = loader.load();
@@ -171,6 +185,11 @@ public class UnidadMenuController{
             Stage stage = new Stage();
             stage.setTitle("Agregar unidad");
             stage.setScene(new Scene(root));
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -194,6 +213,7 @@ public class UnidadMenuController{
             Stage stage = new Stage();
             stage.setTitle("Modificar Unidad");
             stage.setScene(new Scene(root));
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -203,6 +223,17 @@ public class UnidadMenuController{
     @FXML
     private void handleModificarUnidadButtonAction(ActionEvent event) {
         UnidadMenuModel unidadSeleccionada = obtenerUnidadSeleccionada();
+        String menuKey = "ModificarUnidadMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú ya está abierto.");
+            alert.show();
+            return;
+        }
 
         if(unidadSeleccionada != null){
             try {
@@ -213,6 +244,11 @@ public class UnidadMenuController{
                 controller.inicializarDatosModificacion(unidadSeleccionada);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                // Almacenar la ventana abierta en el Map
+                ventanasAbiertas.put(menuKey, stage);
+
+                // Agregar un listener para removerla cuando se cierre
+                stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

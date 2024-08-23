@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -78,7 +79,7 @@ public class  AgregarInventarioController implements Initializable {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void handleConfirmarButton(ActionEvent event) {
@@ -121,6 +122,8 @@ public class  AgregarInventarioController implements Initializable {
         InventarioDAO inventarioDAO1 = new InventarioDAO();
         boolean carga = inventarioDAO1.insertarInventario(nuevoInventario);
         mostrarMensaje(carga);
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
     private void mostrarMensaje(boolean carga) {
         Alert alert = new Alert(carga ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);

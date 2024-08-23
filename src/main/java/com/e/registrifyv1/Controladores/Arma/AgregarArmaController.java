@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -122,6 +123,9 @@ public class AgregarArmaController implements Initializable {
         boolean exito = armaDAO1.insertarArma(nuevaArma);
 
         mostrarMensaje(exito, exito ? "El arma se insertó correctamente." : "No se pudo insertar el arma.");
+
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     private void mostrarMensaje(boolean exito, String mensaje) {

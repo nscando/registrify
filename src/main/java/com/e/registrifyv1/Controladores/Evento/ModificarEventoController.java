@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -115,6 +116,8 @@ public class ModificarEventoController {
                 mostrarAlerta("Error de Validación", "Por favor, complete todos los campos correctamente.");
             }
         }
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void actualizarTableView() {
@@ -172,7 +175,7 @@ public class ModificarEventoController {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void setEventoDiarioController(EventoDiarioController eventoDiarioController) {

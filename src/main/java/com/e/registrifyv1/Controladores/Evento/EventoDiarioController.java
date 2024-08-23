@@ -83,6 +83,9 @@ public class EventoDiarioController {
     @FXML
     private Button btnGenerarReporte;
 
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
+
     private int idRol = Session.getIdRol();
 
     @FXML
@@ -186,12 +189,29 @@ public class EventoDiarioController {
 
     @FXML
     public void menuAgregarEvento(ActionEvent event) {
+        String menuKey = "AgregarEventoMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú ya está abierto.");
+            alert.show();
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EventoDiario/AgregarEventoView.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Agregar Evento");
             stage.setScene(new Scene(root));
+
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -248,6 +268,16 @@ public class EventoDiarioController {
     public void handleModificacionEvento(ActionEvent event) {
         EventoDiarioModel eventoSeleccionado = obtenerEventoSeleccionado();
         if (eventoSeleccionado != null) {
+            String menuKey = "ModificarVehiculoMenu"; // Identificador único para el vehículo a modificar
+            if (ventanasAbiertas.containsKey(menuKey)) {
+                // Si la ventana ya está abierta, no permitir abrir otra
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información");
+                alert.setHeaderText(null);
+                alert.setContentText("La ventana de modificación ya está abierta.");
+                alert.show();
+                return;
+            }
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/EventoDiario/ModificarEventoView.fxml"));
                 Parent root = (Parent) loader.load();
@@ -255,6 +285,12 @@ public class EventoDiarioController {
                 controller.inicializarDatosModificacion(eventoSeleccionado);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+
+                // Almacenar la ventana abierta en el Map
+                ventanasAbiertas.put(menuKey, stage);
+
+                // Agregar un listener para removerla cuando se cierre
+                stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

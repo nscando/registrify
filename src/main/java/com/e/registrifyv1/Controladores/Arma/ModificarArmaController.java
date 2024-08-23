@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -39,6 +40,9 @@ public class ModificarArmaController {
 
     @FXML
     private Button btnCancelar;
+
+    @FXML
+    private Button btnConfirmar;
 
     private int idArma = 0;
 
@@ -157,6 +161,8 @@ public class ModificarArmaController {
                 mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del armamento.");
             }
         }
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
 

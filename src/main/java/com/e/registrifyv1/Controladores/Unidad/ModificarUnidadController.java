@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class ModificarUnidadController {
 
@@ -51,7 +52,7 @@ public class ModificarUnidadController {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
 
@@ -81,6 +82,8 @@ public class ModificarUnidadController {
            mostrarMensaje(false);
            System.err.println("unidadAModificar es nulo."); // Agrega esta línea para mostrar el mensaje de error en la consola de JavaFX
        }
+       Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+       stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
 

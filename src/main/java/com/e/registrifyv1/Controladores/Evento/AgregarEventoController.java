@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -80,7 +81,7 @@ public class  AgregarEventoController implements Initializable {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void handleConfirmarButton(ActionEvent event) {
@@ -129,6 +130,8 @@ public class  AgregarEventoController implements Initializable {
         EventoDAO eventoDAO1 = new EventoDAO();
         boolean carga = eventoDAO1.insertarEvento(nuevoEvento);
         mostrarMensaje(carga);
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     private void mostrarMensaje(boolean exito, String mensaje) {

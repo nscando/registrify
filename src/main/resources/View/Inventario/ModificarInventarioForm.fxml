@@ -15,14 +15,14 @@
                     </font></Label>
 
                 <ComboBox fx:id="comboUnidad" prefHeight="26.0" prefWidth="313.0" promptText="---Seleccionar Unidad---" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="Gendarme" textAlignment="RIGHT" textFill="RED">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="577.0" text="Gendarme" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
 
                 <ComboBox fx:id="comboGendarme" prefHeight="26.0" prefWidth="314.0" promptText="---Seleccione Gendarme---" />
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Nombre" textAlignment="RIGHT" textFill="RED">
+                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="559.0" text="Titulo" textAlignment="RIGHT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font></Label>

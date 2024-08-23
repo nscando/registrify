@@ -94,6 +94,7 @@ public class  AgregarVehiculoController implements Initializable {
 
     public void handleConfirmarButton(ActionEvent event) {
 
+
         // Validación de campos vacíos
         if (txbIdVehiculo.getText().trim().isEmpty()) {
             mostrarMensaje(false, "El campo ID Vehículo no puede estar vacío.");
@@ -167,6 +168,10 @@ public class  AgregarVehiculoController implements Initializable {
         VehiculoDAO vehiculoDAO1 = new VehiculoDAO();
         boolean carga = vehiculoDAO1.insertarVehiculo(nuevoVehiculo);
         mostrarMensaje(carga);
+        //Se hace esto para que con el boton de confirmar tambien borre el mapa actual.
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+
     }
     private void mostrarMensaje(boolean carga) {
         Alert alert = new Alert(carga ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);

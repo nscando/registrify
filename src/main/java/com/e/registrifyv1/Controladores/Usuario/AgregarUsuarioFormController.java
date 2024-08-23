@@ -23,6 +23,9 @@ public class AgregarUsuarioFormController implements Initializable {
    private Button btnCancelar;
 
    @FXML
+   private Button btnConfirmar;
+
+   @FXML
    private ComboBox<String> comboUnidad;
 
    @FXML
@@ -72,6 +75,9 @@ public class AgregarUsuarioFormController implements Initializable {
             mostrarAlerta("Error", "Error al insertar el usuario.");
          }
       }
+
+      Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+      stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
    }
 
    private UsuarioModel obtenerDatosFormulario() {

@@ -88,6 +88,9 @@ public class InventarioMenuController {
     @FXML
     private Button btnBuscarInventarioMenu;
 
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
+
 
 
     @FXML
@@ -189,6 +192,17 @@ public class InventarioMenuController {
 
     @FXML
     public void menuAgregarInventario(ActionEvent event) {
+        String menuKey = "AgregarInventarioMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú ya está abierto.");
+            alert.show();
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Inventario/AgregarInventarioView.fxml"));
             Parent root = loader.load();
@@ -196,6 +210,11 @@ public class InventarioMenuController {
             Stage stage = new Stage();
             stage.setTitle("Agregar Inventario");
             stage.setScene(new Scene(root));
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,6 +225,17 @@ public class InventarioMenuController {
     public void handleModificacionInventario(ActionEvent event) {
         InventarioModel inventarioSeleccionado = tablaMenuInventario.getSelectionModel().getSelectedItem();
         if (inventarioSeleccionado != null) {
+            String menuKey = "ModificarInventarioMenu"; // Identificador único para el vehículo a modificar
+
+            if (ventanasAbiertas.containsKey(menuKey)) {
+                // Si la ventana ya está abierta, no permitir abrir otra
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información");
+                alert.setHeaderText(null);
+                alert.setContentText("La ventana de modificación ya está abierta.");
+                alert.show();
+                return;
+            }
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Inventario/ModificarInventarioForm.fxml"));
                 Parent root = (Parent) loader.load();
@@ -213,6 +243,11 @@ public class InventarioMenuController {
                 controller.inicializarDatosModificacion(inventarioSeleccionado);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                // Almacenar la ventana abierta en el Map
+                ventanasAbiertas.put(menuKey, stage);
+
+                // Agregar un listener para removerla cuando se cierre
+                stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
                 stage.show();
             }catch (IOException e) {
                 e.printStackTrace();

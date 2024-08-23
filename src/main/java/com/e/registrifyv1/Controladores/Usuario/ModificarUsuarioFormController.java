@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -47,6 +48,8 @@ public class ModificarUsuarioFormController {
 
    @FXML
    private RadioButton rbEstado;
+   @FXML
+   private Button btnConfirmar;
 
    private UsuarioModel usuario;
    private TableView<UsuarioModel> tablaMenuUsuario;
@@ -139,6 +142,8 @@ public class ModificarUsuarioFormController {
             mostrarAlerta("Error", "Error al modificar el usuario.");
          }
       }
+      Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+      stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
    }
 
    private UsuarioModel obtenerDatosFormulario() throws SQLException {
@@ -194,7 +199,7 @@ public class ModificarUsuarioFormController {
    @FXML
    private void handleCancelarButtonAction(ActionEvent event) {
       Stage stage = (Stage) txtNombre.getScene().getWindow();
-      stage.close();
+      stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
    }
 
    private int obtenerUsuarioModificadorId() {

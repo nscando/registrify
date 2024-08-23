@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,7 +37,7 @@ public class AgregarUnidadController implements Initializable {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     public void handleConfirmarButton(ActionEvent event) {
@@ -61,6 +62,9 @@ public class AgregarUnidadController implements Initializable {
         boolean exito = unidadDAO1.insertarUnidad(nuevaUnidad);
 
         mostrarMensaje(exito);
+
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     private void mostrarAdvertencia(String mensaje) {
@@ -90,10 +94,4 @@ public class AgregarUnidadController implements Initializable {
 
         alert.showAndWait();
     }
-
-
-
-
-
-
 }

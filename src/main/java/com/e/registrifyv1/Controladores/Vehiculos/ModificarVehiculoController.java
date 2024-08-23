@@ -201,6 +201,9 @@ public class ModificarVehiculoController {
                 mostrarAlerta("Error de Actualización", "Hubo un error al intentar actualizar los datos del vehiculo.");
             }
         }
+
+        Stage stage = (Stage) btnConfirmar.getScene().getWindow();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML

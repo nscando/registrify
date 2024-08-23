@@ -210,7 +210,19 @@ public class UsuariosMenuController {
    private void handleModificarUsuarioButtonAction(ActionEvent event) {
 
       UsuarioModel usuarioSeleccionado = tablaMenuUsuario.getSelectionModel().getSelectedItem();
+
       if (usuarioSeleccionado != null) {
+         String menuKey = "ModificarUsuarioMenu"; // Identificador único para el vehículo a modificar
+         if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("La ventana de modificación de este Usuario ya está abierta.");
+            alert.show();
+            return;
+         }
+
          try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Usuarios/ModificarUsuarioForm.fxml"));
             Parent root = loader.load();
@@ -218,6 +230,12 @@ public class UsuariosMenuController {
             controller.inicializarDatos(usuarioSeleccionado);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
             stage.show();
          } catch (IOException e) {
             e.printStackTrace();
