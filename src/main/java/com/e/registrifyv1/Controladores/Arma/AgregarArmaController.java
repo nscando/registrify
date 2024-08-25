@@ -84,7 +84,7 @@ public class AgregarArmaController implements Initializable {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     @FXML

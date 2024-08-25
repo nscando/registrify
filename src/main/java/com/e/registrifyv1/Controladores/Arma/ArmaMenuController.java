@@ -74,11 +74,13 @@ public class ArmaMenuController {
     @FXML
     private Button btnBuscarArmaMenu;
 
-
     @FXML
     private Button btnGenerarReporte;
 
+
     private int idRol = Session.getIdRol();
+
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
 
 
 
@@ -231,6 +233,17 @@ public class ArmaMenuController {
 
     @FXML //ABRIR FORMULARIO PARA AGREGAR UNIDAD
     public void menuAgregarArma(ActionEvent event) {
+        String menuKey = "AgregarArmaMenu"; // Identificador único para el menú de vehículos
+
+        if (ventanasAbiertas.containsKey(menuKey)) {
+            // Si la ventana ya está abierta, no permitir abrir otra
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Información");
+            alert.setHeaderText(null);
+            alert.setContentText("El menú de Armas ya está abierto.");
+            alert.show();
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Arma/AgregarArmaView.fxml"));
             Parent root = loader.load();
@@ -238,6 +251,13 @@ public class ArmaMenuController {
             Stage stage = new Stage();
             stage.setTitle("Agregar arma");
             stage.setScene(new Scene(root));
+
+            // Almacenar la ventana abierta en el Map
+            ventanasAbiertas.put(menuKey, stage);
+
+            // Agregar un listener para removerla cuando se cierre
+            stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -264,6 +284,17 @@ public class ArmaMenuController {
     public void handleModificarUsuarioButtonAction(ActionEvent event) {
         ArmaMenuModel armaSeleccionada = tablaMenuArmas.getSelectionModel().getSelectedItem();
         if (armaSeleccionada != null) {
+            String menuKey = "ModificarArmaMenu"; // Identificador único para el vehículo a modificar
+
+            if (ventanasAbiertas.containsKey(menuKey)) {
+                // Si la ventana ya está abierta, no permitir abrir otra
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Información");
+                alert.setHeaderText(null);
+                alert.setContentText("La ventana de modificación de esta arma ya está abierta.");
+                alert.show();
+                return;
+            }
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Arma/ModificarArmaView.fxml"));
                 Parent root = (Parent) loader.load();
@@ -271,6 +302,14 @@ public class ArmaMenuController {
                 controller.inicializarDatosModificacion(armaSeleccionada);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+
+                // Almacenar la ventana abierta en el Map
+                ventanasAbiertas.put(menuKey, stage);
+
+                // Agregar un listener para removerla cuando se cierre
+                stage.setOnCloseRequest(e -> ventanasAbiertas.remove(menuKey));
+
+
                 stage.show();
             }catch (IOException e) {
                 e.printStackTrace();

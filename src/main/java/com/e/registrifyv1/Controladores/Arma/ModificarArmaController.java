@@ -64,6 +64,8 @@ public class ModificarArmaController {
 
     private Map<String, Integer> unidadMap = new HashMap<>();
     private Map<String, Integer> gendarmeMap = new HashMap<>();
+    private Map<String, Stage> ventanasAbiertas = new HashMap<>();
+
 
 
 
@@ -170,7 +172,7 @@ public class ModificarArmaController {
     @FXML
     private void handleCancelarButtonAction(ActionEvent event) {
         Stage stage = (Stage) btnCancelar.getScene().getWindow();
-        stage.close();
+        stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
     private ArmaMenuModel obtenerDatosFormulario() {
